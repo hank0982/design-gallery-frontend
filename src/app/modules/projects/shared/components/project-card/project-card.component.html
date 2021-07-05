@@ -1,0 +1,12 @@
+<ng-container *ngIf="project">
+    <app-image-comparison
+      (click)="openDialog()"
+      *ngIf="designs && designs[0] && designs[1]"
+      [images]="imageUrls">
+    </app-image-comparison>
+
+    <div class="spinner-border m-5" role="status" *ngIf="designs.length === 0">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+ 
+</ng-container>

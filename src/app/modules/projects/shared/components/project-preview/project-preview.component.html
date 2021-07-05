@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{data.project.name}}</h2>
+<mat-dialog-content class="content">
+  <div gdColumns="200px 1fr 1fr 200px">
+    <div></div>
+    <div
+      class="margin-img"
+      *ngFor="let design of data.designs"
+    >
+      <img
+      width="100%"
+      [src]="design.imageUrl"
+    />
+    </div>
+
+    <div></div>
+  </div>
+  <div gdColumns="200px 1fr 200px">
+    <div></div>
+    <mat-tab-group>
+      <mat-tab label="All feedback"> 
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let aspect of designAspects">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{aspect | titlecase}}
+              </mat-panel-title>
+              <mat-panel-description>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>I'm visible because I am open</p>
+          </mat-expansion-panel>
+        </mat-accordion>  
+      </mat-tab>
+      <mat-tab label="Favorite feedback"> Favorite feedback </mat-tab>
+    </mat-tab-group>
+    <div></div>
+  </div>
+</mat-dialog-content>
+
+

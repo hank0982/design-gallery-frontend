@@ -1,0 +1,73 @@
+<div class="container">
+
+  <div gdColumn class="option-container">
+    <h4>Project: {{currentIndex + 1}}</h4>
+    <h4>Designs</h4>
+    <div *ngIf="currentDesigns; let designs" gdColumns="150px 1fr 150px 1fr">
+      <div></div>
+      <div>
+        <img [src]="designs[0].imageUrl"/>
+      </div>
+      <div></div>
+      <div>
+        <img [src]="designs[1].imageUrl"/>
+      </div>
+    </div>
+    <h4 class="rating-subtitle">Please rate the quality of each design on the following six dimensions.    </h4>
+    <div gdColumns="150px 1fr 150px 1fr" *ngFor="let principle of designPrinciples" class="options">
+      <div class="subtitle"><span>{{principle | titlecase}}</span></div>
+      <div gdColumns="1fr 1fr 1fr 1fr 1fr" class="ratings">
+        <div class="form-check col-auto form-check-inline"  *ngFor="let rate of ratings">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="inlineRadio-{{principle}}-0"
+            [value]="rate"
+            id="inlineRadio-{{rate}}-{{principle}}-0"
+            [(ngModel)]="principleRatings[0][principle]"
+            (ngModelChange)="clickOption(0, principle)"
+            >
+          <a class="form-check-label" (click)="checkPreviousRating(principle, rate)">{{rate}}</a>
+        </div>
+      </div>
+      <div class="subtitle"><span>{{principle | titlecase}}</span></div>
+      <div gdColumns="1fr 1fr 1fr 1fr 1fr" class="ratings">
+        <div class="form-check col-auto form-check-inline"  *ngFor="let rate of ratings">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="inlineRadio-{{principle}}-1"
+            [value]="rate"
+            id="inlineRadio-{{rate}}-{{principle}}-1"
+            [(ngModel)]="principleRatings[1][principle]"
+            (ngModelChange)="clickOption(1, principle)"
+            >
+            <a class="form-check-label" (click)="checkPreviousRating(principle, rate)">{{rate}}</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div gdColumn class="pagniation-container">
+    <h4>All projects</h4>
+    <div fxLayout="row wrap" width="100%">
+      <div 
+        [ngClass]="{
+          'current-item': currentIndex === i,
+          'finished-item': userMetadata ? userMetadata.ratedProjects[project._id] : undefined
+        }"
+        fxFlex="30px" 
+        *ngFor="let project of projects; let i = index" class="item" (click)="changeCurrentIndex(i)">
+        
+        <span>{{i + 1}}</span></div>
+    </div>
+</div>
+</div>
+
+<div class="modal" *ngIf="isModalVisible">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+
+</div>

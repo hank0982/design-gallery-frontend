@@ -1,0 +1,48 @@
+.projects-container
+    margin: 40px
+    margin-top: 86px
+
+.toolbar
+  position: fixed
+  z-index: 1000
+
+.tool-bar-right
+  flex: 1 1 auto
+
+.filters
+  height: 100%
+  width: 300px
+  position: fixed
+  z-index: 2
+  top: 64px
+  left: 0
+  border-right: 1px solid #111111
+  overflow-x: hidden
+  padding-top: 20px
+
+.project-pages
+  height: 100vh
+
+::ng-deep.twitter-hash
+  display: none !important
+::ng-deep.twitter-input
+  display: none !important
+::ng-deep.twitter-picker
+  border: none !important
+  box-shadow: none !important
+  border-radius: none !important
+::ng-deep .accordion-button:not(.collapsed) 
+  background-color: rgb(0,0,0, 0.3)
+  color: white
+
+::ng-deep .accordion-button:focus
+  border: none
+  outline: none
+  box-shadow: none
+::ng-deep .accordion-button:not(.collapsed)::after
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e")
+p
+  margin-top: 10px
+  padding: 0px 1.25rem
+  font-weight: bold
+

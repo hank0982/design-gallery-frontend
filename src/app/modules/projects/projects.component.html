@@ -1,0 +1,143 @@
+
+
+<mat-toolbar color="primary" class="toolbar">
+  <span>Design Gallery</span>
+  <span fxFlex="1 1 auto"></span>
+  <div fxFlexLayout="row" fxLayoutAlign="space-evenly">
+    <button mat-button>All Projects</button>
+    <button mat-button>My Favorite</button>
+    <button mat-button>My Projects</button>
+  </div>
+</mat-toolbar>
+<div class="filters">
+    <p>Descriptors</p>
+
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            Categories
+          </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne">
+          <div class="accordion-body">
+            <div class="form-check" *ngFor="let filter of categoryFilters">
+              <input class="form-check-input" type="checkbox" value="" id="category-{{filter}}" (change)="categoryChange($event, filter)">
+              <label class="form-check-label" for="category-{{filter}}">
+                {{filter}}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+            Amount of Text
+          </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo">
+          <div class="accordion-body">
+            <div class="form-check" *ngFor="let filter of amountOfText; let i = index" >
+              <input class="form-check-input" type="checkbox" value="" id="amountOfText-{{filter}}" (change)="amountOfTextChange($event, i)">
+              <label class="form-check-label" for="amountOfText-{{filter}}">
+                {{filter}}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+            Color
+          </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree">
+          <div class="accordion-body">
+            <color-twitter disableAlpha="true" width="270" triangle="hide"></color-twitter>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>Design principles</p>
+    <div class="accordion-item" *ngFor="let principle of designPrinciples">
+      <h2 class="accordion-header" id="flush-heading{{principle}}">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" attr.data-bs-target="#flush-collapse{{principle}}" aria-expanded="false" attr.aria-controls="flush-collapse{{principle}}">
+          {{principle | titlecase}}
+        </button>
+      </h2>
+      <div id="flush-collapse{{principle}}" class="accordion-collapse collapse" attr.aria-labelledby="flush-heading{{principle}}">
+        <div class="accordion-body" *ngIf="principle === 'APPROPRIATENESS'">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="">
+            <label class="form-check-label" >
+              View improved examples
+            </label>
+          </div>
+          <hr/>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="">
+            <label class="form-check-label" >
+              Addresses the design brief
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="">
+            <label class="form-check-label" >
+              Simple clear message
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="">
+            <label class="form-check-label" >
+              Wrong audience
+            </label>
+          </div>
+
+        </div>
+        <div class="accordion-body" *ngIf="principle !== 'APPROPRIATENESS'">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="">
+            <label class="form-check-label" >
+              Good ...
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="">
+            <label class="form-check-label" >
+              Lack ...
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="">
+            <label class="form-check-label" >
+              Wrong ...
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div>
+  <span>Applied Filters</span>
+</div>
+<div
+  gdColumns="300px 1fr"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
+  class="projects-page">
+  <div></div>
+  <div
+    gdColumns="1fr 1fr 1fr"
+    gdGap="70px" 
+    class="projects-container">
+    <div *ngFor="let project of projects" gdColumn>
+      <app-project-card [project]="project"></app-project-card>
+    </div>
+  </div>
+</div>
+
