@@ -18,7 +18,6 @@ export class ImageComparisonComponent implements OnInit {
             console.error(`Image comparison needs an array with two values (images URLs as string) and this is ${this.images?.length} values.`);
             return;
         }
-        console.log(this.images)
         this.initComparison();
     }
 

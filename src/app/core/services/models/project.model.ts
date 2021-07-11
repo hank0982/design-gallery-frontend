@@ -8,4 +8,5 @@ export interface IProject extends IMongoObject {
   designIds: string[];
   categories: string[];
   sources: string[];
+  improved?: boolean;
 }

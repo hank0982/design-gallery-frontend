@@ -14,14 +14,17 @@ import { EDesignAspect } from 'src/app/core/services/models/design-aspect.enum';
   styleUrls: ['./projects.component.sass']
 })
 export class ProjectsComponent implements OnInit {
+  readonly categoryFilters = ['Advertising', 'Informative', 'Event', 'Research'];
+  readonly textProportion = ['Plenty', 'Moderate', 'Minimal', 'None'];
+  readonly textQuantity = ['Plenty', 'Moderate', 'Minimal', 'None'];
+
   projects: IProject[] = [];
   designDictionary: Record<string, IDesign> = {}
   categories: string[] = [];
-  amountOfTextFilter: number[] = [];
+  textProportionFilter: number[] = [];
   isEvent: boolean = false;
   previousProjectSkip = 0;
-  categoryFilters = ['Advertising', 'Informative', 'Event', 'Research'];
-  amountOfText = ['Plenty', 'Moderate', 'Minimal', 'None'];
+
   designPrinciples = Object.values(EDesignAspect);
   constructor(
     private designService: DesignsService,
@@ -49,22 +52,17 @@ export class ProjectsComponent implements OnInit {
   }
 
   amountOfTextChange(e: Event, amountOfText: number) {
-    const amountOfTextNumber = this.amountOfText.length - amountOfText;
+    const textProportion = this.textProportion.length - amountOfText - 1;
     if ((e.target as HTMLInputElement).checked) {
-      if (!(amountOfTextNumber in this.amountOfTextFilter)) {
-        this.amountOfTextFilter.push(amountOfTextNumber);
+      if (!(textProportion in this.textProportionFilter)) {
+        this.textProportionFilter.push(textProportion);
       }
     } else {
-      this.amountOfTextFilter = this.amountOfTextFilter.filter(x => x !== amountOfTextNumber);
+      this.textProportionFilter = this.textProportionFilter.filter(x => x !== textProportion);
     }
     this.updateCurrentProject();
   }
 
-  private updateCurrentProject() {
-    const filters = this.getCurrentFilters();
-    this.projectService.fetchAllProjects(0, 10, filters).subscribe(projects => this.projects = projects.results)
-    this.previousProjectSkip = 10;
-  }
 
   onScroll() {
     const filters = this.getCurrentFilters();
@@ -72,10 +70,17 @@ export class ProjectsComponent implements OnInit {
     this.previousProjectSkip = this.previousProjectSkip + 10 ;
   }
 
-  getCurrentFilters() {
+
+  private updateCurrentProject() {
+    const filters = this.getCurrentFilters();
+    this.projectService.fetchAllProjects(0, 10, filters).subscribe(projects => this.projects = projects.results)
+    this.previousProjectSkip = 10;
+  }
+
+  private getCurrentFilters() {
     const projectFilterDto = plainToClass(ProjectFilterDto, {
       categories: this.categories.filter(x => x !== undefined) as string[],
-      amountOfText: this.amountOfTextFilter,
+      textProportion: this.textProportionFilter,
     })
     return projectFilterDto;
   }

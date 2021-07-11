@@ -27,6 +27,7 @@ const routes: Routes = [
     ProjectPreviewComponent
   ],
   imports: [
+    CommonModule,
     InfiniteScrollModule,
     MatExpansionModule,
     ColorTwitterModule,
@@ -39,7 +40,6 @@ const routes: Routes = [
     MatCardModule,
     FormsModule,
     FlexLayoutModule,
-    CommonModule,
     SharedModule,
     RouterModule.forChild(routes)
   ],

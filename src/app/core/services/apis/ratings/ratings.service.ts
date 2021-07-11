@@ -11,7 +11,7 @@ export class RatingsService {
   constructor(private http: HttpClient) { }
 
   fetchRatingByRaterIdAndDesignId(raterId: string, designId: string) {
-    const ratingApi = `api/ratings?raterId=${raterId}&designId=${designId}`;
+    const ratingApi = `api/ratings?raterId=${raterId}&designId=${designId}&limit=0`;
     return this.http.get<IPagination<IRating>>(ratingApi);
   }
 

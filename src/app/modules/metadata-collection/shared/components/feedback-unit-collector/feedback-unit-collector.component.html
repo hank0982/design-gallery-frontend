@@ -1,0 +1,47 @@
+<mat-card>
+
+    <form [formGroup]="form">
+
+        <div>
+            <h4 class="instruction">#{{currentIndex + 1}} Explain your rating in the following textbox (50 words)</h4>
+            <mat-form-field class="textarea-form-field" >
+                <textarea
+                    placeholder="The current design..."
+                    matInput formControlName="feedback" [disabled]="disabled" [readonly]="disabled"></textarea>
+            </mat-form-field>
+            <h4 class="instruction">Select a topic that best describes your explanation</h4>
+
+            <mat-radio-group class="radio-group" formControlName="subprinciple" required>
+                <ng-container
+                    *ngFor="let subprinciple of subprinciples"
+                >
+                    <mat-radio-button
+                    [disabled]="disabled"
+                    class="radio-button" 
+                    [value]="subprinciple"
+                    >
+                    {{subprinciple}}
+                    </mat-radio-button>
+                    <mat-hint style="padding-left: 33px;">{{$any(explanation)[subprinciple]}}</mat-hint>
+                </ng-container>
+                <div class="add-new-topic">
+                    <mat-form-field>
+                        <mat-label>Other</mat-label>
+                        <input matInput [(ngModel)]="customizedSubprinciple" [disabled]="disabled" [readonly]="disabled" [ngModelOptions]="{standalone: true}"/>
+                    </mat-form-field> 
+                    <button mat-button (click)="addNewTopic(customizedSubprinciple)">Add new topic</button>
+                </div>
+            </mat-radio-group>
+            </div>
+            <div>
+            <div fxLayout fxLayoutAlign="end" *ngIf="!disabled">
+                <button
+                    mat-button
+                    class="flex-item"
+                    color="primary"
+                    (click)="clickRemove()"
+                >Remove</button>
+            </div>
+        </div>
+    </form>
+</mat-card>

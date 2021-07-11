@@ -11,25 +11,9 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   fetchUserById(id: string) {
-    const userApi = `api/users/${id}`;
+    const userApi = `api/users/id/${id}`;
     return this.http.get(userApi);
   }
 
-  fetchUserRatedProjects(id: string): Observable<IUserRatedProjectsDict> {
-    const userApi = `api/users/${id}/rated-projects`;
-    return this.http.get<IInternalUserRatedProjects[]>(userApi).pipe(map(x => {
-      const dict: IUserRatedProjectsDict = {};
-      x.forEach(x => dict[x._id] = x.hasComplete);
-      return dict;
-    }));
-  }
 }
 
-interface IInternalUserRatedProjects {
-  _id: string;
-  hasComplete: boolean;
-}
-
-export interface IUserRatedProjectsDict {
-  [_id: string]: boolean;
-}

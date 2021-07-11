@@ -1,0 +1,35 @@
+<form [formGroup]="form" class="form-feedback-unit">
+    <ng-content></ng-content>
+    <div *ngIf="!isOnlyFeedback">
+        <mat-radio-group class="radio-group" formControlName="rating" >
+        <span style="margin-right: 10px">Not at all</span>
+        <mat-radio-button class="radio-button"  [value]="rate" *ngFor="let rate of ratings" [disabled]="disabled || !!beforeEditable">
+            <span class="radio-button-label" >{{(rate)}}</span>
+        </mat-radio-button>
+        <span>Perfectly</span>
+        </mat-radio-group>
+    </div>
+    <ng-container *ngIf="!isOnlyRating">
+        <app-feedback-unit-collector
+            [currentPrinciple]="currentPrinciple"
+            [removable]="$any(this.form.get('feedbackForms')).controls.length !== 1"
+            [currentIndex]="i"
+            (clickRemoveButton)="removeFeedbackUnit(i)"
+            [disabled]="disabled || (!!beforeEditable && i < beforeEditable)"
+            *ngFor="let control of $any(this.form.get('feedbackForms')).controls; let i = index"
+            [form]="control"
+        ></app-feedback-unit-collector>
+        <div>
+            <button
+                [disabled]="disabled"
+                mat-button color="primary"
+                (click)="createNewFeedbackUnit()"
+            >+ Add more explanation</button>
+        </div>
+    </ng-container>
+    <div fxLayout fxLayoutAlign="end" *ngIf="!disabled">
+        <button (click)="onNextClick($event)" mat-stroked-button class="flex-item primary" >
+          Next
+        </button>
+    </div>
+  </form>

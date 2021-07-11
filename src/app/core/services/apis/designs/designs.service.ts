@@ -12,6 +12,6 @@ export class DesignsService {
 
   fetchDesignById(id: string): Observable<IDesign> {
     const designListApi = `api/designs/${id}`;
-    return this.http.get<IDesign>(designListApi, {headers: {'Content-Type':'application/json; charset=utf-8'}});
+    return this.http.get<IDesign>(designListApi);
   }
 }

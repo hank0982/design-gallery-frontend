@@ -3,49 +3,88 @@
   <div gdColumn class="option-container">
     <h4>Project: {{currentIndex + 1}}</h4>
     <h4>Designs</h4>
-    <div *ngIf="currentDesigns; let designs" gdColumns="150px 1fr 150px 1fr">
-      <div></div>
+    <div *ngIf="currentDesigns; let designs" gdColumns="1fr 1fr">
       <div>
-        <img [src]="designs[0].imageUrl"/>
+        <mat-spinner *ngIf="firstImageLoading" ></mat-spinner>
+        <img 
+          *ngIf="currentImages && currentImages[0]"
+          [hidden]="firstImageLoading" 
+          (load)="onFirstImageLoad()" src="{{ currentImages[0].url }}" />
       </div>
-      <div></div>
       <div>
-        <img [src]="designs[1].imageUrl"/>
+        <mat-spinner *ngIf="secondImageLoading && currentStep >= 2" ></mat-spinner>
+        <img
+          (load)="onSecondImageLoad()"
+          [hidden]="secondImageLoading" 
+          *ngIf="currentImages && currentImages[1] && currentStep >= 2" [src]="currentImages[1].url"/>
       </div>
     </div>
-    <h4 class="rating-subtitle">Please rate the quality of each design on the following six dimensions.    </h4>
-    <div gdColumns="150px 1fr 150px 1fr" *ngFor="let principle of designPrinciples" class="options">
-      <div class="subtitle"><span>{{principle | titlecase}}</span></div>
-      <div gdColumns="1fr 1fr 1fr 1fr 1fr" class="ratings">
-        <div class="form-check col-auto form-check-inline"  *ngFor="let rate of ratings">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="inlineRadio-{{principle}}-0"
-            [value]="rate"
-            id="inlineRadio-{{rate}}-{{principle}}-0"
-            [(ngModel)]="principleRatings[0][principle]"
-            (ngModelChange)="clickOption(0, principle)"
-            >
-          <a class="form-check-label" (click)="checkPreviousRating(principle, rate)">{{rate}}</a>
-        </div>
-      </div>
-      <div class="subtitle"><span>{{principle | titlecase}}</span></div>
-      <div gdColumns="1fr 1fr 1fr 1fr 1fr" class="ratings">
-        <div class="form-check col-auto form-check-inline"  *ngFor="let rate of ratings">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="inlineRadio-{{principle}}-1"
-            [value]="rate"
-            id="inlineRadio-{{rate}}-{{principle}}-1"
-            [(ngModel)]="principleRatings[1][principle]"
-            (ngModelChange)="clickOption(1, principle)"
-            >
-            <a class="form-check-label" (click)="checkPreviousRating(principle, rate)">{{rate}}</a>
-        </div>
-      </div>
+    <div>
+
     </div>
+    <div gdColumns="1fr 1fr" *ngIf="firstDesignForm">
+      <div *ngIf="currentStep >= 1" [ngClass]="{'highlight-section': currentStep === 1 || currentStep === 3}">
+        <app-step
+          [currentPrinciple]="currentPrinciple"
+          [disabled]="currentStep !== 1 && currentStep !== 3"
+          [beforeEditable]="firstFormBeforeIndexEditable"
+          (clickNext)="onNextClick()"
+          [form]="firstDesignForm">
+          <h2>Step 1</h2>
+          <h4 class="instruction">Please rate how well the design follows the principle of {{currentPrinciple | titlecase}}</h4>
+        </app-step>
+      </div>
+      <div *ngIf="currentStep >= 2" >
+        <div [ngClass]="{'highlight-section': currentStep === 2}">
+          <app-step
+            [currentPrinciple]="currentPrinciple"
+            (clickNext)="onNextClick()"
+            [form]="secondDesignForm"
+            [isOnlyRating]="true"
+            [disabled]="currentStep > 2">
+            <h2>Step 2</h2>
+            <h4 class="instruction">Please rate how well the design follows the principle of {{currentPrinciple | titlecase}}</h4>
+          </app-step>
+        </div>
+        <div *ngIf="currentStep >= 3" class="form-feedback-unit">
+          <h2>Step 3</h2>
+          <h4 class="instruction">
+            Now observe the revised poster, do you think the designer got a similar feedback you wrote at the first place?
+            If not, what feedback do you think the designer got that led to the revised design?
+          </h4>
+        </div>
+        <div class="form-feedback-unit" *ngIf="currentStep >= 4" [ngClass]="{'highlight-section': currentStep === 3}">
+          <h2>Step 4</h2>
+          <form [formGroup]="thirdDesignForm">
+            <h4 class="instruction">Now observe the before and after posters, does the revised poster addresses the issue you wrote for the initial poster</h4>
+            <div class="radio-group">
+              <mat-slide-toggle
+                [formControl]="control"
+                [disabled]="currentStep !== 4"
+                class="radio-button"
+                *ngFor="
+                  let control of $any(thirdDesignForm.get('addressed')).controls; let i = index;
+                "
+              >
+                #{{i + 1}}
+              </mat-slide-toggle>
+            </div>
+          </form>
+          <div fxLayout fxLayoutAlign="end" *ngIf="currentStep === 4">
+            <button
+              (click)="onNextClick()"
+              mat-stroked-button
+              class="flex-item primary"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+      
+
+    </div>
+
 
   </div>
   <div gdColumn class="pagniation-container">
@@ -54,7 +93,7 @@
       <div 
         [ngClass]="{
           'current-item': currentIndex === i,
-          'finished-item': userMetadata ? userMetadata.ratedProjects[project._id] : undefined
+          'finished-item': userMetadata && projects ? userMetadata.ratedProjects[project._id] : undefined
         }"
         fxFlex="30px" 
         *ngFor="let project of projects; let i = index" class="item" (click)="changeCurrentIndex(i)">
@@ -62,12 +101,4 @@
         <span>{{i + 1}}</span></div>
     </div>
 </div>
-</div>
-
-<div class="modal" *ngIf="isModalVisible">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
-  </div>
-
 </div>

@@ -2,8 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Type } from '@angular/core';
 import { IsArray, IsBoolean, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { EDesignAspect } from '../../models/design-aspect.enum';
+import { IFeedbackUnit } from '../../models/feedback-unit.model';
 import { IPagination } from '../../models/pagination.model';
 import { IProject } from '../../models/project.model';
+import { IRating } from '../../models/rating.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,13 +21,55 @@ export class ProjectsService {
         projectFilter.categories.length > 0 ?
         '&categories='+projectFilter.categories?.map(g => `${g}`).join(',') : ''}`;
     }
-    if (projectFilter?.amountOfText?.length) {
+    if (projectFilter?.textProportion?.length) {
       projectListApi = projectListApi + `${
-        projectFilter.amountOfText.length > 0 ?
-        '&amountOfText='+projectFilter.amountOfText?.map(g => `${g}`).join(',') : ''}`;
+        projectFilter.textProportion.length > 0 ?
+        '&textProportion='+projectFilter.textProportion?.map(g => `${g}`).join(',') : ''}`;
+    }
+    if (projectFilter?.textQuantity?.length) {
+      projectListApi = projectListApi + `${
+        projectFilter.textQuantity.length > 0 ?
+        '&textQuantity='+projectFilter.textQuantity?.map(g => `${g}`).join(',') : ''}`;
     }
     return this.http.get<IPagination<IProject>>(projectListApi,{headers: {'Content-Type':'application/json; charset=utf-8'}});
   }
+
+  fetchRatedProjects(aspect: EDesignAspect) {
+    const ratedProjectApi = `api/projects/rated-project-aspect/${aspect}`;
+    return this.http.get<IInternalUserRatedProject[]>(ratedProjectApi).pipe(map(x => {
+      const dict: IRatedProject = {};
+      x.forEach(x => dict[x._id] = x.hasCompleted);
+      return dict;
+    }));
+  }
+
+  fetchFeedbackAndRatings(projectId: string, aspect: EDesignAspect): Observable<IFeedbackAndRatings> {
+    const feedbackAndRatings = `api/projects/${projectId}/feedback-ratings`;
+    return this.http.get<IInternalFeedbackAndRating>(feedbackAndRatings).pipe(map(x => {
+      return {
+        ratings: x.rating,
+        feedbackUnits: x.feedbackUnitResult.filter(unit => unit.aspect === aspect)
+      }
+    }));
+  }
+}
+interface IInternalUserRatedProject {
+  _id: string;
+  hasCompleted: boolean;
+}
+
+interface IInternalFeedbackAndRating {
+  rating: IRating[],
+  feedbackUnitResult: IFeedbackUnit[]
+}
+
+export interface IFeedbackAndRatings {
+  ratings: IRating[],
+  feedbackUnits: IFeedbackUnit[]
+}
+
+export interface IRatedProject {
+  [_id: string]: boolean;
 }
 
 export class ProjectFilterDto {
@@ -44,7 +90,12 @@ export class ProjectFilterDto {
   @IsArray()
   @IsNumber({}, { each: true })
   @IsOptional()
-  amountOfText?: number[];
+  textQuantity?: number[];
+
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @IsOptional()
+  textProportion?: number[];
 
   @IsNumber()
   @IsOptional()
