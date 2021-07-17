@@ -20,10 +20,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { StartPageComponent } from './pages/start-page/start-page.component';
 
 const routes: Routes = [
   { path: '', component: NotFoundComponent },
-  { path: ':id', component: MetadataCollectionComponent }
+  { path: 'start-page/:id', component: StartPageComponent },
+  { path: 'rating-page/:id', component: MetadataCollectionComponent }
 ];
 
 @NgModule({
@@ -31,7 +33,8 @@ const routes: Routes = [
     NotFoundComponent,
     MetadataCollectionComponent,
     FeedbackUnitCollectorComponent,
-    StepComponent
+    StepComponent,
+    StartPageComponent
   ],
   imports: [
     MatSlideToggleModule,

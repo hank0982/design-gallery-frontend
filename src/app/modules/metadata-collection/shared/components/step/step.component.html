@@ -1,6 +1,6 @@
 <form [formGroup]="form" class="form-feedback-unit">
     <ng-content></ng-content>
-    <div *ngIf="!isOnlyFeedback">
+    <div *ngIf="!isOnlyFeedback" [ngClass]="{error: form.get('rating')?.invalid && form.get('rating')?.touched}">
         <mat-radio-group class="radio-group" formControlName="rating" >
         <span style="margin-right: 10px">Not at all</span>
         <mat-radio-button class="radio-button"  [value]="rate" *ngFor="let rate of ratings" [disabled]="disabled || !!beforeEditable">
@@ -21,8 +21,9 @@
         ></app-feedback-unit-collector>
         <div>
             <button
+                style="margin-top: 10px"
                 [disabled]="disabled"
-                mat-button color="primary"
+                mat-flat-button color="primary"
                 (click)="createNewFeedbackUnit()"
             >+ Add more explanation</button>
         </div>

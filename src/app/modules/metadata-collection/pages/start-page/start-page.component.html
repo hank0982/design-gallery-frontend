@@ -1,0 +1,28 @@
+<div class="container">
+    <div>Thank you for helping us write feedback on students’ past design assignments. You will need to review 196 pairs of graphic designs, each created by a student.  For each pair, you will need to </div>
+    <br/>
+    <div><b>Step 1.</b> Rate how well the initial poster follows the prinicple of Emphases on a 5-point Likert scale. </div>
+    <br/>
+    <div>Emphasis is a strategy that aims to draw the viewer's attention to a specific design element. That could be to an area of content, to an image, to a link, or to a button, etc. The design should match the importance of content to its visual prominence - make the most important information visually dominant. Use clear contrast to distinguish different levels of information. The aim is to create a focal point in the design: an eye-catching part that stands out, distinct from the rest of the design elements. </div>
+    <br/>
+    <div><b>Step 2.</b> Explain your rating using 50-150 words. Please specify what has been done well or poorly in the design with respect to the Emphasis issue. You may also suggest how to create strong or approprieate Emphasis in the design. We have hired other professionals like you to comment on different dimensions of the designs, so you should focus on issues relating to emphasis. </div>
+    <br/>
+    <div>Afterward, select a topic sentence that best represents your explanation. The goal is to enable the students to navigate  feedback sets using these topic labels.  If no topic is applicable, please create your own. The length of the topic sentence is limited to 50 charaters. If you have multiple comments regarding Emphases issues, please click +Add Explanation and repeat this step. </div>
+    <br/>
+    <div><b>Step 3.</b> Review the revised design, and rate how well the poster follows the prinicple of Emphases on the same scale. </div>
+    <br/>
+    <div><b>Step 4.</b> Observe and compare the initial and revised design, add any explanation that you believe the student might have received on their initial design. </div>
+    <br/>
+    <div><b>Step 5.</b> Go through each explanation you have created so far, and select whether or not the revised design addressed the issue you listed on the left.   </div>
+    <div>
+        Please enter your name: 
+        <mat-form-field >
+            <mat-label>Name:</mat-label>
+            <input
+                matInput
+                [(ngModel)]="name"
+            />
+        </mat-form-field> 
+        <button mat-button (click)="startRating()">Start rating</button>
+    </div>
+</div>

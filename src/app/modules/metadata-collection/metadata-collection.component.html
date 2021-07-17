@@ -1,12 +1,38 @@
 <div class="container">
 
   <div gdColumn class="option-container">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Instruction
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <div>Thank you for helping us write feedback on students’ past design assignments. You will need to review 196 pairs of graphic designs, each created by a student.  For each pair, you will need to </div>
+        <br/>
+        <div><b>Step 1.</b> Rate how well the initial poster follows the prinicple of Emphases on a 5-point Likert scale. </div>
+        <br/>
+        <div>Emphasis is a strategy that aims to draw the viewer's attention to a specific design element. That could be to an area of content, to an image, to a link, or to a button, etc. The design should match the importance of content to its visual prominence - make the most important information visually dominant. Use clear contrast to distinguish different levels of information. The aim is to create a focal point in the design: an eye-catching part that stands out, distinct from the rest of the design elements. </div>
+        <br/>
+        <div><b>Step 2.</b> Explain your rating using 50-150 words. Please specify what has been done well or poorly in the design with respect to the Emphasis issue. You may also suggest how to create strong or approprieate Emphasis in the design. We have hired other professionals like you to comment on different dimensions of the designs, so you should focus on issues relating to emphasis. </div>
+        <br/>
+        <div>Afterward, select a topic sentence that best represents your explanation. The goal is to enable the students to navigate  feedback sets using these topic labels.  If no topic is applicable, please create your own. The length of the topic sentence is limited to 50 charaters. If you have multiple comments regarding Emphases issues, please click +Add Explanation and repeat this step. </div>
+        <br/>
+        <div><b>Step 3.</b> Review the revised design, and rate how well the poster follows the prinicple of Emphases on the same scale. </div>
+        <br/>
+        <div><b>Step 4.</b> Observe and compare the initial and revised design, add any explanation that you believe the student might have received on their initial design. </div>
+        <br/>
+        <div><b>Step 5.</b> Go through each explanation you have created so far, and select whether or not the revised design addressed the issue you listed on the left.   </div>
+      </div>
+    </mat-expansion-panel>
     <h4>Project: {{currentIndex + 1}}</h4>
+   
     <h4>Designs</h4>
     <div *ngIf="currentDesigns; let designs" gdColumns="1fr 1fr">
-      <div>
+      <div class="image-container">
         <mat-spinner *ngIf="firstImageLoading" ></mat-spinner>
         <img 
+          class="image-size"
           *ngIf="currentImages && currentImages[0]"
           [hidden]="firstImageLoading" 
           (load)="onFirstImageLoad()" src="{{ currentImages[0].url }}" />
@@ -31,7 +57,7 @@
           (clickNext)="onNextClick()"
           [form]="firstDesignForm">
           <h2>Step 1</h2>
-          <h4 class="instruction">Please rate how well the design follows the principle of {{currentPrinciple | titlecase}}</h4>
+          <h4 class="instruction" [ngClass]="{error: firstDesignForm.get('rating')?.invalid && firstDesignForm.get('rating')?.touched}">Please rate how well the design follows the principle of {{currentPrinciple | titlecase}}</h4>
         </app-step>
       </div>
       <div *ngIf="currentStep >= 2" >
@@ -49,8 +75,7 @@
         <div *ngIf="currentStep >= 3" class="form-feedback-unit">
           <h2>Step 3</h2>
           <h4 class="instruction">
-            Now observe the revised poster, do you think the designer got a similar feedback you wrote at the first place?
-            If not, what feedback do you think the designer got that led to the revised design?
+            Observe and compare the initial and revised design, add any explanation that you believe the student might have received on their initial design. To add an explanation, click +Add more explanation button in Step 1. After completion, click Next to continue.
           </h4>
         </div>
         <div class="form-feedback-unit" *ngIf="currentStep >= 4" [ngClass]="{'highlight-section': currentStep === 3}">
@@ -58,16 +83,17 @@
           <form [formGroup]="thirdDesignForm">
             <h4 class="instruction">Now observe the before and after posters, does the revised poster addresses the issue you wrote for the initial poster</h4>
             <div class="radio-group">
-              <mat-slide-toggle
-                [formControl]="control"
-                [disabled]="currentStep !== 4"
-                class="radio-button"
-                *ngFor="
-                  let control of $any(thirdDesignForm.get('addressed')).controls; let i = index;
-                "
+              <mat-checkbox class="example-margin"
+              [formControl]="control"
+              *ngFor="
+                let control of $any(thirdDesignForm.get('addressed')).controls; let i = index;
+              "
+              class="radio-button"
+              [disabled]="currentStep !== 4"
               >
-                #{{i + 1}}
-              </mat-slide-toggle>
+              The revised design addresses the issue raised in #{{i + 1}}.
+            </mat-checkbox>
+              
             </div>
           </form>
           <div fxLayout fxLayoutAlign="end" *ngIf="currentStep === 4">

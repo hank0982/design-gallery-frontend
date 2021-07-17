@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { plainToClass } from 'class-transformer';
 import { promises } from 'dns';
 import { forkJoin, of } from 'rxjs';
-import { first, map, tap } from 'rxjs/operators';
+import { catchError, first, map, tap } from 'rxjs/operators';
 import { DesignsService } from 'src/app/core/services/apis/designs/designs.service';
 import { FeedbackUnitsService } from 'src/app/core/services/apis/feedback-units/feedback-units.service';
 import { ImagesService } from 'src/app/core/services/apis/images/images.service';
@@ -17,6 +17,7 @@ import { IDesign } from 'src/app/core/services/models/design.model';
 import { IImage } from 'src/app/core/services/models/image.model';
 import { IProject } from 'src/app/core/services/models/project.model';
 import { CreateRatingDto } from 'src/app/core/services/models/rating.model';
+import { MetadataCollectionTopicService } from './shared/services/metadata-collection-topic/metadata-collection-topic.service';
 
 @Component({
   selector: 'app-metadata-collection',
@@ -31,7 +32,7 @@ export class MetadataCollectionComponent implements OnInit {
   currentIndex = 0;
   currentDesigns: IDesign[] | undefined;
   currentImages: Partial<IImage>[] | undefined;
-  currentPrinciple = EDesignAspect.CONSISTENCY;
+  currentPrinciple = EDesignAspect.EMPHASIS;
 
   ratings = [1,2,3,4];
   designPrinciples = [Object.values(EDesignAspect)[0]];
@@ -55,7 +56,9 @@ export class MetadataCollectionComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private designService: DesignsService,
+    private metadataCollectionTopicService: MetadataCollectionTopicService,
     private ratingService: RatingsService,
     private projectsService: ProjectsService,
     private usersService: UsersService,
@@ -81,14 +84,24 @@ export class MetadataCollectionComponent implements OnInit {
   }
 
   private fetchRaterMetadata() {
-    if (this.raterId) {
-      forkJoin({
-        userInfo: this.usersService.fetchUserById(this.raterId),
-        ratedProjects: this.projectsService.fetchRatedProjects(this.currentPrinciple)
-      }).pipe(first()).subscribe(x => {
-        this.userMetadata = x;
-      });
-    }
+    this.metadataCollectionTopicService.initCurrentPrinciple(this.currentPrinciple)
+      .subscribe(() => {
+        if (this.raterId) {
+          forkJoin({
+            userInfo: this.usersService.fetchUserById(this.raterId),
+            ratedProjects: this.projectsService.fetchRatedProjects(this.currentPrinciple)
+          }).pipe(
+            first(),
+            catchError(e => {
+              console.log(e);
+              this.router.navigate(['./metadata-collection/']);
+              throw new Error(e);
+            })
+          ).subscribe(x => {
+            this.userMetadata = x;
+          });
+        }
+      }); 
   }
 
   async onNextClick() {

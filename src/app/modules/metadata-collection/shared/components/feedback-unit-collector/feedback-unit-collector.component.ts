@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import SUBPRINCIPLE from 'src/app/constants/subprinciple-content.constant';
 import { FeedbackUnitsService } from 'src/app/core/services/apis/feedback-units/feedback-units.service';
 import { EDesignAspect } from 'src/app/core/services/models/design-aspect.enum';
+import { MetadataCollectionTopicService } from '../../services/metadata-collection-topic/metadata-collection-topic.service';
 
 @Component({
   selector: 'app-feedback-unit-collector',
@@ -40,7 +41,7 @@ export class FeedbackUnitCollectorComponent implements OnInit {
   clickRemoveButton = new EventEmitter();
 
   constructor(
-    private feedbackUnitsService: FeedbackUnitsService,
+    private metadataCollectionTopicService: MetadataCollectionTopicService,
     private _snackBar: MatSnackBar
   ) {}
 
@@ -48,19 +49,18 @@ export class FeedbackUnitCollectorComponent implements OnInit {
     if (this.removable) {
       this.clickRemoveButton.next();
     } else {
-      this._snackBar.open('You should at least provide a feedback explanation');
+      this._snackBar.open('You should at least provide a feedback explanation', undefined, {duration: 3000});
     }
   }
 
   async addNewTopic(newTopic: string) {
     if (newTopic) {
-      this.subprinciples.push(newTopic);
-      await this.feedbackUnitsService.createNewTopicForAspect(this.currentPrinciple, newTopic).toPromise();  
+      this.form.get('subprinciple')?.setValue(newTopic);
+      await this.metadataCollectionTopicService.addNewTopic(newTopic).toPromise();
     }
   }
 
   ngOnInit(): void {
-    this.feedbackUnitsService.fetchTopicsForAspect(this.currentPrinciple).subscribe(x => this.subprinciples = x)
+    this.metadataCollectionTopicService.subprinciplesBS.subscribe(s => this.subprinciples = s);
   }
-
 }

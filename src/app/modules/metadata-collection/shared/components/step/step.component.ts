@@ -45,7 +45,7 @@ export class StepComponent implements OnInit {
     if (this.form.invalid) {
       this.form.markAsDirty();
       this.form.markAllAsTouched();
-      this._snackBar.open('Please fill all the information in the form')
+      this._snackBar.open('Please fill all the information in the form', undefined, {duration: 3000})
     } else {
       this.clickNext.next(event);
     }
