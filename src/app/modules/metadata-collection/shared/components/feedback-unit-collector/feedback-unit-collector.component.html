@@ -3,66 +3,69 @@
     <form [formGroup]="form">
 
         <div>
-            <h4 class="instruction" [ngClass]="{error: form.get('feedback')?.invalid && form.get('feedback')?.touched}">
-                #{{currentIndex + 1}} Explain your rating in the following textbox (50 words)
+            <h4 class="instruction" [ngClass]="{error: form.get('subprinciple')?.invalid && form.get('subprinciple')?.touched}">
+                #{{currentIndex + 1}} Explain your rating by selecting a topic and providing specific suggestion (around 30-50 words)
+                <button mat-button color="primary" (click)="isOpen = !isOpen">Click to {{isOpen ? 'hide' : 'expand'}}</button>
             </h4>
-            <mat-form-field class="textarea-form-field" >
-                <textarea
-                    placeholder="The current design..."
-                    matInput formControlName="feedback" [disabled]="disabled" [readonly]="disabled"></textarea>
-            </mat-form-field>
-            <h4 
-                class="instruction"
-                [ngClass]="{error: form.get('subprinciple')?.invalid && form.get('subprinciple')?.touched}"
-            >Select a topic that best describes your explanation</h4>
-
-            <mat-radio-group class="radio-group" formControlName="subprinciple" required>
-                <ng-container
-                    *ngFor="let subprinciple of subprinciples"
-                >
-                    <mat-radio-button
-                    [disabled]="disabled"
-                    class="radio-button" 
-                    [ngClass]="{error: form.get('subprinciple')?.invalid && form.get('subprinciple')?.touched}"
-                    [value]="subprinciple"
+            <ng-container *ngIf="isOpen">
+                <mat-radio-group class="radio-group" formControlName="subprinciple" required>
+                    <ng-container
+                        *ngFor="let subprinciple of subprinciples"
                     >
-                    {{subprinciple}}
-                    </mat-radio-button>
-                    <mat-hint style="padding-left: 33px;">{{$any(explanation)[subprinciple]}}</mat-hint>
-                </ng-container>
-                <hr/>
-                <div >
-                    Create a new topic: &nbsp;
-                    <mat-form-field  hintLabel="Max 50 characters">
-                        <mat-label>Other</mat-label>
-                        <input
-                            matInput
-                            [(ngModel)]="customizedSubprinciple"
-                            [disabled]="disabled"
-                            [readonly]="disabled"
-                            maxlength="50"
-                            [ngModelOptions]="{standalone: true}"/>
-                        <mat-hint align="end">{{customizedSubprinciple?.length || 0}}/50</mat-hint>
-                    </mat-form-field> 
+                        <mat-radio-button
+                        [disabled]="disabled"
+                        class="radio-button" 
+                        [ngClass]="{error: form.get('subprinciple')?.invalid && form.get('subprinciple')?.touched}"
+                        [value]="subprinciple"
+                        >
+                        {{subprinciple}}
+                        </mat-radio-button>
+                        <mat-hint style="padding-left: 33px;">{{$any(explanation)[subprinciple]}}</mat-hint>
+                        <mat-form-field class="textarea-form-field radio-button text-box" *ngIf="form.get('subprinciple')?.value === subprinciple">
+                            <textarea
+                                rows="4" cols="50"
+                                placeholder="Descibe the specific issue in the poster and provide suggestions for improvement..."
+                                matInput
+                                formControlName="feedback"
+                                [disabled]="disabled"
+                                [readonly]="disabled">
+                            </textarea>
+                            <mat-hint align="end">{{countWords(form.get('feedback')?.value)}} words</mat-hint>
+                        </mat-form-field>
+                    </ng-container>
+                    <hr/>
+                    <div >
+                        Create a new topic: &nbsp;
+                        <mat-form-field  hintLabel="Max 50 characters">
+                            <mat-label>Poor/Good...</mat-label>
+                            <input
+                                matInput
+                                [(ngModel)]="customizedSubprinciple"
+                                [disabled]="disabled"
+                                [readonly]="disabled"
+                                maxlength="50"
+                                [ngModelOptions]="{standalone: true}"/>
+                            <mat-hint align="end">{{customizedSubprinciple?.length || 0}}/50</mat-hint>
+                        </mat-form-field> 
+                        <button
+                            mat-button
+                            color="primary"
+                            (click)="addNewTopic(customizedSubprinciple)"
+                        >
+                            Add
+                        </button>
+                    </div>
+                </mat-radio-group>
+                <div fxLayout fxLayoutAlign="start" *ngIf="!disabled">
                     <button
                         mat-button
+                        class="flex-item"
                         color="primary"
-                        (click)="addNewTopic(customizedSubprinciple)"
-                    >
-                        Add
-                    </button>
+                        (click)="clickRemove()"
+                    ><mat-icon>delete</mat-icon>Delete the explanation</button>
                 </div>
-            </mat-radio-group>
-            </div>
-            <div>
-            <div fxLayout fxLayoutAlign="start" *ngIf="!disabled">
-                <button
-                    mat-button
-                    class="flex-item"
-                    color="primary"
-                    (click)="clickRemove()"
-                ><mat-icon>delete</mat-icon>Delete the explanation</button>
-            </div>
+            </ng-container>
+            
         </div>
     </form>
 </mat-card>

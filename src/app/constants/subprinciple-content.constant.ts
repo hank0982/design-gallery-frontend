@@ -32,11 +32,8 @@ const SUBPRINCIPLE = {
     'Good visual flow': 'This design provides a successful visual flow to guide viewers through the content.',
     'Lacks hierarchy': 'The design fails to create a visual flow through the content. Try emphasizing the most important element and then guide the viewer using different visual features.',
     'Overemphasis': 'These elements are overemphasized making the design appear busy. Consider using fewer visual features to more subtly draw a contrast between these elements.',
-    'Design lacks contrast': 'This design lacks visual emphasis. Consider using different visual features to draw the viewerâ€™s attention to the most important content.',
-    'Elements lack contrast': 'This element does not have enough contrast with other elements. Consider using different visual features to create emphasis on this element.' 
-    
-
-
+    'Design lacks contrast': 'This design lacks visual emphasis. Consider using different visual features to draw the viewer\'s attention to the most important content.',
+    'Elements lack contrast': 'This element does not have enough contrast with other elements. Consider using different visual features to create emphasis on this element.'
 }
 
 export default SUBPRINCIPLE;

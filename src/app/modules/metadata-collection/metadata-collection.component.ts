@@ -49,6 +49,9 @@ export class MetadataCollectionComponent implements OnInit {
 
   firstFormBeforeIndexEditable: number | undefined;
 
+  currentImageSrc = '';
+  isModalOpen = false;
+
   get raterId() {
     const raterId = this.route.snapshot.paramMap.get('id');
     return raterId;
@@ -83,6 +86,11 @@ export class MetadataCollectionComponent implements OnInit {
     this.secondImageLoading = false;
   }
 
+  clickImage(src?: string) {
+    if (src) {
+      window.open(src, "_blank");
+    }
+  }
   private fetchRaterMetadata() {
     this.metadataCollectionTopicService.initCurrentPrinciple(this.currentPrinciple)
       .subscribe(() => {

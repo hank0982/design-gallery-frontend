@@ -20,6 +20,9 @@
 
 .image-size
   width: 70%
+  cursor: pointer
+  &:hover
+    opacity: 0.7
 
 .form-check-label
   cursor: pointer
@@ -55,7 +58,7 @@ img
   padding-right: 70px
 
 .modal 
-  display: none
+  display: block
   position: fixed
   z-index: 1
   left: 0
@@ -64,7 +67,6 @@ img
   height: 100%
   overflow: auto
   background-color: rgb(0,0,0)
-  background-color: rgba(0,0,0,0.4)
 
 
 /* Modal Content/Box */
@@ -78,18 +80,21 @@ img
 
 /* The Close Button */
 .close
-  color: #aaa
-  float: right
-  font-size: 28px
+  position: absolute
+  top: 15px
+  right: 35px
+  color: #f1f1f1
+  font-size: 40px
   font-weight: bold
+  transition: 0.3s
 
 
 .close:hover,
 .close:focus 
-  color: black
+  color: #bbb
   text-decoration: none
   cursor: pointer
-  display: inline-block
+
 
 .mat-radio-button 
   margin: 0 12px

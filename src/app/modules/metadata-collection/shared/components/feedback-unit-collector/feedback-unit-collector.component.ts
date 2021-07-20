@@ -40,6 +40,8 @@ export class FeedbackUnitCollectorComponent implements OnInit {
   @Output()
   clickRemoveButton = new EventEmitter();
 
+  @Input()
+  isOpen = true;
   constructor(
     private metadataCollectionTopicService: MetadataCollectionTopicService,
     private _snackBar: MatSnackBar
@@ -58,6 +60,10 @@ export class FeedbackUnitCollectorComponent implements OnInit {
       this.form.get('subprinciple')?.setValue(newTopic);
       await this.metadataCollectionTopicService.addNewTopic(newTopic).toPromise();
     }
+  }
+
+  countWords(str: string): number {
+    return (str?.match(/\S+/g) || []).length;
   }
 
   ngOnInit(): void {

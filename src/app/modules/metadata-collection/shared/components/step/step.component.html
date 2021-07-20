@@ -14,6 +14,7 @@
             [currentPrinciple]="currentPrinciple"
             [removable]="$any(this.form.get('feedbackForms')).controls.length !== 1"
             [currentIndex]="i"
+            [isOpen]="i === $any(this.form.get('feedbackForms')).controls.length - 1"
             (clickRemoveButton)="removeFeedbackUnit(i)"
             [disabled]="disabled || (!!beforeEditable && i < beforeEditable)"
             *ngFor="let control of $any(this.form.get('feedbackForms')).controls; let i = index"
@@ -25,11 +26,11 @@
                 [disabled]="disabled"
                 mat-flat-button color="primary"
                 (click)="createNewFeedbackUnit()"
-            >+ Add more explanation</button>
+            >+ Add another explanation</button>
         </div>
     </ng-container>
     <div fxLayout fxLayoutAlign="end" *ngIf="!disabled">
-        <button (click)="onNextClick($event)" mat-stroked-button class="flex-item primary" >
+        <button (click)="onNextClick($event)" mat-flat-button class="flex-item primary" color="primary">
           Next
         </button>
     </div>
