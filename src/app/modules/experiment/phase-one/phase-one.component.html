@@ -1,0 +1,110 @@
+
+<div class="container">
+    <div [ngSwitch]="step">
+        <div *ngSwitchCase="0">
+            <h2>Phase 1a - Learn Design Principles (10 minutes)</h2>
+            <p>
+                Before creating your own poster, please take approximately 10 minutes to review the six principles of visual design. These principles are rules that should be followed in order to create an effective and attractive composition of a poster, banner, advertisement, infographic, and other forms of visual media.
+            </p>
+            <p>
+                After reviewing the principles, please click the green button at the end of the page to take a short survey about the principles.
+            </p>
+            <p>
+                In the next phase, you will need to create a poster that follows one or more of these principles. You will have access to this page throughout the study session. 
+            </p>
+            <div class="d-grid gap-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="definition" [(ngModel)]="hasUserReviewedTheDef">
+                    <label class="form-check-label" for="definition">
+                        I have reviewed the definition and examples of the design principles. I am ready to take the survey.
+                    </label>
+                </div>
+
+                <button class="btn btn-primary" type="button" (click)="addOneMoreStep()" [disabled]="!hasUserReviewedTheDef">Continue to Survey</button>
+            </div>
+        </div>
+        <div *ngSwitchCase="1">
+            <h2>Phase 1b - Short Quiz on Design Principles (10 minutes)</h2>
+            <p>
+                The following posters violate some of the principles you just studied. For each poster, select all that apply.
+            </p>
+            <ng-container *ngFor="let quiz of quizzes; let i = index;">
+                <div class="row">
+                    <div class="col-3">
+                        <img [src]="quiz.imgSrc">
+                    </div>
+                    <div class="col-7">
+                        <table class="table">
+                            <thead>
+                              <tr class="row">
+                                <th class="col" scope="col"></th>
+                                <th class="col" scope="col">1 (Not at all)</th>
+                                <th class="col" scope="col">2</th>
+                                <th class="col" scope="col">3</th>
+                                <th class="col" scope="col">4</th>
+                                <th class="col" scope="col">5 (Completely)</th>
+                              </tr>
+                            </thead>
+                            <tbody >
+                              <tr class="row"> 
+                                <th class="col" scope="row" [class.text-danger]="isQuizSubmitButtonClick && !quiz.likert.appropriateness">Appropriateness</th>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.appropriateness{{i}}" [value]="1" [(ngModel)]="quiz.likert.appropriateness" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.appropriateness"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.appropriateness{{i}}" [value]="2" [(ngModel)]="quiz.likert.appropriateness" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.appropriateness"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.appropriateness{{i}}" [value]="3" [(ngModel)]="quiz.likert.appropriateness" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.appropriateness"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.appropriateness{{i}}" [value]="4" [(ngModel)]="quiz.likert.appropriateness" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.appropriateness"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.appropriateness{{i}}" [value]="5" [(ngModel)]="quiz.likert.appropriateness" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.appropriateness"></td>
+                              </tr>
+                              <tr class="row"> 
+                                <th class="col" scope="row" [class.text-danger]="isQuizSubmitButtonClick && !quiz.likert.emphasis">Emphasis</th>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.emphasis{{i}}" [value]="1" [(ngModel)]="quiz.likert.emphasis" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.emphasis"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.emphasis{{i}}" [value]="2" [(ngModel)]="quiz.likert.emphasis" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.emphasis"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.emphasis{{i}}" [value]="3" [(ngModel)]="quiz.likert.emphasis" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.emphasis"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.emphasis{{i}}" [value]="4" [(ngModel)]="quiz.likert.emphasis" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.emphasis"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.emphasis{{i}}" [value]="5" [(ngModel)]="quiz.likert.emphasis" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.emphasis"></td>
+                              </tr>
+                              <tr class="row"> 
+                                <th class="col" scope="row" [class.text-danger]="isQuizSubmitButtonClick && !quiz.likert.hierarchy">Hierarchy</th>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.hierarchy{{i}}" [value]="1" [(ngModel)]="quiz.likert.hierarchy" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.hierarchy"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.hierarchy{{i}}" [value]="2" [(ngModel)]="quiz.likert.hierarchy" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.hierarchy"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.hierarchy{{i}}" [value]="3" [(ngModel)]="quiz.likert.hierarchy" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.hierarchy"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.hierarchy{{i}}" [value]="4" [(ngModel)]="quiz.likert.hierarchy" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.hierarchy"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.hierarchy{{i}}" [value]="5" [(ngModel)]="quiz.likert.hierarchy" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.hierarchy"></td>
+                              </tr>
+                              <tr class="row"> 
+                                <th class="col" scope="row" [class.text-danger]="isQuizSubmitButtonClick && !quiz.likert.alignment">Alignment</th>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.alignment{{i}}" [value]="1" [(ngModel)]="quiz.likert.alignment" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.alignment"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.alignment{{i}}" [value]="2" [(ngModel)]="quiz.likert.alignment" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.alignment"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.alignment{{i}}" [value]="3" [(ngModel)]="quiz.likert.alignment" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.alignment"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.alignment{{i}}" [value]="4" [(ngModel)]="quiz.likert.alignment" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.alignment"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.alignment{{i}}" [value]="5" [(ngModel)]="quiz.likert.alignment" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.alignment"></td>
+                              </tr>
+                              <tr class="row"> 
+                                <th class="col" scope="row" [class.text-danger]="isQuizSubmitButtonClick && !quiz.likert.consistency">Consistency</th>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.consistency{{i}}" [value]="1" [(ngModel)]="quiz.likert.consistency" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.consistency"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.consistency{{i}}" [value]="2" [(ngModel)]="quiz.likert.consistency" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.consistency"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.consistency{{i}}" [value]="3" [(ngModel)]="quiz.likert.consistency" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.consistency"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.consistency{{i}}" [value]="4" [(ngModel)]="quiz.likert.consistency" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.consistency"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.consistency{{i}}" [value]="5" [(ngModel)]="quiz.likert.consistency" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.consistency"></td>
+                              </tr>
+                              <tr class="row"> 
+                                <th class="col" scope="row" [class.text-danger]="isQuizSubmitButtonClick && !quiz.likert.readability">Readability</th>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.readability{{i}}" [value]="1" [(ngModel)]="quiz.likert.readability" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.readability"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.readability{{i}}" [value]="2" [(ngModel)]="quiz.likert.readability" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.readability"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.readability{{i}}" [value]="3" [(ngModel)]="quiz.likert.readability" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.readability"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.readability{{i}}" [value]="4" [(ngModel)]="quiz.likert.readability" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.readability"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="quiz.likert.readability{{i}}" [value]="5" [(ngModel)]="quiz.likert.readability" [class.is-invalid]="isQuizSubmitButtonClick && !quiz.likert.readability"></td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <hr/>
+            </ng-container>
+            <div *ngIf="!isQuizFilled && isQuizSubmitButtonClick" class="text-danger">Please answer all the questions above.</div>
+            <button class="btn btn-primary" (click)="postUserResult();">Submit</button>
+        </div>
+        
+        <div *ngSwitchDefault>Thank you for your participation</div>
+    </div>
+   
+</div>

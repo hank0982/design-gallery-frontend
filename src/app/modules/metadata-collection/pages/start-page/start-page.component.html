@@ -22,6 +22,7 @@
                 matInput
                 [(ngModel)]="name"
             />
+            <mat-hint class="error" *ngIf="error">This field is required</mat-hint>
         </mat-form-field> 
         <button mat-button (click)="startRating()">Start rating</button>
     </div>

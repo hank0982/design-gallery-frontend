@@ -1,0 +1,167 @@
+<div class="container demography">
+    <div class="card ">
+        <div class="card-header  bg-primary text-white">Sign Up for the Online Design Study</div>
+        <div class="card-body">
+            <form [formGroup]="form">
+            In order to participate, please read this consent form and confirm the following statement. Please print a copy of this consent form for your records, if you desire.
+            <hr/>
+            <div class="form-check">
+                <input
+                  required
+                  class="form-check-input"
+                  type="checkbox"
+                  id="flexCheckDefault"
+                  formControlName="checkConsentForm"
+                >
+                <label 
+                  [ngClass]="{'text-danger': !form.get('checkConsentForm')?.valid && form.get('checkConsentForm')?.touched}"
+                  class="form-check-label" 
+                  for="flexCheckDefault">
+                  I confirm that I have read the consent form and questions have been answered.
+                </label>
+            </div>
+            <hr/>
+            <div class="mb-3 row">
+                <label for="name" class="col-sm-2 col-form-label">Your Name*</label>
+                <div class="col-sm-10">
+                    <input required class="form-control" id="name" placeholder="e.g. John Smith" type="text" formControlName="name">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="age" class="col-sm-2 col-form-label">Your Age*</label>
+                <div class="col-sm-10">
+                    <input required class="form-control" id="age" placeholder="e.g. 23" formControlName="age" type="number">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Gender*</label>
+                <div class="col-sm-10">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male" formControlName="gender">
+                        <label class="form-check-label" for="genderMale">Male</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female" formControlName="gender">
+                        <label class="form-check-label" for="genderFemale">Female</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="genderOther" value="other" formControlName="gender">
+                        <label class="form-check-label" for="genderOther">Other</label>
+                      </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="email" class="col-sm-2 col-form-label">Contact Email*</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" placeholder="e.g. johnsmith@gmail.com" formControlName="email">
+                    <div class="form-text">
+                        This email address will be used to create an account and for all correspondence.
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">What is the highest level of education you have received or are pusuing?*</label>
+                <div class="col-sm-7">
+                    <app-likert-input name="education" maximumLabel="Expert" minimumLabel="Novice" formControlName="levelOfExpertise"></app-likert-input>
+                </div>
+            </div>
+            <hr/>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Design Education Background*</label>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="designEducationBackground" id="designEducationBackgroundNONE" formControlName="designEducationBackground" value="NONE">
+                        <label class="form-check-label" for="designEducationBackgroundNONE">
+                          No background in design
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="designEducationBackground" id="designEducationBackgroundSELF_TAUGHT" formControlName="designEducationBackground" value="SELF_TAUGHT">
+                        <label class="form-check-label" for="designEducationBackgroundSELF_TAUGHT">
+                          Self-taught
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="designEducationBackground" id="designEducationBackgroundSOME_COURSES" formControlName="designEducationBackground" value="SOME_COURSES">
+                        <label class="form-check-label" for="designEducationBackgroundSOME_COURSES">
+                          Some college-level design courses
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="designEducationBackground" id="designEducationBackgroundASSOCIATE_DEGREE" formControlName="designEducationBackground" value="ASSOCIATE_DEGREE">
+                        <label class="form-check-label" for="designEducationBackgroundASSOCIATE_DEGREE">
+                          Associate degree
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="designEducationBackground" id="designEducationBackgroundBACHELOR" formControlName="designEducationBackground" value="BACHELOR">
+                        <label class="form-check-label" for="designEducationBackgroundBACHELOR">
+                          Bachelor of Arts degree
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="designEducationBackground" id="designEducationBackgroundMASTER" formControlName="designEducationBackground" value="MASTER">
+                        <label class="form-check-label" for="designEducationBackgroundMASTER">
+                          Master of Fine Arts degree
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Years of Professional Experience in Design**</label>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="yearsOfProfessionalExperience" id="yearsOfProfessionalExperienceNONE" formControlName="yearsOfProfessionalExperience" value="NONE">
+                        <label class="form-check-label" for="yearsOfProfessionalExperienceNONE">
+                          None
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="yearsOfProfessionalExperience" id="yearsOfProfessionalExperienceLESS_THAN_ONE" formControlName="yearsOfProfessionalExperience" value="LESS_THAN_ONE">
+                        <label class="form-check-label" for="yearsOfProfessionalExperienceLESS_THAN_ONE">
+                          One year or less
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="yearsOfProfessionalExperience" id="yearsOfProfessionalExperienceONE_TO_THREE" formControlName="yearsOfProfessionalExperience" value="ONE_TO_THREE">
+                        <label class="form-check-label" for="yearsOfProfessionalExperienceONE_TO_THREE">
+                          One to three years
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="yearsOfProfessionalExperience" id="yearsOfProfessionalExperienceTHREE_TO_FIVE" formControlName="yearsOfProfessionalExperience" value="THREE_TO_FIVE">
+                        <label class="form-check-label" for="yearsOfProfessionalExperienceTHREE_TO_FIVE">
+                          Three to five years
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="yearsOfProfessionalExperience" id="yearsOfProfessionalExperienceMORE_THAN_FIVE" formControlName="yearsOfProfessionalExperience" value="MORE_THAN_FIVE">
+                        <label class="form-check-label" for="yearsOfProfessionalExperienceMORE_THAN_FIVE">
+                          More than five years
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="mb-3 row">
+                <label for="studyInfoSources" class="col-sm-2 col-form-label">How did you hear about the study? (Optional)</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="studyInfoSources" placeholder="e.g. Reddit, Friend, Facebook, Email, Other." formControlName="infoSource">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <button type="button" class="btn btn-success" (click)="submit()">Signup</button>
+                    <div class="form-text">
+                        If you already have an account please <a>sign in</a> here.
+                    </div>
+                </div>
+            </div>
+          </form>
+        </div>
+    </div>
+</div>
+<div style="height: 100px;"></div>

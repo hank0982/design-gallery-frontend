@@ -96,7 +96,7 @@ export class MetadataCollectionComponent implements OnInit {
       .subscribe(() => {
         if (this.raterId) {
           forkJoin({
-            userInfo: this.usersService.fetchUserById(this.raterId),
+            userInfo: this.usersService.fetchById(this.raterId),
             ratedProjects: this.projectsService.fetchRatedProjects(this.currentPrinciple)
           }).pipe(
             first(),

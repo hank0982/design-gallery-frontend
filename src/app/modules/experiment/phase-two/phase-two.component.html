@@ -1,0 +1,142 @@
+<div [ngSwitch]="step" class="container">
+    <div *ngSwitchCase="0">
+        <h2>Phase 2a - Create Your Poster</h2>
+        <p>
+            In this phase, you will be designing a poster addressing the following design prompt. Please invest approximately 45 minutes to create the poster. While you are creating the design, please keep a stopwatch running to document how much time you spent working on the poster. Once you finish, please pause the stopwatch and click 'Submit'. We will ask you to report the time spent in creating the poster and other questions.  Have fun and be creative!
+        </p>
+
+        <h2>Design Prompt</h2>
+        <p>
+            You have been hired to design a poster to advertise an online design summit for Design for San Diego (D4SD). The summit is a hackathon-style design challenge uniting innovators, experts, students, and more to focus on fostering sustainability in the San Diego area. This year, the summit will still be virtual due to COVID-19 precautions and will span the weekend of September 24-26. Participants must register through the D4SD website (https://d4sd.org/). The goal of the poster is to generate excitement for and participation in the event, be visually appealing, and convey the event details.
+        </p>
+        <h2>Prizes</h2>
+        <p>
+            We will have three design experts to evaluate your final, revised versions of the posters. The 3 designs rated the highest by experts will receive a $50 US dollars. As a reminder, effective designs typically apply one or more design principles you learned from the previous phase. You can review the principles through the Link. 
+        </p>
+        <h2>Rule/Requirements</h2>
+            
+        <ul>
+            <li>Do not use a template.</li>
+            <li>The poster size should be 8.5" x 11" (US Letter size) and in vertical orientation.</li>
+            <li>You can use any software you prefer to design the poster. Some such software includes Adobe software (e.g. Illustrator, InDesign), Affinity software (Designer, Publisher, etc.), Sketch, and Figma.</li>
+            <li>Submissions must be created digitally; no paper sketch submissions are allowed.</li>
+            <li>You may use images of the public domain that are free for public and creative use. You may find such images <a href="https://unsplash.com/images/stock/public-domain">here</a> (https://unsplash.com/images/stock/public-domain).</li>
+            <li>Posters must not contain any instances of profanity, obscenity, or nudity.</li>
+        </ul>  
+        <div class="alert alert-primary" role="alert">
+            <h4 class="alert-heading">Note:</h4>
+            <p>Designs not following the above rules will not be considered in the study and will not be eligible for the $40 prize.</p>
+            <hr>
+            <p class="mb-0">Please keep a copy of the design for the next phase of the study.</p>
+        </div>
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Upload my poster</label>
+            <input class="form-control" type="file" id="formFile" accept=".jpg,.jpeg,.gif,.png,.PNG,.GIF,.JPEG,.JPG" (change)="onFileChange($event)"/>
+            <div class="form-text">Only JPG, JPEG, PNG, and GIF files are allowed, the file size should be less than 5MB</div>
+        </div>
+        <button class="btn btn-primary" (click)="uploadFile()">Submit</button>
+    </div>
+    <div *ngSwitchCase="1">
+        <h2>Phase 2b -  Complete a survey about your experience creating the poster (10 minutes)</h2>
+        <p>
+            Please answer the following questions to complete the second phase of the study. Your responses will not affect your eligibility for the prize money.
+        </p>
+
+        <div class="row">
+            <div class="col-5">
+                <img src="https://fakeimg.pl/430x610/"/>
+            </div>
+            <div class="col-7">
+                <div>1. Approaximately how much time did you spend revising your poster?</div>
+                <input class="form-control" [(ngModel)]="secondSurvey.time">
+                <div>2. How much effort did you invest designing the poster?</div>
+                <div>
+                    <app-likert-input name="effort" maximumLabel="High Effort" minimumLabel="Low Effort" [(ngModel)]="secondSurvey.effort"></app-likert-input>
+                </div>
+                <div>3. How confident are you that the poster fully satisfied the design goals?</div>
+                <div>
+                    <app-likert-input name="effort" maximumLabel="High Confidence" minimumLabel="Low Confidence" [(ngModel)]="secondSurvey.confidence"></app-likert-input>
+
+                </div>
+                <div>4. How well do you think your poster follows the six principles of visual design? You may review the descriptions of the principles here: <a>Link</a></div>
+                <div>
+                    <table class="table">
+                        <thead>
+                          <tr class="row">
+                            <th class="col" scope="col"></th>
+                            <th class="col" scope="col">1 (Not at all)</th>
+                            <th class="col" scope="col">2</th>
+                            <th class="col" scope="col">3</th>
+                            <th class="col" scope="col">4</th>
+                            <th class="col" scope="col">5 (Completely)</th>
+                          </tr>
+                        </thead>
+                        <tbody >
+                          <tr class="row"> 
+                            <th class="col" scope="row" [class.text-danger]="isSecondSurveySubmitted && !secondSurvey.selfEval.appropriateness">Appropriateness</th>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.appropriateness" [value]="1" [(ngModel)]="secondSurvey.selfEval.appropriateness" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.appropriateness"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.appropriateness" [value]="2" [(ngModel)]="secondSurvey.selfEval.appropriateness" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.appropriateness"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.appropriateness" [value]="3" [(ngModel)]="secondSurvey.selfEval.appropriateness" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.appropriateness"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.appropriateness" [value]="4" [(ngModel)]="secondSurvey.selfEval.appropriateness" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.appropriateness"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.appropriateness" [value]="5" [(ngModel)]="secondSurvey.selfEval.appropriateness" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.appropriateness"></td>
+                          </tr>
+                          <tr class="row"> 
+                            <th class="col" scope="row" [class.text-danger]="isSecondSurveySubmitted && !secondSurvey.selfEval.emphasis">Emphasis</th>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.emphasis" [value]="1" [(ngModel)]="secondSurvey.selfEval.emphasis" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.emphasis"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.emphasis" [value]="2" [(ngModel)]="secondSurvey.selfEval.emphasis" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.emphasis"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.emphasis" [value]="3" [(ngModel)]="secondSurvey.selfEval.emphasis" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.emphasis"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.emphasis" [value]="4" [(ngModel)]="secondSurvey.selfEval.emphasis" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.emphasis"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.emphasis" [value]="5" [(ngModel)]="secondSurvey.selfEval.emphasis" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.emphasis"></td>
+                          </tr>
+                          <tr class="row"> 
+                            <th class="col" scope="row" [class.text-danger]="isSecondSurveySubmitted && !secondSurvey.selfEval.hierarchy">Hierarchy</th>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.hierarchy" [value]="1" [(ngModel)]="secondSurvey.selfEval.hierarchy" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.hierarchy"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.hierarchy" [value]="2" [(ngModel)]="secondSurvey.selfEval.hierarchy" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.hierarchy"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.hierarchy" [value]="3" [(ngModel)]="secondSurvey.selfEval.hierarchy" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.hierarchy"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.hierarchy" [value]="4" [(ngModel)]="secondSurvey.selfEval.hierarchy" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.hierarchy"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.hierarchy" [value]="5" [(ngModel)]="secondSurvey.selfEval.hierarchy" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.hierarchy"></td>
+                          </tr>
+                          <tr class="row"> 
+                            <th class="col" scope="row" [class.text-danger]="isSecondSurveySubmitted && !secondSurvey.selfEval.alignment">Alignment</th>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.alignment" [value]="1" [(ngModel)]="secondSurvey.selfEval.alignment" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.alignment"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.alignment" [value]="2" [(ngModel)]="secondSurvey.selfEval.alignment" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.alignment"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.alignment" [value]="3" [(ngModel)]="secondSurvey.selfEval.alignment" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.alignment"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.alignment" [value]="4" [(ngModel)]="secondSurvey.selfEval.alignment" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.alignment"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.alignment" [value]="5" [(ngModel)]="secondSurvey.selfEval.alignment" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.alignment"></td>
+                          </tr>
+                          <tr class="row"> 
+                            <th class="col" scope="row" [class.text-danger]="isSecondSurveySubmitted && !secondSurvey.selfEval.consistency">Consistency</th>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.consistency" [value]="1" [(ngModel)]="secondSurvey.selfEval.consistency" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.consistency"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.consistency" [value]="2" [(ngModel)]="secondSurvey.selfEval.consistency" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.consistency"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.consistency" [value]="3" [(ngModel)]="secondSurvey.selfEval.consistency" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.consistency"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.consistency" [value]="4" [(ngModel)]="secondSurvey.selfEval.consistency" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.consistency"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.consistency" [value]="5" [(ngModel)]="secondSurvey.selfEval.consistency" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.consistency"></td>
+                          </tr>
+                          <tr class="row"> 
+                            <th class="col" scope="row" [class.text-danger]="isSecondSurveySubmitted && !secondSurvey.selfEval.readability">Readability</th>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.readability" [value]="1" [(ngModel)]="secondSurvey.selfEval.readability" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.readability"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.readability" [value]="2" [(ngModel)]="secondSurvey.selfEval.readability" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.readability"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.readability" [value]="3" [(ngModel)]="secondSurvey.selfEval.readability" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.readability"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.readability" [value]="4" [(ngModel)]="secondSurvey.selfEval.readability" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.readability"></td>
+                            <td class="col"><input class="form-check-input" type="radio" name="secondSurvey.selfEval.readability" [value]="5" [(ngModel)]="secondSurvey.selfEval.readability" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.selfEval.readability"></td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>5. What principles do you think were implemented particularly well in your poster?</div>
+                <div class="mb-3">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="secondSurvey.implementedParticularlyWell"></textarea>
+                </div>
+                <div>6. What principles do you think you struggled with the most while working on your poster?</div>
+                <div class="mb-3">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="secondSurvey.struggleMost"></textarea>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" (click)="submitSecondSurvey()">Submit</button>
+
+    </div>
+
+    <div *ngSwitchDefault>output2</div>
+</div>
+

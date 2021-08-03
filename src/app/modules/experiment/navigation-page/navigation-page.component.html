@@ -1,0 +1,91 @@
+<div class="stepper">
+    <div style="display: flex; align-items: center; justify-content: center;">
+        <div class="step"[class.activate]="currentStep >= 1">
+            <span class="step-title">Sign Up</span>
+        </div>
+        <div class="step-link"  [class.activate]="currentStep >= 2"></div>
+        <div class="step" [class.activate]="currentStep >= 2">
+            <div class="step-title">First phrase</div>
+            <div class="step-title">Learning principles</div>
+        </div>
+        <div class="step-link"  [class.activate]="currentStep >= 3"></div>
+        <div class="step" [class.activate]="currentStep >= 3">
+            <div class="step-title">Second phrase</div>
+            <div class="step-title">Creating a poster</div>
+        </div>
+        <div class="step-link" [class.activate]="currentStep >= 4"></div>
+        <div class="step"  [class.activate]="currentStep >= 4">
+            <div class="step-title">Third phrase</div>
+            <div class="step-title">Learning from others</div> 
+        </div>
+        <div class="step-link"  [class.activate]="currentStep >= 5"></div>
+        <div class="step"  [class.activate]="currentStep >= 5">
+            <div class="step-title">Fourth phrase</div>
+            <div class="step-title">Revising the poster</div>
+        </div>
+        <div class="step-link"  [class.activate]="currentStep >= 6"></div>
+        <div class="step"  [class.activate]="currentStep >= 6">
+            <div class="step-title">Exit Survey</div>
+        </div>
+    </div>
+    <div [ngSwitch]="currentStep" class="instructions">
+        <ng-container  *ngSwitchCase="2">
+            <p>In the first phase of the study, you will 
+
+                (a) Learn six principles of visual design (10 minutes)
+                (b) Take a survey about your knowledge in design principles (5 minutes)
+                
+                Now, please click ‘Next’ to start phase 1 of the study.
+            </p>
+            <button type="button" class="btn btn-primary">Next</button>
+        </ng-container>
+        <ng-container *ngSwitchCase="3">
+            <p>In the second phase of the study, you will </p>
+        
+            <p>(a) Create a poster based on a design prompt (45 minutes) </p>
+            <p>(b) Complete a survey about your experience creating the poster (10 minutes)</p>
+            <p>Now, please click ‘Next’ to start phase 2 of the study. We hope you enjoy the task, and we look forward to seeing your creativ e solution! </p>
+            <button type="button" class="btn btn-primary">Next</button>
+        </ng-container>
+        <ng-container *ngSwitchCase="4">
+            <p>In the third phase of the study, you will use a popular online design platform- Behance to browse and search for example posters. Behance is a design platform where designers showcase their projects and solicit encouragement or suggestions from other members. Your goal is to find two examples that are useful and inspirational for improving your own poster.</p>
+            <p>
+                In this phase of the study, you will: <br/>
+                (a) Review your reflection on the poster. (5 minutes) <br/>
+                (b) Browse the gallery and identify helpful example designs. (25 minutes) <br/>
+            </p>
+            <p>
+                Now, please click ‘Next’ to start phase 3 of the study. 
+            </p>
+            <button type="button" class="btn btn-primary">Next</button>
+        </ng-container>
+        <ng-container *ngSwitchCase="5">
+            <p>
+                In the final phase of the study, you will complete the following steps:
+            </p>
+            <p>
+                (a) Revise your poster to better follow the design principles. (20 minutes)<br/>
+                (b) Complete a survey about your design process. (5 minutes)
+            </p>
+            <p>
+                Please have a copy of your initial design ready in the design tool or software of your choice.
+            </p>
+            <button type="button" class="btn btn-primary">Next</button>
+
+        </ng-container>
+        <ng-container *ngSwitchCase="6">
+            <p>
+                Thanks for finishing all the design and learning activities. You are now in the final phase of the study! In this phase, you will need to complete two surveys. 
+            </p>
+            <p>
+                (a) Survey about your knowledge of the principles of design (10 minutes) <br/>
+                (b) Survey about your experience performing each activity during the design process. (15 minutes)
+            </p>
+            <button type="button" class="btn btn-primary">Next</button>
+
+        </ng-container>
+        <div *ngSwitchDefault>output2</div>
+    </div>
+    
+    
+</div>

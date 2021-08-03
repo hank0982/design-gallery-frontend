@@ -1,0 +1,174 @@
+
+<div class="container">
+    <div [ngSwitch]="step">
+        <div *ngSwitchCase="0">
+            <h2>Phase 4 - Revise your poster based on your learnings about design principles (20 minutes)</h2>
+            <p>
+                Please invest around 20 minutes to revise your design based on what you learned from the reflection process and the gallery examples. As mentioned previously, the revised designs will be rated by design experts, and the five designs rated the highest will be awarded a $40 prize. Similar to the previous poster creation phase, we will also be asking you to keep a stopwatch running to measure how much time has passed for this phase.
+            </p>
+            <p>
+                Before you begin your revisions, please review your reflection on your design process from Phase 3. Once you have finished reviewing your reflection and have reminded yourself of the requirements of the design, please start your stopwatch and begin revising.
+            </p>
+            <p>
+                Once you have revised your design, please submit an image of it to this page. Again, be aware that once you submit your design, no further changes can be made to your design. We hope you enjoy this design task, and we look forward to your submission!
+            </p>
+            <div>
+                <h2>My Reflection</h2>
+            </div>
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Upload revised design*</label>
+                <input class="form-control" type="file" id="formFile">
+                <div class="form-text">Only JPG, JPEG, PNG, and GIF files are allowed, the file size should be less than 5MB</div>
+            </div>
+            <button class="btn btn-success">Click here to review the two examples</button>
+            <button class="btn btn-primary" type="button" (click)="step = step + 1" >Submit</button>
+        </div>
+        <div *ngSwitchCase="1">
+            <p>
+                Thanks for submitting your revised design. Please answer the following questions to complete this phase of the study. Your responses will not affect your eligibility for the prize money.
+            </p>
+            <div class="row">
+                <div class="col-5">
+                    <div>
+                        <p>Your initial design</p>
+                        <img src="https://fakeimg.pl/230x330/"/>
+                    </div>
+                    <div>
+                        <p>Your revised design</p>
+                        <img src="https://fakeimg.pl/230x330/"/>
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div>1. Approaximately how much time did you spend revising your poster?</div>
+                    <input class="form-control">
+                    <div>2. How much effort did you invest designing the poster?</div>
+                    <div>
+                        <label class="form-check form-check-inline" style="padding-left: 1.5em;">Low Effort</label>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label"></label>
+                            <input class="form-check-input" type="radio" name="effort" value="1">
+                        </div>
+    
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label"></label>
+                            <input class="form-check-input" type="radio" name="effort" value="2">
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label"></label>
+                            <input class="form-check-input" type="radio" name="effort" value="3">
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label"></label>
+                            <input class="form-check-input" type="radio" name="effort" value="4">
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">High Effort</label>
+                            <input class="form-check-input" type="radio" name="effort" value="5">
+                        </div>
+                    </div>
+                    <div>3. How confident are you that the poster fully satisfied the design goals?</div>
+                    <div>
+                        <label class="form-check form-check-inline" style="padding-left: 1.5em;">Low Confidence</label>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label"></label>
+                            <input class="form-check-input" type="radio" name="confidence" value="1">
+                        </div>
+    
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label"></label>
+                            <input class="form-check-input" type="radio" name="confidence" value="2">
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label"></label>
+                            <input class="form-check-input" type="radio" name="confidence" value="3">
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label"></label>
+                            <input class="form-check-input" type="radio" name="confidence" value="4">
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">High Confidence</label>
+                            <input class="form-check-input" type="radio" name="confidence" value="5">
+                        </div>
+                    </div>
+                    <div>4. How well do you think your poster follows the six principles of visual design? You may review the descriptions of the principles here: <a>Link</a></div>
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr class="row">
+                                <th class="col" scope="col"></th>
+                                <th class="col" scope="col">1 (Not at all)</th>
+                                <th class="col" scope="col">2</th>
+                                <th class="col" scope="col">3</th>
+                                <th class="col" scope="col">4</th>
+                                <th class="col" scope="col">5 (Completely)</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr class="row"> 
+                                <th class="col" scope="row">Emphases</th>
+                                <td class="col"><input class="form-check-input" type="radio" name="emphases" value="1"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="emphases" value="2"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="emphases" value="3"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="emphases" value="4"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="emphases" value="5"></td>
+                                </tr>
+                                <tr class="row"> 
+                                <th class="col" scope="row">Alignment</th>
+                                <td class="col"><input class="form-check-input" type="radio" name="alignment" value="1"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="alignment" value="2"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="alignment" value="3"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="alignment" value="4"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="alignment" value="5"></td>
+                                </tr>
+                                <tr class="row"> 
+                                <th class="col" scope="row">Contrast</th>
+                                <td class="col"><input class="form-check-input" type="radio" name="contrast" value="1"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="contrast" value="2"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="contrast" value="3"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="contrast" value="4"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="contrast" value="5"></td>
+                                </tr>
+                                <tr class="row"> 
+                                <th class="col" scope="row">Proporition</th>
+                                <td class="col"><input class="form-check-input" type="radio" name="proporition" value="1"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="proporition" value="2"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="proporition" value="3"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="proporition" value="4"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="proporition" value="5"></td>
+                                </tr>
+                                <tr class="row"> 
+                                <th class="col" scope="row">Repetition</th>
+                                <td class="col"><input class="form-check-input" type="radio" name="repetition" value="1"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="repetition" value="2"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="repetition" value="3"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="repetition" value="4"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="repetition" value="5"></td>
+                                </tr>
+                                <tr class="row"> 
+                                <th class="col" scope="row">Movement</th>
+                                <td class="col"><input class="form-check-input" type="radio" name="movement" value="1"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="movement" value="2"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="movement" value="3"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="movement" value="4"></td>
+                                <td class="col"><input class="form-check-input" type="radio" name="movement" value="5"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>5. What principles do you think were implemented particularly well in your poster?</div>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <div>6. What principles do you think you struggled with the most while working on your poster?</div>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" (click)="step = step + 1">Submit</button>
+        
+        <div *ngSwitchDefault>Thank you for your participation</div>
+    </div>
+   
+</div>

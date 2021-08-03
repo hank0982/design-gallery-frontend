@@ -1,0 +1,29 @@
+<div class="row align-items-center justify-content-center">
+    <label class="col center-checkbox" [class.text-danger]="control.invalid && control.touched">{{minimumLabel}}</label>
+    <div class="col center-checkbox ">
+        <label class="form-check-label"></label>
+        <input [(ngModel)]="currentValue" class="form-check-input" type="radio" [name]="name" value="1" (ngModelChange)="onChange($event)" [class.is-invalid]="control.invalid && control.touched" > 
+    </div>
+    <div class="col center-checkbox">
+        <label class="form-check-label"></label>
+        <input [(ngModel)]="currentValue" class="form-check-input" type="radio" [name]="name" value="2" (ngModelChange)="onChange($event)" [class.is-invalid]="control.invalid && control.touched">
+    </div>
+    <div class="col center-checkbox">
+        <label class="form-check-label"></label>
+        <input [(ngModel)]="currentValue" class="form-check-input" type="radio" [name]="name" value="3" (ngModelChange)="onChange($event)" [class.is-invalid]="control.invalid && control.touched">
+    </div>
+    <div class=" col center-checkbox">
+        <label class="form-check-label"></label>
+        <input [(ngModel)]="currentValue" class="form-check-input" type="radio" [name]="name" value="4" (ngModelChange)="onChange($event)" [class.is-invalid]="control.invalid && control.touched">
+    </div>
+    <div class="col center-checkbox">
+        <input [(ngModel)]="currentValue" class="form-check-input" type="radio" [name]="name" value="5" (ngModelChange)="onChange($event)" [class.is-invalid]="control.invalid && control.touched">
+    </div>
+    <div class="col center-checkbox">
+        <input [(ngModel)]="currentValue" class="form-check-input" type="radio" [name]="name" value="6" (ngModelChange)="onChange($event)" [class.is-invalid]="control.invalid && control.touched">
+    </div>
+    <div class="col center-checkbox">
+        <input [(ngModel)]="currentValue" class="form-check-input" type="radio" [name]="name" value="7" (ngModelChange)="onChange($event)" [class.is-invalid]="control.invalid && control.touched">
+    </div>
+    <label class="col center-checkbox" [class.text-danger]="control.invalid && control.touched">{{maximumLabel}}</label>
+</div>

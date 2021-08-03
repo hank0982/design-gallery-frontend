@@ -1,0 +1,10 @@
+<div class="container demography">
+    <div class="card ">
+        <div class="card-header  bg-primary text-white">Sign In for the Online Design Study</div>
+        <div class="card-body">
+            Please enter your survey ID: <input class="form-control" [(ngModel)]="userId">
+            <div class="text-danger" *ngIf="error">Please provide valid survey ID</div>
+            <button class="btn btn-primary" (click)="fetchUserInfo()">Submit</button>
+        </div>
+    </div>
+</div>

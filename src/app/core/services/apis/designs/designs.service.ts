@@ -14,4 +14,11 @@ export class DesignsService {
     const designListApi = `api/designs/${id}`;
     return this.http.get<IDesign>(designListApi);
   }
+
+  uploadDesign(designFile: File) {
+    const imageUploadApi = `api/designs/upload`;
+    let data = new FormData();
+    data.append('file', designFile);
+    return this.http.post(imageUploadApi, data);
+  }
 }

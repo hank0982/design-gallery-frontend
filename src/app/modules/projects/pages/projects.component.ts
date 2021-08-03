@@ -9,7 +9,6 @@ import { plainToClass } from 'class-transformer';
 import { EDesignAspect } from 'src/app/core/services/models/design-aspect.enum';
 
 @Component({
-  selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.sass']
 })

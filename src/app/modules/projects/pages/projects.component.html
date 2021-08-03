@@ -10,6 +10,42 @@
   </div>
 </mat-toolbar>
 <div class="filters">
+  <div class="nav-title">Design principles</div>
+  <div *ngFor="let principle of designPrinciples">
+    <mat-expansion-panel [class.mat-elevation-z0]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{principle | titlecase}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="">
+        <label class="form-check-label" >
+          View improved examples
+        </label>
+      </div>
+      <hr/>
+
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="">
+        <label class="form-check-label" >
+          Addresses the design brief
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="">
+        <label class="form-check-label" >
+          Simple clear message
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="">
+        <label class="form-check-label" >
+          Wrong audience
+        </label>
+      </div>
+    </mat-expansion-panel>
+  </div>
     <div class="nav-title">Descriptors</div>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
@@ -45,42 +81,7 @@
       </mat-expansion-panel-header>
       <color-twitter disableAlpha="true" width="270" triangle="hide"></color-twitter>
     </mat-expansion-panel>
-    <div class="nav-title">Design principles</div>
-    <div *ngFor="let principle of designPrinciples">
-      <mat-expansion-panel [class.mat-elevation-z0]="true">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{principle | titlecase}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="">
-          <label class="form-check-label" >
-            View improved examples
-          </label>
-        </div>
-        <hr/>
 
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="">
-          <label class="form-check-label" >
-            Addresses the design brief
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="">
-          <label class="form-check-label" >
-            Simple clear message
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="">
-          <label class="form-check-label" >
-            Wrong audience
-          </label>
-        </div>
-      </mat-expansion-panel>
-    </div>
 </div>
 <div>
   <span>Applied Filters</span>
