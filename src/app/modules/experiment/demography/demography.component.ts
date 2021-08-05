@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { StorageMap } from '@ngx-pwa/local-storage';
 import { UsersService } from 'src/app/core/services/apis/users/users.service';
 
 @Component({
@@ -12,6 +13,7 @@ export class DemographyComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UsersService,
+    private storage: StorageMap,
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +34,6 @@ export class DemographyComponent implements OnInit {
 
   submit(): void {
     this.form.markAllAsTouched();
-    console.log(this.form)
     if (this.form.valid) {
       this.userService.registerSurveyUser(
         {
@@ -50,7 +51,7 @@ export class DemographyComponent implements OnInit {
             yearsOfProfessionalExperience: this.form.get('yearsOfProfessionalExperience')?.value,
           }
         }
-      ).subscribe(user => console.log(user));
+      ).subscribe(user => this.storage.set('userInfo', user).subscribe());
     }
   }
 

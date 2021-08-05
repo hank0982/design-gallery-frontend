@@ -87,4 +87,22 @@ export interface ISurveyInfo {
   firstDesignId?: string;
 
   finalDesignId?: string;
+
+  phaseTwoSurvey?: IPhaseTwoSurvey;
+}
+
+export interface IPhaseTwoSurvey {
+  time: string;
+  effort: number;
+  confidence: number;
+  selfEval: {
+    appropriateness: number;
+    hierarchy: number;
+    emphasis: number;
+    readability: number;
+    consistency: number;
+    alignment: number;
+  };
+  implementedParticularlyWell: number;
+  struggleMost: number;
 }

@@ -1,9 +1,11 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { DesignsService } from 'src/app/core/services/apis/designs/designs.service';
+import { ImagesService } from 'src/app/core/services/apis/images/images.service';
 import { UsersService } from 'src/app/core/services/apis/users/users.service';
-import { ISurveyInfo } from 'src/app/core/services/models/user.model';
+import { IPhaseTwoSurvey, ISurveyInfo } from 'src/app/core/services/models/user.model';
 import { PhaseStepService } from '../services/phase-step/phase-step.service';
 
 @Component({
@@ -38,21 +40,40 @@ export class PhaseTwoComponent implements OnInit {
   constructor(
     private usersService: UsersService,
     private designsService: DesignsService,
+    private imagesService: ImagesService,
     private phaseStepService: PhaseStepService
   ) { }
 
+  imageSrc$ =  this.phaseStepService.currentUserBS.pipe(mergeMap(x => {
+    if (x?.surveyInfo?.firstDesignId) {
+      return this.imagesService.fetchImageById(x?.surveyInfo?.firstDesignId).pipe(
+        map(x => x.url)
+      )
+    }
+    return of(undefined);
+  }));
+
   ngOnInit(): void {
+ 
   }
 
+  
   onFileChange(event: Event) {
     this.fileData = (event.target! as any).files[0];
-    console.log(this.fileData)
   }
 
   submitSecondSurvey() {
-    console.log(this.secondSurvey)
+    this.isSecondSurveySubmitted = true;
+    if (this.isSecondSurveyValid() && this.phaseStepService.currentUser?.surveyInfo) {
+      const currentUser = this.phaseStepService.currentUserBS.value;
+      currentUser!.surveyInfo!.phaseTwoSurvey = this.secondSurvey as any as IPhaseTwoSurvey;
+      this.phaseStepService.updateSurveyInfo(currentUser!.surveyInfo!);
+      this.usersService.updateSurveyInfo(this.phaseStepService.currentUser!._id, currentUser!.surveyInfo!).subscribe(_=> {
+        this.phaseStepService.proceedOneMorePhase();
+      });
+    }
   }
-
+  
   uploadFile() {
     if(this.fileData) {
       this.designsService.uploadDesign(this.fileData).pipe(
@@ -70,5 +91,19 @@ export class PhaseTwoComponent implements OnInit {
         });
       });
     }
+  }
+
+  isSelfEvalValid() {
+    return this.secondSurvey.selfEval.alignment && 
+      this.secondSurvey.selfEval.appropriateness && 
+      this.secondSurvey.selfEval.consistency && 
+      this.secondSurvey.selfEval.emphasis &&
+      this.secondSurvey.selfEval.hierarchy &&
+      this.secondSurvey.selfEval.readability
+  }
+
+  private isSecondSurveyValid() {
+    return this.secondSurvey.time && this.secondSurvey.struggleMost && this.secondSurvey.confidence && this.secondSurvey.effort &&
+    this.secondSurvey.implementedParticularlyWell && this.isSelfEvalValid();
   }
 }

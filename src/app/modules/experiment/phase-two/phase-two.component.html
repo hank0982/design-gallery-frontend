@@ -44,21 +44,21 @@
 
         <div class="row">
             <div class="col-5">
-                <img src="https://fakeimg.pl/430x610/"/>
+                <img [src]="imageSrc$ | async"/>
             </div>
             <div class="col-7">
-                <div>1. Approaximately how much time did you spend revising your poster?</div>
-                <input class="form-control" [(ngModel)]="secondSurvey.time">
-                <div>2. How much effort did you invest designing the poster?</div>
+                <div class="input-field" [class.text-danger]="isSecondSurveySubmitted && !secondSurvey.time">1. Approaximately how much time did you spend revising your poster?</div>
+                <input class="form-control" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.time" [(ngModel)]="secondSurvey.time" >
+                <div class="input-field" [class.text-danger]="isSecondSurveySubmitted && !secondSurvey.effort">2. How much effort did you invest designing the poster?</div>
                 <div>
-                    <app-likert-input name="effort" maximumLabel="High Effort" minimumLabel="Low Effort" [(ngModel)]="secondSurvey.effort"></app-likert-input>
+                    <app-likert-input name="effort" maximumLabel="High Effort" minimumLabel="Low Effort" [(ngModel)]="secondSurvey.effort" ></app-likert-input>
                 </div>
-                <div>3. How confident are you that the poster fully satisfied the design goals?</div>
+                <div class="input-field" [class.text-danger]="isSecondSurveySubmitted && !secondSurvey.confidence">3. How confident are you that the poster fully satisfied the design goals?</div>
                 <div>
-                    <app-likert-input name="effort" maximumLabel="High Confidence" minimumLabel="Low Confidence" [(ngModel)]="secondSurvey.confidence"></app-likert-input>
+                    <app-likert-input name="confidence" maximumLabel="High Confidence" minimumLabel="Low Confidence" [(ngModel)]="secondSurvey.confidence"></app-likert-input>
 
                 </div>
-                <div>4. How well do you think your poster follows the six principles of visual design? You may review the descriptions of the principles here: <a>Link</a></div>
+                <div class="input-field" [class.is-invalid]="!isSelfEvalValid && isSecondSurveySubmitted">4. How well do you think your poster follows the six principles of visual design? You may review the descriptions of the principles here: <a>Link</a></div>
                 <div>
                     <table class="table">
                         <thead>
@@ -123,13 +123,13 @@
                         </tbody>
                     </table>
                 </div>
-                <div>5. What principles do you think were implemented particularly well in your poster?</div>
+                <div class="input-field" [class.text-danger]="isSecondSurveySubmitted && !secondSurvey.implementedParticularlyWell">5. What principles do you think were implemented particularly well in your poster?</div>
                 <div class="mb-3">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="secondSurvey.implementedParticularlyWell"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="secondSurvey.implementedParticularlyWell" [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.implementedParticularlyWell"></textarea>
                 </div>
-                <div>6. What principles do you think you struggled with the most while working on your poster?</div>
+                <div class="input-field" [class.text-danger]="isSecondSurveySubmitted && !secondSurvey.struggleMost">6. What principles do you think you struggled with the most while working on your poster?</div>
                 <div class="mb-3">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="secondSurvey.struggleMost"></textarea>
+                    <textarea [class.is-invalid]="isSecondSurveySubmitted && !secondSurvey.struggleMost" class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="secondSurvey.struggleMost"></textarea>
                 </div>
             </div>
         </div>
