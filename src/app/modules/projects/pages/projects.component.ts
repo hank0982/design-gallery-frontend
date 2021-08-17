@@ -20,6 +20,16 @@ export class ProjectsComponent implements OnInit {
   readonly imageUsage = [...Object.values(EDesignImageUsages)];
   readonly colors = ['#9e9e9e', '#9034aa', '#4595ec', '#000000', '#52b9d1', '#594139']
 
+  readonly appropriatenessSubtopics = [
+    'Unclear message',
+    'Unclear audience',
+    'Missing text content',
+    'Not visually enticing',
+    'Improper color theme',
+    'Confusing connotation',
+    'Copyright permission',
+    'Inappropriate image'
+  ]
   currentFilters: string[] = [];
 
   projects: IProject[] = [];
@@ -32,7 +42,7 @@ export class ProjectsComponent implements OnInit {
   isEvent: boolean = false;
   previousProjectSkip = 0;
 
-  designPrinciples = Object.values(EDesignAspect);
+  designPrinciples = [...Object.values(EDesignAspect).filter(x => x!==EDesignAspect.OVERALL), EDesignAspect.OVERALL];
 
   constructor(
     private designService: DesignsService,

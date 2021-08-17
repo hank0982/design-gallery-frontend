@@ -17,7 +17,7 @@ import { RateToTextService } from 'src/app/core/services/rate-to-text/rate-to-te
   styleUrls: ['./project-preview.component.sass']
 })
 export class ProjectPreviewComponent implements OnInit {
-  designAspects = Object.values(EDesignAspect);
+  designPrinciples = [...Object.values(EDesignAspect).filter(x => x!==EDesignAspect.OVERALL), EDesignAspect.OVERALL];
   tagSet: Set<string> = new Set([]);
 
   designs: IDesign[] = [];

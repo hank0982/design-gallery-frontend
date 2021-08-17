@@ -1,8 +1,7 @@
-<mat-dialog-content class="content">
+<mat-dialog-content class="content" *ngIf="designs.length > 0 && images.length > 0">
   <div gdColumns="1fr 1fr" gdGap="50px" class="previewer-container">
     <div>
       <h2 mat-dialog-title>{{project?.name}}</h2>
-
       Posters designed for DSGN 100 class at UCSD. Meant to convey her charity concert at the Krannert Center on November 29, 2017. Any other design brief description; here, context seems to be the key. What was the focus of the brief?</div>
     <div>
       <h2>Tags</h2>
@@ -11,25 +10,102 @@
       </mat-chip-list>
     </div>
   </div>
-  <div gdColumns="1fr 1fr" gdGap="50px" class="previewer-container image-viewer">
-    <div
-      *ngFor="let image of images"
-    >
+  <div class="previewer-container">
+    <hr/>
+    <h2>Overall Summary</h2>
+  </div>
+
+  <div gdColumns="1fr 1fr" gdGap="50px" class="previewer-container image-viewer" *ngIf="images">
+    <div class="image-div" fxFlexLayout="column">
+      <h3>Initial Design</h3>
       <img
-      width="100%"
-      [src]="image.url"
-    />
+        width="100%"
+        [src]="images[0].url"
+      />
+      <div class="overall-rating">Overall Rating
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+      </div>
+      <div class="overall-rating">Key issues in the initial design</div>
+      <div>Below are the issues derived from expert feedback on the initial design</div>
+      <div class="key-improment-tags">
+        <mat-chip-list >
+          <mat-chip>Pour visual hierarchy</mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+    <div class="image-div">
+      <h3>Revised Design</h3>
+      <img
+        width="100%"
+        [src]="images[1].url"
+      />
+      <div class="overall-rating">Overall Rating
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+      </div>
+      <div class="overall-rating">key improvements in the revised design</div>
+      <div>Below are the principles that are improved based on expert ratings</div>
+      <div class="key-improment-tags">
+        <mat-chip-list >
+          <mat-chip>Emphasis</mat-chip>
+          <mat-chip>Alignment</mat-chip>
+          <mat-chip>Hierarchy</mat-chip>
+        </mat-chip-list>
+      </div>
+
+    </div>
+  </div>
+  <div class="previewer-container">
+    <hr/>
+    <h2>Feedback on Individual Principles</h2>
+  </div>
+  
+  <div gdColumns="1fr 1fr" gdGap="50px" class="previewer-container image-viewer" *ngIf="images">
+    <div class="image-div" fxFlexLayout="column">
+      <h3>Initial Design</h3>
+    </div>
+    <div class="image-div">
+      <h3>Revised Design</h3>
     </div>
   </div>
   <div gdColumns="1fr" class="previewer-container">
     <div>
-      <mat-expansion-panel *ngFor="let aspect of designAspects">
+      <mat-expansion-panel [class.mat-elevation-z0]="true" *ngFor="let aspect of designPrinciples">
         <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{aspect | titlecase}}
-          </mat-panel-title>
-          <mat-panel-description>
-          </mat-panel-description>
+          <div gdColumns="150px 1fr 50px 1fr 150px" style="width: 100%;">
+            <span>{{aspect | titlecase}}</span>
+            <div>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <div></div>
+            <div>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <div></div>
+          </div>
         </mat-expansion-panel-header>
         <p>I'm visible because I am open</p>
       </mat-expansion-panel>

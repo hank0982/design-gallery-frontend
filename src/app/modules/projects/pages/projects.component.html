@@ -44,25 +44,19 @@
           </label>
    
         <hr/>
-     </div> -->  
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="">
-          <label class="form-check-label" >
-            Addresses the design brief
-          </label>
+      <div/> --->
+        <div [ngSwitch]="principle">
+          <div *ngSwitchCase="'APPROPRIATENESS'">
+            <div class="form-check" *ngFor="let item of appropriatenessSubtopics">
+              <input class="form-check-input" type="checkbox" value="item">
+              <label class="form-check-label" >
+               {{item}}
+              </label>
+            </div>
+          </div>
+          <div *ngSwitchDefault>output2</div>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="">
-          <label class="form-check-label" >
-            Simple clear message
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="">
-          <label class="form-check-label" >
-            Wrong audience
-          </label>
-        </div>
+
       </mat-expansion-panel>
     </div>
     <div class="filter-header">
@@ -148,7 +142,7 @@
     class="projects-page">
     <div></div>
     <div class="projects-container">
-      <div class="applied-filters" gdColumns="140px 1fr">
+      <div class="applied-filters" gdColumns="140px 1fr" gdGap="50px">
         <span>Applied Filters</span>
         <mat-chip-list>
           <mat-chip *ngFor="let tag of currentFilters">
@@ -158,12 +152,23 @@
 
       </div>
 
-      <div class="applied-filters" gdColumns="140px 1fr">
+      <div class="applied-filters" gdColumns="140px 300px 100px 170px">
         <span>Sort by</span>
-
+        <mat-select [value]="'None'">
+          <mat-option [value]="'None'">-- None --</mat-option>
+          <mat-option [value]="'FDQ'">Final design quality</mat-option>
+          <mat-option [value]="'DOI'">Degree of improvement</mat-option>
+        </mat-select>
+        <span>On</span>
+        <mat-select [value]="'None'">
+          <mat-option [value]="'None'">-- None --</mat-option>
+          <mat-option *ngFor="let item of designPrinciples" [value]="item | titlecase">
+            {{item | titlecase}}
+          </mat-option>
+        </mat-select>
 
       </div>
-
+      <hr/>
       <div 
         gdColumns.gt-lg="1fr 1fr 1fr"
         gdColumns.lg="1fr 1fr 1fr"

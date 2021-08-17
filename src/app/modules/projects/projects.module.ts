@@ -18,6 +18,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ProjectPreviewComponent } from './shared/components/project-preview/project-preview.component';
 import { ProjectModalComponent } from './pages/project-modal/project-modal.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSelectModule } from '@angular/material/select';
 
 const routes: Routes = [
   { path: '', component: ProjectsComponent, children: [
@@ -40,6 +41,7 @@ const routes: Routes = [
     ColorTwitterModule,
     ReactiveFormsModule,
     MatTabsModule,
+    MatSelectModule,
     MatDialogModule,
     MatToolbarModule,
     MatButtonModule,
