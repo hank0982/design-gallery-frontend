@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, mapTo, mergeMap } from 'rxjs/operators';
 import { ICreateUser, IQuizResult, ISurveyInfo, IUser } from '../../models/user.model';
+import { IRatedProject } from '../projects/projects.service';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,20 @@ export class UsersService {
     const userApi = `api/users/${id}`;
     return this.http.patch(userApi, {surveyInfo: newSurveyInfo});
   }
+
+  ratedProjects(userId: string) {
+    const ratedProjectApi = `api/users/${userId}/rated-projects`;
+    return this.http.get<IRatedProjectInternal[]>(ratedProjectApi).pipe(mergeMap(x => {
+      const dict = {} as IRatedProject;
+      x.forEach(x => {
+        dict[x._id] = x.hasComplete;
+      });
+      return of(dict);
+    }));
+  }
 }
 
-
+interface IRatedProjectInternal {
+  _id: string;
+  hasComplete: boolean;
+}

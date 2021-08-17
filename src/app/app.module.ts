@@ -7,11 +7,15 @@ import { SharedModule } from '../shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { RouterModule, Routes } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { BootstrapValidationCssDirective } from '../shared/directives/bootstrap-validation-css/bootstrap-validation-css.directive';
+
 const routes: Routes = [
   { path: 'gallery', loadChildren: () => import('./modules/projects/projects.module').then(m => m.ProjectsModule) },
   { path: 'metadata-collection', loadChildren: () => import('./modules/metadata-collection/metadata-collection.module').then(m => m.MetadataCollectionModule) },
-  { path: 'experiment', loadChildren: () => import('./modules/experiment/experiment.module').then(m => m.ExperimentModule) }
+  { path: 'experiment', loadChildren: () => import('./modules/experiment/experiment.module').then(m => m.ExperimentModule) },
+  { path: 'rating-collection', loadChildren: () => import('./modules/rating-collection/rating-collection.module').then(m => m.RatingCollectionModule) }
 ];
+
 @NgModule({
   declarations: [
     AppComponent,

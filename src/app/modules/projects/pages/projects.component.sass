@@ -1,27 +1,82 @@
 .projects-container
     margin: 40px
-    margin-top: 86px
+    margin-top: 64px
 
 .toolbar
   position: fixed
   z-index: 1000
+  background: #4F67F0
 
 .tool-bar-right
   flex: 1 1 auto
 
+.sidenav
+  padding-top: 70px
+  width: 500px
+  text-align: center
+  justify-content: center
+  padding-left: 30px
+  padding-right: 30px
+
+.applied-filters
+  margin-top: 15px
+  align-items: center
+  margin-bottom: 15px
+  padding: 8px
+  color: #88929F
+  font-family: Roboto
+  font-style: normal
+  font-weight: bold
+  font-size: 14px
+  line-height: 16px
+  letter-spacing: 1px
+  text-transform: uppercase
+
 .filters
+  background: #F2F5F9
   height: calc(100% - 64px)
   width: 300px
   position: fixed
   z-index: 2
   top: 64px
   left: 0
-  border-right: 1px solid #111111
   overflow-x: hidden
+  padding-left: 72px
+  padding-top: 22px
 
+  .sub-title
+    font-family: Roboto
+    font-style: normal
+    font-weight: bold
+    font-size: 18px
+    line-height: 21px
+    letter-spacing: -0.02em
+    margin-top: 22.5px
+
+  .sub-description
+    font-family: Roboto
+    font-style: normal
+    font-weight: bold
+    font-size: 14px
+    line-height: 140%
+    margin-top: 15px
+    padding-right: 15px
+    margin-bottom: 15px
+  
+  mat-panel-title
+    font-family: Roboto
+    font-style: normal
+    font-weight: bold
+    font-size: 14px
+    line-height: 140%
+
+  mat-expansion-panel
+    color: #444657
+    background: #F2F5F9
 .project-pages
   height: 100vh
-
+::ng-deep.twitter-body
+  background: #F2F5F9
 ::ng-deep.twitter-hash
   display: none !important
 ::ng-deep.twitter-input
@@ -44,6 +99,13 @@
 .nav-title
   margin-top: 20px
   margin-bottom: 20px
-  padding: 0px 1.25rem
   font-weight: bold
 
+.filter-title
+  font-family: Roboto
+  font-style: normal
+  font-weight: bold
+  font-size: 14px
+  line-height: 16px
+  letter-spacing: 1px
+  text-transform: uppercase

@@ -16,16 +16,23 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ProjectPreviewComponent } from './shared/components/project-preview/project-preview.component';
+import { ProjectModalComponent } from './pages/project-modal/project-modal.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 const routes: Routes = [
-  { path: '', component: ProjectsComponent }
+  { path: '', component: ProjectsComponent, children: [
+    {path: ':id', component: ProjectModalComponent}
+  ]}
 ];
 
 @NgModule({
   declarations: [
     ProjectsComponent,
     ProjectCardComponent,
-    ProjectPreviewComponent
+    ProjectPreviewComponent,
+    ProjectModalComponent
   ],
+  entryComponents: [ProjectPreviewComponent],
   imports: [
     CommonModule,
     InfiniteScrollModule,
@@ -38,6 +45,7 @@ const routes: Routes = [
     MatButtonModule,
     MatChipsModule,
     MatCardModule,
+    MatSidenavModule,
     FormsModule,
     FlexLayoutModule,
     SharedModule,

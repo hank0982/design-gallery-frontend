@@ -6,103 +6,165 @@
   <div fxFlexLayout="row" fxLayoutAlign="space-evenly">
     <button mat-button>All Projects</button>
     <button mat-button>My Favorite</button>
-    <button mat-button>My Projects</button>
+    <button mat-button (click)="sidenav.toggle()">My Projects</button>
   </div>
 </mat-toolbar>
-<div class="filters">
-  <div class="nav-title">Design principles</div>
-  <div *ngFor="let principle of designPrinciples">
-    <mat-expansion-panel [class.mat-elevation-z0]="true">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{principle | titlecase}}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="">
-        <label class="form-check-label" >
-          View improved examples
-        </label>
-      </div>
-      <hr/>
-
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="">
-        <label class="form-check-label" >
-          Addresses the design brief
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="">
-        <label class="form-check-label" >
-          Simple clear message
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="">
-        <label class="form-check-label" >
-          Wrong audience
-        </label>
-      </div>
-    </mat-expansion-panel>
+<mat-sidenav-container>
+  <mat-sidenav 
+    #sidenav
+    gdColumns="1fr"
+    mode="push"
+    position="end"
+    class="sidenav">
+    <div>Your design</div>
+    <img src="https://fakeimg.pl/230x330/"/>
+    <div>Reflection</div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod placerat ipsum, at interdum neque gravida ac. Integer pharetra vestibulum commodo. In vestibulum volutpat nisl. Nullam vel interdum odio, ut rhoncus metus. Duis diam ex, pellentesque sed nulla et, vulputate efficitur nisi. Morbi vitae lacus vitae lacus elementum rhoncus sed eget ligula. Quisque eu dolor magna. Sed a pulvinar arcu, in viverra ex. In non tellus fringilla arcu placerat laoreet dictum in urna. Donec eu ex convallis, pharetra arcu sit amet, pellentesque tortor. Phasellus in ex arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent sed fermentum metus. Aliquam quam lorem, suscipit ac risus nec, fermentum luctus arcu. Vivamus sagittis placerat tellus ac faucibus.</p>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="filters">
+    <div class="filter-title">Apply Filters</div>
+    <div class="sub-title">Design principles</div>
+    <div class="sub-description">
+      What principle(s) are you interested in learning more about?
+    </div>
+    <div *ngFor="let principle of designPrinciples">
+      <mat-expansion-panel [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{principle | titlecase}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="">
+          <label class="form-check-label" >
+            View improved examples
+          </label>
+        </div>
+        <hr/>
+  
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="">
+          <label class="form-check-label" >
+            Addresses the design brief
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="">
+          <label class="form-check-label" >
+            Simple clear message
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="">
+          <label class="form-check-label" >
+            Wrong audience
+          </label>
+        </div>
+      </mat-expansion-panel>
+    </div>
+    <div class="sub-title">Filter by Design Content</div>
+    <div class="sub-description">
+      What project contents would you like to see more of?
+    </div>
+      <mat-expansion-panel [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Categories
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="form-check" *ngFor="let filter of categoryFilters">
+          <input class="form-check-input" type="checkbox" value="" id="category-{{filter}}" (change)="categoryChange($event, filter)">
+          <label class="form-check-label" for="category-{{filter}}">
+            {{ filter }}
+          </label>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Text Proportion
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="form-check" *ngFor="let filter of textProportion; let i = index" >
+          <input class="form-check-input" type="checkbox" value="" id="amountOfText-{{filter}}" (change)="amountOfTextChange($event, i)">
+          <label class="form-check-label" for="amountOfText-{{filter}}">
+            {{ filter }}
+          </label>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Text Quantity
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="form-check" *ngFor="let filter of textQuantity; let i = index" >
+          <input class="form-check-input" type="checkbox" value="" id="textQuantity-{{filter}}" (change)="textQuantityChange($event, i)">
+          <label class="form-check-label" for="textQuantity-{{filter}}">
+            {{ filter }}
+          </label>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Dominant Color
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <color-twitter 
+          [colors]="colors"
+          disableAlpha="true"
+          (colorChange)="changeColor($event)"
+          width="270"
+          triangle="hide">
+        </color-twitter>
+      </mat-expansion-panel>
+      <mat-expansion-panel [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Image Usage
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="form-check" *ngFor="let filter of imageUsage; let i = index" >
+          <input class="form-check-input" type="checkbox" value="" id="imageUsage-{{filter}}" (change)="imageUsageChange($event, filter)">
+          <label class="form-check-label" for="imageUsage-{{filter}}">
+            {{ filter | titlecase }}
+          </label>
+        </div>
+      </mat-expansion-panel>
   </div>
-    <div class="nav-title">Descriptors</div>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Categories
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="form-check" *ngFor="let filter of categoryFilters">
-        <input class="form-check-input" type="checkbox" value="" id="category-{{filter}}" (change)="categoryChange($event, filter)">
-        <label class="form-check-label" for="category-{{filter}}">
-          {{filter}}
-        </label>
-      </div>
-    </mat-expansion-panel>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Text Proportion
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="form-check" *ngFor="let filter of textProportion; let i = index" >
-        <input class="form-check-input" type="checkbox" value="" id="amountOfText-{{filter}}" (change)="amountOfTextChange($event, i)">
-        <label class="form-check-label" for="amountOfText-{{filter}}">
-          {{filter}}
-        </label>
-      </div>
-    </mat-expansion-panel>
-    <mat-expansion-panel [class.mat-elevation-z0]="true">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Color
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <color-twitter disableAlpha="true" width="270" triangle="hide"></color-twitter>
-    </mat-expansion-panel>
-
-</div>
-<div>
-  <span>Applied Filters</span>
-</div>
-<div
-  gdColumns="300px 1fr"
-  infiniteScroll
-  [infiniteScrollDistance]="2"
-  [infiniteScrollThrottle]="50"
-  (scrolled)="onScroll()"
-  class="projects-page">
-  <div></div>
+  
   <div
-    gdColumns.gt-lg="1fr 1fr 1fr"
-    gdColumns.lg="1fr 1fr 1fr"
-    gdColumns.md="1fr 1fr"
-    gdGap="70px" 
-    class="projects-container">
-    <div *ngFor="let project of projects" gdColumn>
-      <app-project-card [project]="project"></app-project-card>
+    gdColumns="300px 1fr"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="1000"
+    (scrolled)="onScroll()"
+    class="projects-page">
+    <div></div>
+    <div class="projects-container">
+      <div class="applied-filters" gdColumns="140px 1fr">
+        <span>Applied Filters</span>
+        <mat-chip-list>
+          <mat-chip *ngFor="let tag of currentFilters">
+            {{tag}}
+          </mat-chip>
+        </mat-chip-list>
+
+      </div>
+      <div 
+        gdColumns.gt-lg="1fr 1fr 1fr"
+        gdColumns.lg="1fr 1fr 1fr"
+        gdColumns.md="1fr 1fr"
+        gdGap="70px" >
+      <div *ngFor="let project of projects" gdColumn>
+        <app-project-card [project]="project"></app-project-card>
+      </div>
+      </div>
+  
     </div>
   </div>
-</div>
-
+  <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

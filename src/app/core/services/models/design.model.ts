@@ -7,5 +7,18 @@ export interface IDesign extends IMongoObject {
   imageId?: string;
   projectId: string;
   version: number,
-  amountOfText: number,
+  dominantColor: string;
+  mainColor: string;
+  overallQuality: number;
+  rational: string;
+  textProportion: number;
+  textQuantity: number;
+  imageUsage: EDesignImageUsages;
+}
+
+export enum EDesignImageUsages {
+  ILLUSTRATION = 'ILLUSTRATION',
+  PHOTO = 'PHOTO',
+  BOTH = 'BOTH',
+  NONE = 'NONE'
 }

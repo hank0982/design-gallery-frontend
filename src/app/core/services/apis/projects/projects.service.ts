@@ -4,6 +4,7 @@ import { IsArray, IsBoolean, IsNumber, IsOptional, IsString, Max, Min } from 'cl
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { EDesignAspect } from '../../models/design-aspect.enum';
+import { EDesignImageUsages } from '../../models/design.model';
 import { IFeedbackUnit } from '../../models/feedback-unit.model';
 import { IPagination } from '../../models/pagination.model';
 import { IProject } from '../../models/project.model';
@@ -13,6 +14,10 @@ import { IRating } from '../../models/rating.model';
 })
 export class ProjectsService {
   constructor(private http: HttpClient) { }
+
+  fetchProjectById(id: string) {
+    return this.http.get<IProject>(`api/projects/${id}`);
+  }
 
   fetchAllProjects(skip: number = 0, limit: number = 10, projectFilter?: ProjectFilterDto): Observable<IPagination<IProject>> {
     let projectListApi = `api/projects?skip=${skip}&limit=${limit}`;
@@ -30,6 +35,17 @@ export class ProjectsService {
       projectListApi = projectListApi + `${
         projectFilter.textQuantity.length > 0 ?
         '&textQuantity='+projectFilter.textQuantity?.map(g => `${g}`).join(',') : ''}`;
+    }
+    if (projectFilter?.imageUsage?.length) {
+      projectListApi = projectListApi + `${
+        projectFilter.imageUsage.length > 0 ?
+        '&imageUsage='+projectFilter.imageUsage?.map(g => `${g}`).join(',') : ''}`;
+    }
+    if (projectFilter?.dominantColor) {
+      projectListApi = projectListApi + `${'&dominantColor='+projectFilter.dominantColor.slice(1)}`;
+    }
+    if (projectFilter?.mainColor) {
+      projectListApi = projectListApi + `${'&mainColor='+projectFilter.mainColor.slice(1)}`;
     }
     return this.http.get<IPagination<IProject>>(projectListApi,{headers: {'Content-Type':'application/json; charset=utf-8'}});
   }
@@ -53,6 +69,7 @@ export class ProjectsService {
     }));
   }
 }
+
 interface IInternalUserRatedProject {
   _id: string;
   hasCompleted: boolean;
@@ -83,9 +100,10 @@ export class ProjectFilterDto {
   @IsString({ each: true })
   categories?: string[];
 
-  @IsBoolean()
+  @IsArray()
   @IsOptional()
-  imageUsage?: boolean;
+  @IsString({ each: true })
+  imageUsage?: EDesignImageUsages[];
 
   @IsArray()
   @IsNumber({}, { each: true })
@@ -107,4 +125,12 @@ export class ProjectFilterDto {
   @IsString({each: true})
   @IsOptional()
   subaspects?: string[];
+
+  @IsString()
+  @IsOptional()
+  mainColor?: string;
+
+  @IsString()
+  @IsOptional()
+  dominantColor?: string;
 }

@@ -10,8 +10,9 @@ import { PhaseTwoComponent } from './phase-two/phase-two.component';
 import { PhaseThreeComponent } from './phase-three/phase-three.component';
 import { LikertInputComponent } from './components/likert-input/likert-input.component';
 import { PhaseFourComponent } from './phase-four/phase-four.component';
-import { BootstrapValidationCssDirective } from './directives/bootstrap-validation-css/bootstrap-validation-css.directive';
+import { BootstrapValidationCssDirective } from '../../../shared/directives/bootstrap-validation-css/bootstrap-validation-css.directive';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { SharedModule } from 'src/shared/shared.module';
 
 
 const routes: Routes = [
@@ -37,12 +38,12 @@ const routes: Routes = [
     PhaseTwoComponent,
     PhaseThreeComponent,
     PhaseFourComponent,
-    BootstrapValidationCssDirective,
     SignInComponent
   ],
   imports: [
     FormsModule,
     ReactiveFormsModule,
+    SharedModule,
     CommonModule,
     RouterModule.forChild(routes)
   ],

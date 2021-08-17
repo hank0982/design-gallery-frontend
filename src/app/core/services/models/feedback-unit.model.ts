@@ -1,7 +1,8 @@
 import { IsString, IsEnum, IsBoolean } from "class-validator";
 import { EDesignAspect } from "./design-aspect.enum";
+import { IMongoObject } from "./mongo-object.model";
 
-export interface IFeedbackUnit {
+export interface IFeedbackUnit extends IMongoObject{
   designId: string;
   feedbackProviderId: string;
   content: string;

@@ -1,0 +1,469 @@
+<div gdColumns="1fr 1fr" gdGap="100px" class="image-container">
+  <img class="image-size" *ngIf="currentImages && currentImages[0]" [hidden]="" src="{{ currentImages[0].url }}" />
+  <img class="image-size" *ngIf="currentImages && currentImages[1]" [hidden]="" src="{{ currentImages[1].url }}" />
+</div>
+<div gdColumns="1fr 1fr" gdGap="100px" class="image-container" *ngIf="currentForm && !isRatingIsLoading"
+  [formGroup]="currentForm">
+  <table class="table" formGroupName="firstDesign">
+    <thead>
+      <tr class="row">
+        <th class="col-4" scope="col"></th>
+        <th class="col" scope="col">1</th>
+        <th class="col" scope="col">2</th>
+        <th class="col" scope="col">3</th>
+        <th class="col" scope="col">4</th>
+        <th class="col" scope="col">5</th>
+        <th class="col" scope="col">6</th>
+        <th class="col" scope="col">7</th>
+        <th class="col-3" scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row">
+        <th class="col-4" scope="row">Appropriateness</th>
+        <td class="col"><input class="form-check-input" type="radio" [value]="1" formControlName="appropriateness"
+            (click)="handleCheckbox(0, 1, 'APPROPRIATENESS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="2" formControlName="appropriateness"
+            (click)="handleCheckbox(0, 2, 'APPROPRIATENESS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="3" formControlName="appropriateness"
+            (click)="handleCheckbox(0, 3, 'APPROPRIATENESS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="4" formControlName="appropriateness"
+            (click)="handleCheckbox(0, 4, 'APPROPRIATENESS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="5" formControlName="appropriateness"
+            (click)="handleCheckbox(0, 5, 'APPROPRIATENESS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="6" formControlName="appropriateness"
+            (click)="handleCheckbox(0, 6, 'APPROPRIATENESS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="7" formControlName="appropriateness"
+            (click)="handleCheckbox(0, 7, 'APPROPRIATENESS')"></td>
+        <td class="col-3">
+          <a class="feedback-toggle" *ngIf="hasFeedbackForAppropriateness"
+            (click)="toggleFeedbackVisiblity('APPROPRIATENESS')">
+            {{!feedbackVisibleDict['APPROPRIATENESS'] ? 'Show comments' : 'Hide comments'}} </a>
+        </td>
+      </tr>
+      <tr class="row" *ngIf="hasFeedbackForAppropriateness && feedbackVisibleDict['APPROPRIATENESS']">
+        <th class="col-4" scope="row"></th>
+        <td class="col">
+          <ng-container>
+            <ng-container *ngFor="let item of feedbackUnits; let i = index">
+              <li *ngIf="item.aspect === 'APPROPRIATENESS'">
+                {{item.content}}
+                <br/>
+                <select name="aspect" (change)="handleSelectChange(i, $event)">
+                  <option value="APPROPRIATENESS" selected>Appropriateness</option>
+                  <option value="EMPHASIS">Emphasis</option>
+                  <option value="ALIGNMENT">Alignment</option>
+                  <option value="HIERARCHY">Hierarchy</option>
+                  <option value="READABILITY">Readability</option>
+                  <option value="CONSISTENCY">Consistency</option>
+                </select>
+                <input [value]="item.subaspect"/>
+              </li>
+            </ng-container>
+
+          </ng-container>
+        </td>
+      </tr>
+      <tr class="row">
+        <th class="col-4" scope="row">Emphasis</th>
+        <td class="col"><input class="form-check-input" type="radio" [value]="1" formControlName="emphasis"
+            (click)="handleCheckbox(0, 1, 'EMPHASIS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="2" formControlName="emphasis"
+            (click)="handleCheckbox(0, 2, 'EMPHASIS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="3" formControlName="emphasis"
+            (click)="handleCheckbox(0, 3, 'EMPHASIS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="4" formControlName="emphasis"
+            (click)="handleCheckbox(0, 4, 'EMPHASIS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="5" formControlName="emphasis"
+            (click)="handleCheckbox(0, 5, 'EMPHASIS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="6" formControlName="emphasis"
+            (click)="handleCheckbox(0, 6, 'EMPHASIS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="7" formControlName="emphasis"
+            (click)="handleCheckbox(0, 7, 'EMPHASIS')"></td>
+        <td class="col-3">
+          <a class="feedback-toggle" *ngIf="hasFeedbackForEmphasis" (click)="toggleFeedbackVisiblity('EMPHASIS')">
+            {{!feedbackVisibleDict['EMPHASIS'] ? 'Show comments' : 'Hide comments'}} </a>
+        </td>
+      </tr>
+      <tr class="row" *ngIf="hasFeedbackForEmphasis && feedbackVisibleDict['EMPHASIS']">
+        <th class="col-4" scope="row"></th>
+        <td class="col">
+          <ng-container>
+            <ng-container *ngFor="let item of feedbackUnits; let i = index">
+              <li *ngIf="item.aspect === 'EMPHASIS'">
+                {{item.content}} 
+                <br/>
+                <select name="aspect" (change)="handleSelectChange(i, $event)">
+                  <option value="APPROPRIATENESS">Appropriateness</option>
+                  <option value="EMPHASIS" selected>Emphasis</option>
+                  <option value="ALIGNMENT">Alignment</option>
+                  <option value="HIERARCHY">Hierarchy</option>
+                  <option value="READABILITY">Readability</option>
+                  <option value="CONSISTENCY">Consistency</option>
+                </select>
+              </li>
+            </ng-container>
+
+          </ng-container>
+        </td>
+      </tr>
+      <tr class="row">
+        <th class="col-4" scope="row">Alignment</th>
+        <td class="col"><input class="form-check-input" type="radio" [value]="1" formControlName="alignment"
+            (click)="handleCheckbox(0, 1, 'ALIGNMENT')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="2" formControlName="alignment"
+            (click)="handleCheckbox(0, 2, 'ALIGNMENT')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="3" formControlName="alignment"
+            (click)="handleCheckbox(0, 3, 'ALIGNMENT')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="4" formControlName="alignment"
+            (click)="handleCheckbox(0, 4, 'ALIGNMENT')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="5" formControlName="alignment"
+            (click)="handleCheckbox(0, 5, 'ALIGNMENT')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="6" formControlName="alignment"
+            (click)="handleCheckbox(0, 6, 'ALIGNMENT')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="7" formControlName="alignment"
+            (click)="handleCheckbox(0, 7, 'ALIGNMENT')"></td>
+        <td class="col-3">
+          <a class="feedback-toggle" *ngIf="hasFeedbackForAlignment" (click)="toggleFeedbackVisiblity('ALIGNMENT')">
+            {{!feedbackVisibleDict['ALIGNMENT'] ? 'Show comments' : 'Hide comments'}} </a>
+        </td>
+      </tr>
+      <tr class="row" *ngIf="hasFeedbackForAlignment && feedbackVisibleDict['ALIGNMENT']">
+        <th class="col-4" scope="row"></th>
+        <td class="col">
+          <ng-container>
+            <ng-container *ngFor="let item of feedbackUnits; let i = index;">
+              <li *ngIf="item.aspect === 'ALIGNMENT'">
+                {{item.content}}
+                <select name="aspect" (change)="handleSelectChange(i, $event)">
+                  <option value="APPROPRIATENESS">Appropriateness</option>
+                  <option value="EMPHASIS">Emphasis</option>
+                  <option value="ALIGNMENT" selected>Alignment</option>
+                  <option value="HIERARCHY">Hierarchy</option>
+                  <option value="READABILITY">Readability</option>
+                  <option value="CONSISTENCY">Consistency</option>
+                </select>
+              </li>
+            </ng-container>
+
+          </ng-container>
+        </td>
+      </tr>
+      <tr class="row">
+        <th class="col-4" scope="row">Hierarchy</th>
+        <td class="col"><input class="form-check-input" type="radio" [value]="1" formControlName="hierarchy"
+            (click)="handleCheckbox(0, 1, 'HIERARCHY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="2" formControlName="hierarchy"
+            (click)="handleCheckbox(0, 2, 'HIERARCHY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="3" formControlName="hierarchy"
+            (click)="handleCheckbox(0, 3, 'HIERARCHY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="4" formControlName="hierarchy"
+            (click)="handleCheckbox(0, 4, 'HIERARCHY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="5" formControlName="hierarchy"
+            (click)="handleCheckbox(0, 5, 'HIERARCHY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="6" formControlName="hierarchy"
+            (click)="handleCheckbox(0, 6, 'HIERARCHY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="7" formControlName="hierarchy"
+            (click)="handleCheckbox(0, 7, 'HIERARCHY')"></td>
+        <td class="col-3">
+          <a class="feedback-toggle" *ngIf="hasFeedbackForHierarchy" (click)="toggleFeedbackVisiblity('HIERARCHY')">
+            {{!feedbackVisibleDict['HIERARCHY'] ? 'Show comments' : 'Hide comments'}}
+          </a>
+        </td>
+      </tr>
+      <tr class="row" *ngIf="hasFeedbackForHierarchy && feedbackVisibleDict['HIERARCHY']">
+        <th class="col-4" scope="row"></th>
+        <td class="col">
+          <ng-container>
+            <ng-container *ngFor="let item of feedbackUnits; let i = index">
+              <li *ngIf="item.aspect === 'HIERARCHY'">
+                {{item.content}}
+                <br/>
+                <select name="aspect" (change)="handleSelectChange(i, $event)">
+                  <option value="APPROPRIATENESS">Appropriateness</option>
+                  <option value="EMPHASIS">Emphasis</option>
+                  <option value="ALIGNMENT">Alignment</option>
+                  <option value="HIERARCHY" selected>Hierarchy</option>
+                  <option value="READABILITY">Readability</option>
+                  <option value="CONSISTENCY">Consistency</option>
+                </select>
+              </li>
+            </ng-container>
+
+          </ng-container>
+        </td>
+      </tr>
+      <tr class="row">
+        <th class="col-4" scope="row">Consistency</th>
+        <td class="col"><input class="form-check-input" type="radio" [value]="1" formControlName="consistency"
+            (click)="handleCheckbox(0, 1, 'CONSISTENCY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="2" formControlName="consistency"
+            (click)="handleCheckbox(0, 2, 'CONSISTENCY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="3" formControlName="consistency"
+            (click)="handleCheckbox(0, 3, 'CONSISTENCY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="4" formControlName="consistency"
+            (click)="handleCheckbox(0, 4, 'CONSISTENCY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="5" formControlName="consistency"
+            (click)="handleCheckbox(0, 5, 'CONSISTENCY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="6" formControlName="consistency"
+            (click)="handleCheckbox(0, 6, 'CONSISTENCY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="7" formControlName="consistency"
+            (click)="handleCheckbox(0, 7, 'CONSISTENCY')"></td>
+        <td class="col-3">
+          <a class="feedback-toggle" *ngIf="hasFeedbackForConsistency" (click)="toggleFeedbackVisiblity('CONSISTENCY')">
+            {{!feedbackVisibleDict['CONSISTENCY'] ? 'Show comments' : 'Hide comments'}}
+          </a>
+        </td>
+      </tr>
+      <tr class="row" *ngIf="hasFeedbackForConsistency && feedbackVisibleDict['CONSISTENCY']">
+        <th class="col-4" scope="row"></th>
+        <td class="col">
+          <ng-container>
+            <ng-container *ngFor="let item of feedbackUnits; let i = index">
+              <li *ngIf="item.aspect === 'CONSISTENCY'">
+                {{item.content}}
+                <br/>
+                <select name="aspect" (change)="handleSelectChange(i, $event)">
+                  <option value="APPROPRIATENESS">Appropriateness</option>
+                  <option value="EMPHASIS">Emphasis</option>
+                  <option value="ALIGNMENT">Alignment</option>
+                  <option value="HIERARCHY" >Hierarchy</option>
+                  <option value="READABILITY">Readability</option>
+                  <option value="CONSISTENCY" selected>Consistency</option>
+                </select>
+              </li>
+            </ng-container>
+
+          </ng-container>
+        </td>
+      </tr>
+      <tr class="row">
+        <th class="col-4" scope="row">Readability </th>
+        <td class="col"><input class="form-check-input" type="radio" [value]="1" formControlName="readability"
+            (click)="handleCheckbox(0, 1, 'READABILITY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="2" formControlName="readability"
+            (click)="handleCheckbox(0, 2, 'READABILITY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="3" formControlName="readability"
+            (click)="handleCheckbox(0, 3, 'READABILITY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="4" formControlName="readability"
+            (click)="handleCheckbox(0, 4, 'READABILITY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="5" formControlName="readability"
+            (click)="handleCheckbox(0, 5, 'READABILITY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="6" formControlName="readability"
+            (click)="handleCheckbox(0, 6, 'READABILITY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="7" formControlName="readability"
+            (click)="handleCheckbox(0, 7, 'READABILITY')"></td>
+        <td class="col-3">
+          <a class="feedback-toggle" *ngIf="hasFeedbackForReadability" (click)="toggleFeedbackVisiblity('READABILITY')">
+            {{!feedbackVisibleDict['READABILITY'] ? 'Show comments' : 'Hide comments'}}
+          </a>
+        </td>
+      </tr>
+      <tr class="row" *ngIf="hasFeedbackForReadability && feedbackVisibleDict['READABILITY']">
+        <th class="col-4" scope="row"></th>
+        <td class="col">
+          <ng-container>
+            <ng-container *ngFor="let item of feedbackUnits; let i = index">
+              <li *ngIf="item.aspect === 'READABILITY'">
+                {{item.content}}
+                <br/>
+                <select name="aspect" (change)="handleSelectChange(i, $event)">
+                  <option value="APPROPRIATENESS">Appropriateness</option>
+                  <option value="EMPHASIS">Emphasis</option>
+                  <option value="ALIGNMENT">Alignment</option>
+                  <option value="HIERARCHY" >Hierarchy</option>
+                  <option value="READABILITY" selected>Readability</option>
+                  <option value="CONSISTENCY" >Consistency</option>
+                </select>
+              </li>
+            </ng-container>
+          </ng-container>
+        </td>
+      </tr>
+      <tr class="row overall-row">
+        <th class="col-4" scope="row">Overall</th>
+        <td class="col"><input class="form-check-input" type="radio" [value]="1" formControlName="overall"
+            (click)="handleCheckbox(0, 1, 'OVERALL')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="2" formControlName="overall"
+            (click)="handleCheckbox(0, 2, 'OVERALL')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="3" formControlName="overall"
+            (click)="handleCheckbox(0, 3, 'OVERALL')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="4" formControlName="overall"
+            (click)="handleCheckbox(0, 4, 'OVERALL')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="5" formControlName="overall"
+            (click)="handleCheckbox(0, 5, 'OVERALL')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="6" formControlName="overall"
+            (click)="handleCheckbox(0, 6, 'OVERALL')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="7" formControlName="overall"
+            (click)="handleCheckbox(0, 7, 'OVERALL')"></td>
+        <td class="col-3"></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table" formGroupName="secondDesign">
+    <thead>
+      <tr class="row">
+        <th class="col-4" scope="col"></th>
+        <th class="col" scope="col">1</th>
+        <th class="col" scope="col">2</th>
+        <th class="col" scope="col">3</th>
+        <th class="col" scope="col">4</th>
+        <th class="col" scope="col">5</th>
+        <th class="col" scope="col">6</th>
+        <th class="col" scope="col">7</th>
+        <th class="col-3" scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row">
+        <th class="col-4" scope="row">Appropriateness</th>
+        <td class="col"><input class="form-check-input" type="radio" [value]="1" formControlName="appropriateness"
+            (click)="handleCheckbox(1, 1, 'APPROPRIATENESS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="2" formControlName="appropriateness"
+            (click)="handleCheckbox(1, 2, 'APPROPRIATENESS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="3" formControlName="appropriateness"
+            (click)="handleCheckbox(1, 3, 'APPROPRIATENESS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="4" formControlName="appropriateness"
+            (click)="handleCheckbox(1, 4, 'APPROPRIATENESS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="5" formControlName="appropriateness"
+            (click)="handleCheckbox(1, 5, 'APPROPRIATENESS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="6" formControlName="appropriateness"
+            (click)="handleCheckbox(1, 6, 'APPROPRIATENESS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="7" formControlName="appropriateness"
+            (click)="handleCheckbox(1, 7, 'APPROPRIATENESS')"></td>
+        <td class="col-3"></td>
+      </tr>
+      <tr class="row">
+        <th class="col-4" scope="row">Emphasis</th>
+        <td class="col"><input class="form-check-input" type="radio" [value]="1" formControlName="emphasis"
+            (click)="handleCheckbox(1, 1, 'EMPHASIS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="2" formControlName="emphasis"
+            (click)="handleCheckbox(1, 2, 'EMPHASIS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="3" formControlName="emphasis"
+            (click)="handleCheckbox(1, 3, 'EMPHASIS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="4" formControlName="emphasis"
+            (click)="handleCheckbox(1, 4, 'EMPHASIS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="5" formControlName="emphasis"
+            (click)="handleCheckbox(1, 5, 'EMPHASIS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="6" formControlName="emphasis"
+            (click)="handleCheckbox(1, 6, 'EMPHASIS')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="7" formControlName="emphasis"
+            (click)="handleCheckbox(1, 7, 'EMPHASIS')"></td>
+        <td class="col-3"></td>
+      </tr>
+      <tr class="row">
+        <th class="col-4" scope="row">Alignment</th>
+        <td class="col"><input class="form-check-input" type="radio" [value]="1" formControlName="alignment"
+            (click)="handleCheckbox(1, 1, 'ALIGNMENT')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="2" formControlName="alignment"
+            (click)="handleCheckbox(1, 2, 'ALIGNMENT')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="3" formControlName="alignment"
+            (click)="handleCheckbox(1, 3, 'ALIGNMENT')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="4" formControlName="alignment"
+            (click)="handleCheckbox(1, 4, 'ALIGNMENT')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="5" formControlName="alignment"
+            (click)="handleCheckbox(1, 5, 'ALIGNMENT')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="6" formControlName="alignment"
+            (click)="handleCheckbox(1, 6, 'ALIGNMENT')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="7" formControlName="alignment"
+            (click)="handleCheckbox(1, 7, 'ALIGNMENT')"></td>
+        <td class="col-3"></td>
+      </tr>
+      <tr class="row">
+        <th class="col-4" scope="row">Hierarchy</th>
+        <td class="col"><input class="form-check-input" type="radio" [value]="1" formControlName="hierarchy"
+            (click)="handleCheckbox(1, 1, 'HIERARCHY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="2" formControlName="hierarchy"
+            (click)="handleCheckbox(1, 2, 'HIERARCHY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="3" formControlName="hierarchy"
+            (click)="handleCheckbox(1, 3, 'HIERARCHY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="4" formControlName="hierarchy"
+            (click)="handleCheckbox(1, 4, 'HIERARCHY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="5" formControlName="hierarchy"
+            (click)="handleCheckbox(1, 5, 'HIERARCHY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="6" formControlName="hierarchy"
+            (click)="handleCheckbox(1, 6, 'HIERARCHY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="7" formControlName="hierarchy"
+            (click)="handleCheckbox(1, 7, 'HIERARCHY')"></td>
+        <td class="col-3"></td>
+      </tr>
+      <tr class="row">
+        <th class="col-4" scope="row">Consistency</th>
+        <td class="col"><input class="form-check-input" type="radio" [value]="1" formControlName="consistency"
+            (click)="handleCheckbox(1, 1, 'CONSISTENCY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="2" formControlName="consistency"
+            (click)="handleCheckbox(1, 2, 'CONSISTENCY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="3" formControlName="consistency"
+            (click)="handleCheckbox(1, 3, 'CONSISTENCY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="4" formControlName="consistency"
+            (click)="handleCheckbox(1, 4, 'CONSISTENCY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="5" formControlName="consistency"
+            (click)="handleCheckbox(1, 5, 'CONSISTENCY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="6" formControlName="consistency"
+            (click)="handleCheckbox(1, 6, 'CONSISTENCY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="7" formControlName="consistency"
+            (click)="handleCheckbox(1, 7, 'CONSISTENCY')"></td>
+        <td class="col-3"></td>
+      </tr>
+      <tr class="row">
+        <th class="col-4" scope="row">Readability </th>
+        <td class="col"><input class="form-check-input" type="radio" [value]="1" formControlName="readability"
+            (click)="handleCheckbox(1, 1, 'READABILITY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="2" formControlName="readability"
+            (click)="handleCheckbox(1, 2, 'READABILITY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="3" formControlName="readability"
+            (click)="handleCheckbox(1, 3, 'READABILITY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="4" formControlName="readability"
+            (click)="handleCheckbox(1, 4, 'READABILITY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="5" formControlName="readability"
+            (click)="handleCheckbox(1, 5, 'READABILITY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="6" formControlName="readability"
+            (click)="handleCheckbox(1, 6, 'READABILITY')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="7" formControlName="readability"
+            (click)="handleCheckbox(1, 7, 'READABILITY')"></td>
+        <td class="col-3"></td>
+      </tr>
+      <tr class="row overall-row">
+        <th class="col-4" scope="row">Overall</th>
+        <td class="col"><input class="form-check-input" type="radio" [value]="1" formControlName="overall"
+            (click)="handleCheckbox(1, 1, 'OVERALL')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="2" formControlName="overall"
+            (click)="handleCheckbox(1, 2, 'OVERALL')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="3" formControlName="overall"
+            (click)="handleCheckbox(1, 3, 'OVERALL')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="4" formControlName="overall"
+            (click)="handleCheckbox(1, 4, 'OVERALL')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="5" formControlName="overall"
+            (click)="handleCheckbox(1, 5, 'OVERALL')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="6" formControlName="overall"
+            (click)="handleCheckbox(1, 6, 'OVERALL')"></td>
+        <td class="col"><input class="form-check-input" type="radio" [value]="7" formControlName="overall"
+            (click)="handleCheckbox(1, 7, 'OVERALL')"></td>
+        <td class="col-3"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="image-container" *ngIf="isRatingIsLoading">
+  <mat-spinner></mat-spinner>
+</div>
+<!-- <div class="image-container">
+    <button
+        [disabled]="isResultBeingSubmitted"
+        (click)="submitResults()"
+        mat-raised-button color="primary"
+        [style.width]="'100%'">{{
+            !isResultBeingSubmitted ? 'Submit' : 'Loading'
+        }}
+    </button>
+</div> -->
+<div gdColumn class="pagniation-container">
+  <h4>All projects</h4>
+  <div fxLayout="row wrap" width="100%">
+    <div fxFlex="30px" *ngFor="let project of projects; let i = index" class="item"
+      [ngClass]="{ 'current-item': currentIndex === i, 'finished-item': ratedProjects && ratedProjects[project._id]}"
+      (click)="changeIndex(i)">
+
+      <span>{{i + 1}}</span>
+    </div>
+  </div>

@@ -7,9 +7,9 @@
     <mat-card
       *ngIf="!isSlidingView && designs.length === 2 && imageUrls.length === 2"
     >
-      <div mat-card-image gdColumns="1fr 1fr" (click)="openDialog()">
-        <img [src]="imageUrls[0]">
-        <img [src]="imageUrls[1]">
+      <div mat-card-image gdColumns="1fr 1fr" [routerLink]="project._id">
+        <img [src]="imageUrls[0]" class="image-left">
+        <img [src]="imageUrls[1]" class="image-right">
       </div>
       <mat-card-content>
         <mat-chip-list aria-label="Categories">

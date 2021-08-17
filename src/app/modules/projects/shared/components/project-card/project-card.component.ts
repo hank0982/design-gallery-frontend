@@ -28,7 +28,7 @@ export class ProjectCardComponent implements OnInit {
   images: Partial<IImage>[] = [];
 
   get imageUrls() {
-    return this.images.map(x => x.url!);
+    return this.images.map(x => `http://${x.thumbnailUrl!}`);
   }
 
   constructor(

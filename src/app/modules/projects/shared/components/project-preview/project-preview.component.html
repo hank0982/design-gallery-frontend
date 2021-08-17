@@ -1,20 +1,27 @@
 <mat-dialog-content class="content">
-  <h2 mat-dialog-title>{{data.project.name}}</h2>
-  <div gdColumns="200px 1fr 1fr 200px">
-    <div></div>
+  <div gdColumns="1fr 1fr" gdGap="50px" class="previewer-container">
+    <div>
+      <h2 mat-dialog-title>{{project?.name}}</h2>
+
+      Posters designed for DSGN 100 class at UCSD. Meant to convey her charity concert at the Krannert Center on November 29, 2017. Any other design brief description; here, context seems to be the key. What was the focus of the brief?</div>
+    <div>
+      <h2>Tags</h2>
+      <mat-chip-list>
+        <mat-chip *ngFor="let item of tagSet">{{item}}</mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+  <div gdColumns="1fr 1fr" gdGap="50px" class="previewer-container image-viewer">
     <div
-      class="margin-img"
-      *ngFor="let image of data.images"
+      *ngFor="let image of images"
     >
       <img
       width="100%"
       [src]="image.url"
     />
     </div>
-    <div></div>
   </div>
-  <div gdColumns="200px 1fr 200px">
-    <div></div>
+  <div gdColumns="1fr" class="previewer-container">
     <div>
       <mat-expansion-panel *ngFor="let aspect of designAspects">
         <mat-expansion-panel-header>
@@ -27,8 +34,6 @@
         <p>I'm visible because I am open</p>
       </mat-expansion-panel>
     </div>
-
-    <div></div>
   </div>
 </mat-dialog-content>
 

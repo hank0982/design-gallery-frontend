@@ -12,6 +12,7 @@ export interface IRating extends IMongoObject {
     HIERARCHY: number;
     CONSISTENCY: number;
     READABILITY: number;
+    OVERALL: number;
   },
 }
 
