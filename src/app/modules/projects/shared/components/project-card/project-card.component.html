@@ -5,8 +5,18 @@
       [images]="imageUrls">
     </app-image-comparison>
     <mat-card
+      (mouseenter)="showSaveButton = true"
+      (mouseleave)="showSaveButton = false"
       *ngIf="!isSlidingView && designs.length === 2 && imageUrls.length === 2"
     >
+      <mat-chip
+        *ngIf="showSaveButton"
+        class="save-button"
+        [ngClass]="{'saved-button': isSaved}"
+        (click)="clickSave()">
+        <i class="fa fa-folder"></i> &nbsp;
+        {{isSaved ? 'Unsave' : 'Save'}}        
+      </mat-chip>
       <div mat-card-image gdColumns="1fr 1fr" [routerLink]="project._id">
         <img [src]="imageUrls[0]" class="image-left">
         <img [src]="imageUrls[1]" class="image-right">
@@ -16,9 +26,12 @@
           <mat-chip *ngFor="let category of project?.categories">{{category}}</mat-chip>
         </mat-chip-list>
       </mat-card-content>    
-    </mat-card>  
-    <div class="spinner-border m-5" role="status" *ngIf="designs.length === 0">
-      <span class="visually-hidden">Loading...</span>
-    </div>
+    </mat-card> 
+    <mat-card  *ngIf="designs.length === 0">
+      <div class="spinner-border m-5" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </mat-card>
+
  
 </ng-container>

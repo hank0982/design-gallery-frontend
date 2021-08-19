@@ -226,7 +226,6 @@ export class RatingCollectionComponent implements OnInit {
   }
 
   getFeedbackUnitsForAspect(aspect: EDesignAspect | string): IFeedbackUnit[] | undefined {
-    console.log(this.feedbackUnits?.find(x => x.aspect === aspect))
     return this.feedbackUnits?.filter(x => x.aspect === aspect);
   }
 

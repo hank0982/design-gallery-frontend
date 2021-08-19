@@ -23,19 +23,56 @@
         [src]="images[0].url"
       />
       <div class="overall-rating">Overall Rating
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star-o" aria-hidden="true"></i>
-        <i class="fa fa-star-o" aria-hidden="true"></i>
-        <i class="fa fa-star-o" aria-hidden="true"></i>
+        <i
+                  [ngClass]="{
+                    'fa-star-o': getRating('OVERALL') <= 1,
+                    'fa-star': getRating('OVERALL') > 1}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRating('OVERALL') <= 2,
+                    'fa-star': getRating('OVERALL') > 2}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRating('OVERALL') <= 2,
+                    'fa-star': getRating('OVERALL') > 2}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRating('OVERALL') <= 3,
+                    'fa-star': getRating('OVERALL') > 3}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRating('OVERALL') <= 4,
+                    'fa-star': getRating('OVERALL') > 4}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRating('OVERALL') <= 5,
+                    'fa-star': getRating('OVERALL') > 5}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRating('OVERALL') <= 6,
+                    'fa-star': getRating('OVERALL') > 6}"
+                  class="fa" aria-hidden="true">
+                </i>
       </div>
       <div class="overall-rating">Key issues in the initial design</div>
       <div>Below are the issues derived from expert feedback on the initial design</div>
       <div class="key-improment-tags">
         <mat-chip-list >
-          <mat-chip>Pour visual hierarchy</mat-chip>
+          <mat-chip>Poor image editing</mat-chip>
+          <mat-chip>Poor text hierarchy</mat-chip>
+
         </mat-chip-list>
       </div>
     </div>
@@ -46,21 +83,55 @@
         [src]="images[1].url"
       />
       <div class="overall-rating">Overall Rating
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star-o" aria-hidden="true"></i>
-        <i class="fa fa-star-o" aria-hidden="true"></i>
+        <i
+                  [ngClass]="{
+                    'fa-star-o': getRevisedRating('OVERALL') <= 1,
+                    'fa-star': getRevisedRating('OVERALL') > 1}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRevisedRating('OVERALL') <= 2,
+                    'fa-star': getRevisedRating('OVERALL') > 2}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRevisedRating('OVERALL') <= 2,
+                    'fa-star': getRevisedRating('OVERALL') > 2}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRevisedRating('OVERALL') <= 3,
+                    'fa-star': getRevisedRating('OVERALL') > 3}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRevisedRating('OVERALL') <= 4,
+                    'fa-star': getRevisedRating('OVERALL') > 4}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRevisedRating('OVERALL') <= 5,
+                    'fa-star': getRevisedRating('OVERALL') > 5}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRevisedRating('OVERALL') <= 6,
+                    'fa-star': getRevisedRating('OVERALL') > 6}"
+                  class="fa" aria-hidden="true">
+                </i>
       </div>
       <div class="overall-rating">key improvements in the revised design</div>
       <div>Below are the principles that are improved based on expert ratings</div>
       <div class="key-improment-tags">
         <mat-chip-list >
           <mat-chip>Emphasis</mat-chip>
-          <mat-chip>Alignment</mat-chip>
-          <mat-chip>Hierarchy</mat-chip>
+
         </mat-chip-list>
       </div>
 
@@ -81,33 +152,111 @@
   </div>
   <div gdColumns="1fr" class="previewer-container">
     <div>
-      <mat-expansion-panel [class.mat-elevation-z0]="true" *ngFor="let aspect of designPrinciples">
+      <mat-expansion-panel [class.mat-elevation-z0]="true" *ngFor="let aspect of designPrinciples" [hideToggle]="hasFeedbackForAspect(aspect)" >
         <mat-expansion-panel-header>
-          <div gdColumns="150px 1fr 50px 1fr 150px" style="width: 100%;">
+          <div gdColumns="150px 1fr 50px 1fr 145px" style="width: 100%;">
             <span>{{aspect | titlecase}}</span>
             <div>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRating(aspect) <= 1,
+                    'fa-star': getRating(aspect) > 1}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRating(aspect) <= 2,
+                    'fa-star': getRating(aspect) > 2}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRating(aspect) <= 2,
+                    'fa-star': getRating(aspect) > 2}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRating(aspect) <= 3,
+                    'fa-star': getRating(aspect) > 3}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRating(aspect) <= 4,
+                    'fa-star': getRating(aspect) > 4}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRating(aspect) <= 5,
+                    'fa-star': getRating(aspect) > 5}"
+                  class="fa" aria-hidden="true">
+                </i>
+                <i
+                  [ngClass]="{
+                    'fa-star-o': getRating(aspect) <= 6,
+                    'fa-star': getRating(aspect) > 6}"
+                  class="fa" aria-hidden="true">
+                </i>
             </div>
             <div></div>
             <div>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
+              <i
+              [ngClass]="{
+                'fa-star-o': getRevisedRating(aspect) <= 1,
+                'fa-star': getRevisedRating(aspect) > 1}"
+              class="fa" aria-hidden="true">
+            </i>
+            <i
+              [ngClass]="{
+                'fa-star-o': getRevisedRating(aspect) <= 2,
+                'fa-star': getRevisedRating(aspect) > 2}"
+              class="fa" aria-hidden="true">
+            </i>
+            <i
+              [ngClass]="{
+                'fa-star-o': getRevisedRating(aspect) <= 2,
+                'fa-star': getRevisedRating(aspect) > 2}"
+              class="fa" aria-hidden="true">
+            </i>
+            <i
+              [ngClass]="{
+                'fa-star-o': getRevisedRating(aspect) <= 3,
+                'fa-star': getRevisedRating(aspect) > 3}"
+              class="fa" aria-hidden="true">
+            </i>
+            <i
+              [ngClass]="{
+                'fa-star-o': getRevisedRating(aspect) <= 4,
+                'fa-star': getRevisedRating(aspect) > 4}"
+              class="fa" aria-hidden="true">
+            </i>
+            <i
+              [ngClass]="{
+                'fa-star-o': getRevisedRating(aspect) <= 5,
+                'fa-star': getRevisedRating(aspect) > 5}"
+              class="fa" aria-hidden="true">
+            </i>
+            <i
+              [ngClass]="{
+                'fa-star-o': getRevisedRating(aspect) <= 6,
+                'fa-star': getRevisedRating(aspect) > 6}"
+              class="fa" aria-hidden="true">
+            </i>
             </div>
             <div></div>
           </div>
         </mat-expansion-panel-header>
-        <p>I'm visible because I am open</p>
+        <ng-container *ngFor="let item of feedbackUnits">
+          <div *ngIf="item.aspect === aspect" gdColumns="150px 1fr 50px 1fr 145px" style="width: 100%;">
+            <div></div>
+            <div style="padding: 10px">
+              {{item.content}}
+            </div>
+          </div>
+        </ng-container>
+
       </mat-expansion-panel>
     </div>
   </div>

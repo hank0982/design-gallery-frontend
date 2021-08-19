@@ -19,11 +19,18 @@ import { ProjectPreviewComponent } from './shared/components/project-preview/pro
 import { ProjectModalComponent } from './pages/project-modal/project-modal.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSelectModule } from '@angular/material/select';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MyFavoriteComponent } from './pages/my-favorite/my-favorite.component';
+import { ProjectGalleryComponent } from './pages/project-gallery/project-gallery.component';
 
 const routes: Routes = [
   { path: '', component: ProjectsComponent, children: [
-    {path: ':id', component: ProjectModalComponent}
-  ]}
+    { path: '', component: ProjectGalleryComponent },
+    { path: 'my-favorite', component: MyFavoriteComponent },
+    { path: ':id', component: ProjectModalComponent}
+  ]},
 ];
 
 @NgModule({
@@ -31,7 +38,9 @@ const routes: Routes = [
     ProjectsComponent,
     ProjectCardComponent,
     ProjectPreviewComponent,
-    ProjectModalComponent
+    ProjectModalComponent,
+    MyFavoriteComponent,
+    ProjectGalleryComponent
   ],
   entryComponents: [ProjectPreviewComponent],
   imports: [
@@ -41,12 +50,15 @@ const routes: Routes = [
     ColorTwitterModule,
     ReactiveFormsModule,
     MatTabsModule,
+    MatBadgeModule,
     MatSelectModule,
     MatDialogModule,
     MatToolbarModule,
     MatButtonModule,
     MatChipsModule,
     MatCardModule,
+    MatListModule,
+    MatDividerModule,
     MatSidenavModule,
     FormsModule,
     FlexLayoutModule,

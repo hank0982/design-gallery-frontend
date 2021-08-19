@@ -9,6 +9,8 @@ import { ProjectPreviewComponent } from '../project-preview/project-preview.comp
 import { ImagesService } from 'src/app/core/services/apis/images/images.service';
 import { map } from 'rxjs/operators';
 import { IImage } from 'src/app/core/services/models/image.model';
+import { ProjectsService } from 'src/app/core/services/apis/projects/projects.service';
+import { SavedProjectsService } from '../../services/saved-projects/saved-projects.service';
 
 @Component({
   selector: 'app-project-card',
@@ -24,9 +26,13 @@ export class ProjectCardComponent implements OnInit {
   @IsBoolean()
   isSlidingView = false;
 
+  @Input()
+  @IsBoolean()
+  isSaved = false;
+
   designs: IDesign[] = [];
   images: Partial<IImage>[] = [];
-
+  showSaveButton = false;
   get imageUrls() {
     return this.images.map(x => `http://${x.thumbnailUrl!}`);
   }
@@ -34,6 +40,7 @@ export class ProjectCardComponent implements OnInit {
   constructor(
     private designsService: DesignsService,
     private imagesService: ImagesService,
+    private savedProjectsService: SavedProjectsService,
     public dialog: MatDialog,
   ) { }
 
@@ -60,6 +67,18 @@ export class ProjectCardComponent implements OnInit {
       });
     })
   }
+
+  clickSave(): void {
+    if (this.project) {
+      if (!this.isSaved) {
+        this.savedProjectsService.addNewProject(this.project);
+      } else {
+        this.savedProjectsService.removeAddedProject(this.project);
+      }
+    }
+    this.isSaved = !this.isSaved;
+  }
+
   openDialog() {
     const dialogRef = this.dialog.open(
       ProjectPreviewComponent, {

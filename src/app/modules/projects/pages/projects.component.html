@@ -5,182 +5,121 @@
   <span fxFlex="1 1 auto"></span>
   <div fxFlexLayout="row" fxLayoutAlign="space-evenly">
 <!--     <button mat-button>All Projects</button> -->
-    <button mat-button>My Favorite</button>
-    <button mat-button (click)="sidenav.toggle()">My Projects</button>
+    <button mat-button [matBadge]="currentSavedProjectNumber$ | async" matBadgeOverlap matBadgeColor="warn" [routerLink]="['/gallery/my-favorite']">My Favorites</button>
+    <button mat-button (click)="sidenav.open()">My Reflection</button>
   </div>
 </mat-toolbar>
 <mat-sidenav-container>
-  <mat-sidenav 
-    #sidenav
-    gdColumns="1fr"
-    mode="push"
-    position="end"
-    class="sidenav">
-    <div>Your design</div>
-    <img src="https://fakeimg.pl/230x330/"/>
-    <div>Reflection</div>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod placerat ipsum, at interdum neque gravida ac. Integer pharetra vestibulum commodo. In vestibulum volutpat nisl. Nullam vel interdum odio, ut rhoncus metus. Duis diam ex, pellentesque sed nulla et, vulputate efficitur nisi. Morbi vitae lacus vitae lacus elementum rhoncus sed eget ligula. Quisque eu dolor magna. Sed a pulvinar arcu, in viverra ex. In non tellus fringilla arcu placerat laoreet dictum in urna. Donec eu ex convallis, pharetra arcu sit amet, pellentesque tortor. Phasellus in ex arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent sed fermentum metus. Aliquam quam lorem, suscipit ac risus nec, fermentum luctus arcu. Vivamus sagittis placerat tellus ac faucibus.</p>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <div class="filters">
-    <div class="filter-title">Apply Filters</div>
-    <div class="filter-header">  
-      <div class="sub-title">Filter by Design Critiques</div>
-      <div class="sub-description">
-         Find projects that receive the following  critiques on the initial draft.
-      </div>
-    </div>
-    <div *ngFor="let principle of designPrinciples">
-      <mat-expansion-panel [class.mat-elevation-z0]="true">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{principle | titlecase}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-<!--         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="">
-          <label class="form-check-label" >
-            View improved examples
-          </label>
+
+<mat-sidenav 
+  #sidenav
+  gdColumns="1fr"
+  mode="push"
+  position="end"
+  class="sidenav">
+  
+  <div class="container">
+        
+    <div class="reflection-title">My Reflection</div>
+    <div><img width="100%" src="http://crowdsight.web.engr.illinois.edu/interpretation/design/s3_p2_v2_d13_flye.png"/></div>
+  
+
+    <div class="side-section" style="margin-top: 20px; text-align: center;">
+        <table style="text-align: right;" width="100%">
+          <tr style="text-align: center"><td></td><td>My Ratings</td><td>Potential Issues</td></tr>
+          <tr><td>Appropriateness</td>
+              <td>&nbsp;&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>
+              </td>
+
+            </tr>
+          <tr><td>Emphasis</td>
+              <td>&nbsp;&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star-o" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star-o" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+              </td>
+              <td>
+                Show Details
+              </td>
+            </tr>
+          <tr><td>Hierarchy</td>
+            <td>&nbsp;&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star-o" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+              </td>
+              <td>
+                Show Details
+              </td></tr>
+          <tr><td>Alignment</td>
+          <td>&nbsp;&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>
+              </td></tr>
+          <tr><td>Consistency</td>
+          <td>&nbsp;&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star-o" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star-o" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star-o" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+              </td>
+              <td>
+                Show Details
+              </td></tr>
+          <tr><td>Readability</td>
+          <td>&nbsp;&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+              </td>
+              <td>
+                Show Details
+              </td></tr>
+        </table>
    
-        <hr/>
-      <div/> --->
-        <div [ngSwitch]="principle">
-          <div *ngSwitchCase="'APPROPRIATENESS'">
-            <div class="form-check" *ngFor="let item of appropriatenessSubtopics">
-              <input class="form-check-input" type="checkbox" value="item">
-              <label class="form-check-label" >
-               {{item}}
-              </label>
-            </div>
-          </div>
-          <div *ngSwitchDefault>output2</div>
-        </div>
+     </div>    
 
-      </mat-expansion-panel>
-    </div>
-    <div class="filter-header">
-      <div class="sub-title">Filter by Design Attributes </div>
-      <div class="sub-description">
-        What project contents would you like to see more of?
-      </div>
-    </div>
-      <mat-expansion-panel [class.mat-elevation-z0]="true">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Categories
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="form-check" *ngFor="let filter of categoryFilters">
-          <input class="form-check-input" type="checkbox" value="" id="category-{{filter}}" (change)="categoryChange($event, filter)">
-          <label class="form-check-label" for="category-{{filter}}">
-            {{ filter }}
-          </label>
-        </div>
-      </mat-expansion-panel>
-      <mat-expansion-panel [class.mat-elevation-z0]="true">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Text Proportion
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="form-check" *ngFor="let filter of textProportion; let i = index" >
-          <input class="form-check-input" type="checkbox" value="" id="amountOfText-{{filter}}" (change)="amountOfTextChange($event, i)">
-          <label class="form-check-label" for="amountOfText-{{filter}}">
-            {{ filter }}
-          </label>
-        </div>
-      </mat-expansion-panel>
-     <!--  <mat-expansion-panel [class.mat-elevation-z0]="true">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Text Quantity
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="form-check" *ngFor="let filter of textQuantity; let i = index" >
-          <input class="form-check-input" type="checkbox" value="" id="textQuantity-{{filter}}" (change)="textQuantityChange($event, i)">
-          <label class="form-check-label" for="textQuantity-{{filter}}">
-            {{ filter }}
-          </label>
-        </div>
-      </mat-expansion-panel> -->
-      <mat-expansion-panel [class.mat-elevation-z0]="true">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Dominant Color
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <color-twitter 
-          [colors]="colors"
-          disableAlpha="true"
-          (colorChange)="changeColor($event)"
-          width="270"
-          triangle="hide">
-        </color-twitter>
-      </mat-expansion-panel>
-      <mat-expansion-panel [class.mat-elevation-z0]="true">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Image Usage
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="form-check" *ngFor="let filter of imageUsage; let i = index" >
-          <input class="form-check-input" type="checkbox" value="" id="imageUsage-{{filter}}" (change)="imageUsageChange($event, filter)">
-          <label class="form-check-label" for="imageUsage-{{filter}}">
-            {{ filter | titlecase }}
-          </label>
-        </div>
-      </mat-expansion-panel>
-  </div>
-  
-  <div
-    gdColumns="300px 1fr"
-    infiniteScroll
-    [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="1000"
-    (scrolled)="onScroll()"
-    class="projects-page">
-    <div></div>
-    <div class="projects-container">
-      <div class="applied-filters" gdColumns="140px 1fr" gdGap="50px">
-        <span>Applied Filters</span>
-        <mat-chip-list>
-          <mat-chip *ngFor="let tag of currentFilters">
-            {{tag}}
-          </mat-chip>
-        </mat-chip-list>
+     <div class="side-section" style="margin-top: 20px">
+        <div class="reflection-subtitle">Principle(s) that were executed well in my design.</div>
+        <div style="text-align: left">I think my design delivers a clear message that this is a Jazz concert and it happens at night. I also believe that the yellow text gows pretty well with the blue background. All the information is easy to read due to the high contrast. </div>
+      
+     </div>    
 
-      </div>
 
-      <div class="applied-filters" gdColumns="140px 300px 100px 170px">
-        <span>Sort by</span>
-        <mat-select [value]="'None'">
-          <mat-option [value]="'None'">-- None --</mat-option>
-          <mat-option [value]="'FDQ'">Final design quality</mat-option>
-          <mat-option [value]="'DOI'">Degree of improvement</mat-option>
-        </mat-select>
-        <span>On</span>
-        <mat-select [value]="'None'">
-          <mat-option [value]="'None'">-- None --</mat-option>
-          <mat-option *ngFor="let item of designPrinciples" [value]="item | titlecase">
-            {{item | titlecase}}
-          </mat-option>
-        </mat-select>
 
-      </div>
-      <hr/>
-      <div 
-        gdColumns.gt-lg="1fr 1fr 1fr"
-        gdColumns.lg="1fr 1fr 1fr"
-        gdColumns.md="1fr 1fr"
-        gdGap="70px" >
-      <div *ngFor="let project of projects" gdColumn>
-        <app-project-card [project]="project"></app-project-card>
-      </div>
-      </div>
-  
-    </div>
-  </div>
+</div>
+
+
+</mat-sidenav>
+<mat-sidenav-content>
   <router-outlet></router-outlet>
-  </mat-sidenav-content>
+
+</mat-sidenav-content>
 </mat-sidenav-container>
