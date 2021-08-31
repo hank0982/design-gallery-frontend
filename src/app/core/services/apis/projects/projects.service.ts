@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Type } from '@angular/core';
 import { IsArray, IsBoolean, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { EDesignAspect } from '../../models/design-aspect.enum';
 import { EDesignImageUsages } from '../../models/design.model';
 import { IFeedbackUnit } from '../../models/feedback-unit.model';
@@ -14,9 +14,15 @@ import { IRating } from '../../models/rating.model';
 })
 export class ProjectsService {
   constructor(private http: HttpClient) { }
-
+  private projectCache: {
+    [id: string]: IProject
+  } = {};
   fetchProjectById(id: string) {
-    return this.http.get<IProject>(`api/projects/${id}`);
+    if (id in this.projectCache) {
+      return of(this.projectCache[id])
+    } else {
+      return this.http.get<IProject>(`api/projects/${id}`).pipe(tap(x => this.projectCache[x._id] = x));
+    }
   }
 
   fetchAllProjects(skip: number = 0, limit: number = 10, projectFilter?: ProjectFilterDto): Observable<IPagination<IProject>> {
@@ -40,6 +46,11 @@ export class ProjectsService {
       projectListApi = projectListApi + `${
         projectFilter.imageUsage.length > 0 ?
         '&imageUsage='+projectFilter.imageUsage?.map(g => `${g}`).join(',') : ''}`;
+    }
+    if (projectFilter?.subaspects?.length) {
+      projectListApi = projectListApi + `${
+        projectFilter.subaspects.length > 0 ?
+        '&subaspects='+projectFilter.subaspects?.map(g => `${g}`).join(',') : ''}`;
     }
     if (projectFilter?.dominantColor) {
       projectListApi = projectListApi + `${'&dominantColor='+projectFilter.dominantColor.slice(1)}`;

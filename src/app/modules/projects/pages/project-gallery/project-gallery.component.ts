@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { plainToClass } from 'class-transformer';
 import { HSLA, HSVA, RGBA } from 'ngx-color';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 import { DesignsService } from 'src/app/core/services/apis/designs/designs.service';
 import { ProjectsService, ProjectFilterDto } from 'src/app/core/services/apis/projects/projects.service';
 import { EDesignAspect } from 'src/app/core/services/models/design-aspect.enum';
 import { EDesignImageUsages, IDesign } from 'src/app/core/services/models/design.model';
 import { IProject } from 'src/app/core/services/models/project.model';
+import { ProjectListService } from '../../shared/services/project-list/project-list.service';
 import { SavedProjectsService } from '../../shared/services/saved-projects/saved-projects.service';
 
 @Component({
@@ -32,42 +33,51 @@ export class ProjectGalleryComponent implements OnInit {
     'Inappropriate image'
   ];
   readonly consistencySubtopics = [
-    'Too many colors',
+    'Incohesive font choices',
+    'Incohesive visual elements',
     'Too many fonts',
+    'Incohesive color choices', 
+    'Incohesive visual elements',
     'Lacks color variety',
-    'Lacks font variety', 
-    'Inconsistent style'
+    'Too many colors'
   ];
   readonly hierarchySubtopics = [
-    'Unbalanced composition',
-    'Poor element arrangement',
-    'Unclear visual flow',
-    'Unclear point of entry', 
-    'Lack of font style variation', 
+    'Poor content proportion',
+    'Poor element arrangement', 
+    'Unclear visual flow', 
+    'Lacks typographic hierarchy'
   ];
   readonly emphasisSubtopics = [
-    'Lacks visual weight',
-    'Poor visual relationship',
     'Weak info highlighting',
+    'Weak point of entry',
     'Poor color contrast',
-    'Poor font selection',
-    'Contains distracting elements'
+    'Competing focal points',
+    'Lacks visual weight',
   ]
   readonly readabilitySubtopics = [
-    'Poor text spacing',
-    'Poor contrast between elements',
-    'Inappropriate text size',
-    'Confusing text placement',
-    'Low resolution',
-    'Difficult to read font'
+    'Low contrast between text and background',
+    'Poor image editing',
+    'Improper letter spacing',
+    'Distracting font effects',
+    'Wordy sentences',
+    'Difficult to read font',
+    'Poor image quality',
+    'Awkward sentence break',
+    'Improper font stretching',
+    'Improper line spacing',
+    'Font too small'
   ]
   readonly alignmentSubtopics = [
-    'Inconsistent text alignment',
-    'Inconsistent element alignment',
+    'Poor white space usage',
+    'Improper image text overlay',
+    'Lacks content alignment',
+    'Uneven margin',
     'Odd image cutoff',
-    'Inconsistent space between elements',
-    'Too close to the border'
-
+    'Too close to the border',
+    'Inconsistent text alignment',
+    'Improper text alignment',
+    'Inconsistent element alignment',
+    'Awkward element alignment'
   ]
   currentFilters: string[] = [];
 
@@ -80,10 +90,11 @@ export class ProjectGalleryComponent implements OnInit {
   mainColorFilter: string = '';
   isEvent: boolean = false;
   previousProjectSkip = 0;
-
+  selectedSubaspects: string[] = [];
   designPrinciples = [...Object.values(EDesignAspect).filter(x => x!==EDesignAspect.OVERALL)];
   designPrinciplesWithOverall = [...Object.values(EDesignAspect).filter(x => x!==EDesignAspect.OVERALL), EDesignAspect.OVERALL];
 
+  private subscriptions: Subscription[] = [];
   get currentSavedProjectNumber$() {
     return this.savedProjectsService.currentSavedProjectsBS.asObservable().pipe(map(x => x.length));
   }
@@ -91,16 +102,33 @@ export class ProjectGalleryComponent implements OnInit {
   constructor(
     private savedProjectsService: SavedProjectsService,
     private designService: DesignsService,
-    private projectService: ProjectsService
+    private projectListService: ProjectListService,
   ) { }
   
   ngOnInit(): void {
-    this.projectService.fetchAllProjects(0, 10).subscribe(projects => this.projects = projects.results);
-    this.previousProjectSkip = 10;
+    this.subscriptions.push(
+      this.projectListService.currentProjectsBS.subscribe(x => this.projects = x)
+    );
+    this.projectListService.init();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(x => x.unsubscribe());
   }
 
   fetchDesign(designId: string): Observable<IDesign> {
     return this.designService.fetchDesignById(designId).pipe(first())
+  }
+
+  subaspectChange(e: Event, subaspect: string) {
+    if ((e.target as HTMLInputElement).checked) {
+      if (!(subaspect in this.selectedSubaspects)) {
+        this.selectedSubaspects.push(subaspect);
+      }
+    } else {
+      this.selectedSubaspects = this.selectedSubaspects.filter(x => x !== subaspect);
+    }
+    this.updateCurrentProject();
   }
 
   categoryChange(e: Event, category: string) {
@@ -155,16 +183,12 @@ export class ProjectGalleryComponent implements OnInit {
   }
 
   onScroll() {
-    const filters = this.getCurrentFilters();
-    this.projectService.fetchAllProjects(this.previousProjectSkip, 10, filters).subscribe(projects => this.projects = this.projects.concat(projects.results))
-    this.previousProjectSkip = this.previousProjectSkip + 10 ;
+    this.projectListService.updateCurrentProject();
   }
 
   private updateCurrentProject() {
     const filters = this.getCurrentFilters();
-    this.projects = [];
-    this.projectService.fetchAllProjects(0, 10, filters).subscribe(projects => this.projects = projects.results)
-    this.previousProjectSkip = 10;
+    this.projectListService.updateCurrentFilters(filters);
     this.currentFilters = this.generateCurrentAppliedFilters();
   }
 
@@ -174,7 +198,8 @@ export class ProjectGalleryComponent implements OnInit {
       textProportion: this.textProportionFilter,
       mainColor: this.mainColorFilter,
       textQuantity: this.textQuantityFilter,
-      imageUsage: this.imageUsageFilter
+      imageUsage: this.imageUsageFilter,
+      subaspects: this.selectedSubaspects
     })
     return projectFilterDto;
   }
@@ -185,6 +210,7 @@ export class ProjectGalleryComponent implements OnInit {
     this.textQuantityFilter.forEach(x => filterTags.push(`Text Quantity: ${this.textQuantity[this.textQuantity.length - x - 1]}`));
     this.textProportionFilter.forEach(x => filterTags.push(`Text Proportion: ${this.textProportion[this.textProportion.length - x - 1]}`));
     this.imageUsageFilter.forEach(x => filterTags.push('Image Usage: ' + String(x).toLowerCase()));
+    this.selectedSubaspects.forEach(x => filterTags.push('Subaspects: ' + x));
     if (this.mainColorFilter) {
       filterTags.push(`Dominant Color: ${this.mainColorFilter}`);
     }

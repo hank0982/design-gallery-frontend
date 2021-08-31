@@ -8,7 +8,7 @@ export interface IFeedbackUnit extends IMongoObject{
   content: string;
   aspect: EDesignAspect;
   subaspect: string;
-  isPositive: boolean;
+  sentiment: 'NEUTRAL' | 'POSITIVE' | 'NEGATIVE';
   addressed: boolean;
 }
 
@@ -31,6 +31,6 @@ export class CreateFeedbackUnitDto {
   @IsBoolean()
   addressed!: boolean;
 
-  @IsBoolean()
-  isPositive!: boolean;
+  @IsString()
+  sentiment!: 'NEUTRAL' | 'POSITIVE' | 'NEGATIVE';
 }

@@ -154,7 +154,7 @@ export class MetadataCollectionComponent implements OnInit {
           feedbackProviderId: this.raterId!,
           content: control.get('feedback')!.value,
           aspect: this.currentPrinciple,
-          isPositive: Number(this.firstDesignForm!.get('rating')!.value) >= 3,
+          sentiment: 'NEUTRAL',
           addressed: (this.thirdDesignForm.get('addressed') as FormArray)!.controls[index].value,
           subaspect: control.get('subprinciple')!.value,
         }).toPromise();

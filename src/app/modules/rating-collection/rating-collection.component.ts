@@ -48,6 +48,70 @@ export class RatingCollectionComponent implements OnInit {
 
   };
 
+  appropriateSubaspects = [
+    'Misleading concept',
+    'Improper color theme',
+    'Confusing visual element',
+    'Unclear message',
+    'Not visually enticing',
+    'Inappropriate text phrasing',
+    'Copyright permission',
+    'Missing key info',
+    'Unclear audience',
+    'Irrelevant elements'
+  ]
+
+  emphasisSubaspects = [
+    'Weak info highlighting',
+    'Weak point of entry',
+    'Poor color contrast',
+    'Competing focal points',
+    'Lacks visual weight'
+  ]
+
+  hierarchySubaspects = [
+    'Lacks typographic hierarchy',
+    'Unclear visual flow',
+    'Poor element arrangement',
+    'Poor content proportion'
+  ]
+
+  consistencySubaspects = [
+    'Incohesive font choices',
+    'Incohesive visual elements',
+    'Too many fonts',
+    'Incohesive color choices',
+    'Incohesive visual elements',
+    'Lacks color variety',
+    'Too many colors'
+  ]
+
+  readabilitySubaspects = [
+    'Low contrast between text and background',
+    'Poor image editing',
+    'Improper letter spacing',
+    'Distracting font effects',
+    'Wordy sentences',
+    'Difficult to read font',
+    'Font too small',
+    'Poor image quality',
+    'Awkward sentence break',
+    'Improper font stretching',
+    'Improper line spacing'
+  ]
+
+  alignmentSubaspects = [
+    'Poor white space usage',
+    'Improper image text overlay',
+    'Lacks content alignment',
+    'Uneven margin',
+    'Odd image cutoff',
+    'Too close to the border',
+    'Inconsistent text alignment',
+    'Improper text alignment',
+    'Inconsistent element alignment',
+    'Awkward element alignment'
+  ]
   get raterId() {
     const raterId = this.route.snapshot.paramMap.get('id');
     return raterId;
@@ -234,6 +298,15 @@ export class RatingCollectionComponent implements OnInit {
       this.feedbackUnits[index].aspect = (event as any).target.value;
       this.feedbackUnitsService.updateFeedbackUnit(this.feedbackUnits[index]._id, {
         aspect: this.feedbackUnits[index].aspect
+      }).subscribe();
+      this.feedbackUnits = [...this.feedbackUnits];
+    }
+  }
+  handleSubaspectSelectChange(index: number, event: Event) {
+    if (this.feedbackUnits && this.feedbackUnits[index]) {
+      this.feedbackUnits[index].subaspect = (event as any).target.value;
+      this.feedbackUnitsService.updateFeedbackUnit(this.feedbackUnits[index]._id, {
+        subaspect: this.feedbackUnits[index].subaspect
       }).subscribe();
       this.feedbackUnits = [...this.feedbackUnits];
     }

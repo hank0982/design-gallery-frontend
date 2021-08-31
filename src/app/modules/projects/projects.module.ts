@@ -24,12 +24,16 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MyFavoriteComponent } from './pages/my-favorite/my-favorite.component';
 import { ProjectGalleryComponent } from './pages/project-gallery/project-gallery.component';
+import { SavedProjectRowComponent } from './shared/components/saved-project-row/saved-project-row.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 const routes: Routes = [
   { path: '', component: ProjectsComponent, children: [
-    { path: '', component: ProjectGalleryComponent },
     { path: 'my-favorite', component: MyFavoriteComponent },
-    { path: ':id', component: ProjectModalComponent}
+    { path: '', component: ProjectGalleryComponent, children: [
+      { path: ':id', component: ProjectModalComponent}
+    ]},
   ]},
 ];
 
@@ -40,12 +44,15 @@ const routes: Routes = [
     ProjectPreviewComponent,
     ProjectModalComponent,
     MyFavoriteComponent,
-    ProjectGalleryComponent
+    ProjectGalleryComponent,
+    SavedProjectRowComponent
   ],
   entryComponents: [ProjectPreviewComponent],
   imports: [
     CommonModule,
+    MatInputModule,
     InfiniteScrollModule,
+    MatFormFieldModule,
     MatExpansionModule,
     ColorTwitterModule,
     ReactiveFormsModule,

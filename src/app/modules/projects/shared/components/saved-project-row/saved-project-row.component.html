@@ -1,0 +1,37 @@
+<div gdColumns=" 300px 200px 1fr" class="wrapper"  gdGap="30px">     
+    <div gdColumns="1fr 1fr">
+        <img [src]="imageUrls[0]" class="image-left">
+        <img [src]="imageUrls[1]" class="image-right">
+    </div>
+    <div>
+        <h3>{{project?.name}}</h3>
+        <p>{{project?.description}}</p>
+    </div>
+    <div>
+
+        <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Why did this example pique your interest? </mat-label>
+            <textarea  matInput placeholder="Placeholder"></textarea>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>What design principle(s) do you believe were implemented particularly well in this example? Why?</mat-label>
+            <textarea  matInput placeholder="Placeholder"></textarea>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>What principle(s) do you believe the example still need to work on? Why? </mat-label>
+            <textarea  matInput placeholder="Placeholder"></textarea>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>What did you learn from the feedback in the example (if feedback was available)?</mat-label>
+            <textarea  matInput placeholder="Placeholder"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>From this example, what actions could you take to improve your own design?</mat-label>
+            <textarea  matInput placeholder="Placeholder"></textarea>
+        </mat-form-field>
+    </div>
+
+</div>

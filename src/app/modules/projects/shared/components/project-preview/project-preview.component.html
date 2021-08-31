@@ -70,8 +70,10 @@
       <div>Below are the issues derived from expert feedback on the initial design</div>
       <div class="key-improment-tags">
         <mat-chip-list >
-          <mat-chip>Poor image editing</mat-chip>
-          <mat-chip>Poor text hierarchy</mat-chip>
+          <ng-container *ngFor="let item of feedbackUnits">
+            <mat-chip *ngIf="item.subaspect">{{item.subaspect}}</mat-chip>
+
+          </ng-container>
 
         </mat-chip-list>
       </div>

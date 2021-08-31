@@ -91,7 +91,7 @@ export class ProjectCardComponent implements OnInit {
         width: '90%',
         maxHeight: '100%',
         height: '100%',
-        backdropClass: 'black-backdrop'
+        backdropClass: 'black-backdrop'  
       }
     );
   }

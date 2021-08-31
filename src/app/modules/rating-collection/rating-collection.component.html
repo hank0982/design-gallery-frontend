@@ -57,6 +57,13 @@
                   <option value="READABILITY">Readability</option>
                   <option value="CONSISTENCY">Consistency</option>
                 </select>
+                <br/>
+                <select name="subaspect" *ngIf="item.sentiment !== 'POSITIVE'" (change)="handleSubaspectSelectChange(i, $event)">
+                  <option 
+                    *ngFor="let subaspect of appropriateSubaspects"
+                    [value]="subaspect"
+                    [selected]="item.subaspect===subaspect">{{subaspect}}</option>
+                </select>
               </li>
             </ng-container>
 
@@ -100,6 +107,13 @@
                   <option value="READABILITY">Readability</option>
                   <option value="CONSISTENCY">Consistency</option>
                 </select>
+                <br/>
+                <select name="subaspect" *ngIf="item.sentiment !== 'POSITIVE'" (change)="handleSubaspectSelectChange(i, $event)">
+                  <option 
+                    *ngFor="let subaspect of emphasisSubaspects"
+                    [value]="subaspect"
+                    [selected]="item.subaspect===subaspect">{{subaspect}}</option>
+                </select>
               </li>
             </ng-container>
 
@@ -141,6 +155,13 @@
                   <option value="HIERARCHY">Hierarchy</option>
                   <option value="READABILITY">Readability</option>
                   <option value="CONSISTENCY">Consistency</option>
+                </select>
+                <br/>
+                <select name="subaspect" *ngIf="item.sentiment !== 'POSITIVE'" (change)="handleSubaspectSelectChange(i, $event)">
+                  <option 
+                    *ngFor="let subaspect of alignmentSubaspects"
+                    [value]="subaspect"
+                    [selected]="item.subaspect===subaspect">{{subaspect}}</option>
                 </select>
               </li>
             </ng-container>
@@ -186,6 +207,13 @@
                   <option value="READABILITY">Readability</option>
                   <option value="CONSISTENCY">Consistency</option>
                 </select>
+                <br/>
+                <select name="subaspect" *ngIf="item.sentiment !== 'POSITIVE'" (change)="handleSubaspectSelectChange(i, $event)">
+                  <option 
+                    *ngFor="let subaspect of hierarchySubaspects"
+                    [value]="subaspect"
+                    [selected]="item.subaspect===subaspect">{{subaspect}}</option>
+                </select>
               </li>
             </ng-container>
 
@@ -230,6 +258,13 @@
                   <option value="READABILITY">Readability</option>
                   <option value="CONSISTENCY" selected>Consistency</option>
                 </select>
+                <br/>
+                <select name="subaspect" *ngIf="item.sentiment !== 'POSITIVE'" (change)="handleSubaspectSelectChange(i, $event)">
+                  <option 
+                    *ngFor="let subaspect of consistencySubaspects"
+                    [value]="subaspect"
+                    [selected]="item.subaspect===subaspect">{{subaspect}}</option>
+                </select>
               </li>
             </ng-container>
 
@@ -273,6 +308,13 @@
                   <option value="HIERARCHY" >Hierarchy</option>
                   <option value="READABILITY" selected>Readability</option>
                   <option value="CONSISTENCY" >Consistency</option>
+                </select>
+                <br/>
+                <select name="subaspect" *ngIf="item.sentiment !== 'POSITIVE'" (change)="handleSubaspectSelectChange(i, $event)">
+                  <option 
+                    *ngFor="let subaspect of readabilitySubaspects"
+                    [value]="subaspect"
+                    [selected]="item.subaspect===subaspect">{{subaspect}}</option>
                 </select>
               </li>
             </ng-container>
