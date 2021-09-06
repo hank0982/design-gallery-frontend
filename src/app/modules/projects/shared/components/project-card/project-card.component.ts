@@ -12,6 +12,7 @@ import { IImage } from 'src/app/core/services/models/image.model';
 import { ProjectsService } from 'src/app/core/services/apis/projects/projects.service';
 import { SavedProjectsService } from '../../services/saved-projects/saved-projects.service';
 
+
 @Component({
   selector: 'app-project-card',
   templateUrl: './project-card.component.html',
@@ -66,6 +67,8 @@ export class ProjectCardComponent implements OnInit {
         this.images = images;
       });
     })
+
+
   }
 
   clickSave(): void {

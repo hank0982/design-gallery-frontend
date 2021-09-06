@@ -25,6 +25,15 @@
         <mat-chip-list aria-label="Categories">
           <mat-chip *ngFor="let category of project?.categories">{{category}}</mat-chip>
         </mat-chip-list>
+
+<!--         <mat-chip-list >
+          <ng-container *ngFor="let item of feedbackUnits">
+            <mat-chip *ngIf="item.subaspect">{{item.subaspect}}</mat-chip>
+          </ng-container>
+        </mat-chip-list>
+ -->
+
+
       </mat-card-content>    
     </mat-card> 
     <mat-card  *ngIf="designs.length === 0">
