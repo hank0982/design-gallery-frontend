@@ -6,11 +6,13 @@ import { DesignsService } from 'src/app/core/services/apis/designs/designs.servi
 import { FeedbackUnitsService } from 'src/app/core/services/apis/feedback-units/feedback-units.service';
 import { ImagesService } from 'src/app/core/services/apis/images/images.service';
 import { ProjectsService } from 'src/app/core/services/apis/projects/projects.service';
+import { RatingsService } from 'src/app/core/services/apis/ratings/ratings.service';
 import { EDesignAspect } from 'src/app/core/services/models/design-aspect.enum';
 import { IDesign } from 'src/app/core/services/models/design.model';
 import { IFeedbackUnit } from 'src/app/core/services/models/feedback-unit.model';
 import { IImage } from 'src/app/core/services/models/image.model';
 import { IProject } from 'src/app/core/services/models/project.model';
+import { IRating } from 'src/app/core/services/models/rating.model';
 import { RateToTextService } from 'src/app/core/services/rate-to-text/rate-to-text.service';
 
 @Component({
@@ -23,26 +25,35 @@ export class ProjectPreviewComponent implements OnInit {
   tagSet: Set<string> = new Set([]);
 
   designs: IDesign[] = [];
+  ratings: IRating[][] = [];
   images: Partial<IImage>[] = [];
   project: IProject | undefined;
   feedbackUnits: IFeedbackUnit[] = [];
-
+  subaspectSetValues: string[] = [];
+  private calculateAvg(nums: number[]) {
+    var sum = 0;
+    for( var i = 0; i < nums.length; i++ ){
+        sum +=  nums[i]; //don't forget to add the base
+    }
+    var avg = sum/nums.length;
+    return avg;
+  }
   getRating(aspect: EDesignAspect | string) {
     switch (aspect) {
       case EDesignAspect.ALIGNMENT:
-        return 5
+        return this.calculateAvg(this.ratings[0].map(x => x.rating.ALIGNMENT));
       case EDesignAspect.APPROPRIATENESS:
-        return 5
+        return this.calculateAvg(this.ratings[0].map(x => x.rating.APPROPRIATENESS));
       case EDesignAspect.EMPHASIS:
-        return 4
+        return this.calculateAvg(this.ratings[0].map(x => x.rating.EMPHASIS));
       case EDesignAspect.CONSISTENCY:
-        return 4
+        return this.calculateAvg(this.ratings[0].map(x => x.rating.CONSISTENCY));
       case EDesignAspect.HIERARCHY:
-        return 3
+        return this.calculateAvg(this.ratings[0].map(x => x.rating.HIERARCHY));
       case EDesignAspect.READABILITY:
-        return 4
+        return this.calculateAvg(this.ratings[0].map(x => x.rating.READABILITY));
       case EDesignAspect.OVERALL:
-        return 4
+        return this.calculateAvg(this.ratings[0].map(x => x.rating.OVERALL));
       default:
         break;
     }
@@ -51,19 +62,19 @@ export class ProjectPreviewComponent implements OnInit {
   getRevisedRating(aspect: EDesignAspect | string) {
     switch (aspect) {
       case EDesignAspect.ALIGNMENT:
-        return 6
+        return this.calculateAvg(this.ratings[1].map(x => x.rating.ALIGNMENT));
       case EDesignAspect.APPROPRIATENESS:
-        return 5
+        return this.calculateAvg(this.ratings[1].map(x => x.rating.APPROPRIATENESS));
       case EDesignAspect.EMPHASIS:
-        return 6
+        return this.calculateAvg(this.ratings[1].map(x => x.rating.EMPHASIS));
       case EDesignAspect.CONSISTENCY:
-        return 5
+        return this.calculateAvg(this.ratings  [1].map(x => x.rating.CONSISTENCY));
       case EDesignAspect.HIERARCHY:
-        return 4
+        return this.calculateAvg(this.ratings[1].map(x => x.rating.HIERARCHY));
       case EDesignAspect.READABILITY:
-        return 5
+        return this.calculateAvg(this.ratings[1].map(x => x.rating.READABILITY));
       case EDesignAspect.OVERALL:
-        return 5
+        return this.calculateAvg(this.ratings[1].map(x => x.rating.OVERALL));
       default:
         break;
     }
@@ -76,8 +87,10 @@ export class ProjectPreviewComponent implements OnInit {
     private designsService: DesignsService,
     private imagesService: ImagesService,
     private projectsService: ProjectsService,
-    private feedbackUnitsService: FeedbackUnitsService
+    private feedbackUnitsService: FeedbackUnitsService,
+    private ratingsService: RatingsService,
   ) { }
+
 
   ngOnInit(): void {
     if (this.data.id) {
@@ -87,8 +100,16 @@ export class ProjectPreviewComponent implements OnInit {
           return this.designsService.fetchDesignById(designId)
         })).pipe(mergeMap(designs => {
           this.designs = designs;
+          this.designs.sort((a, b) => a.version - b.version)
+          forkJoin(
+            this.designs.map(design => {
+              return this.ratingsService.fetchRatingByDesignId(design._id)
+            })
+          ).subscribe(ratings => this.ratings = ratings.map(r => r.results))
+          
           this.feedbackUnitsService.fetchFeedbackUnits({designId: designs[0]._id}).subscribe(x => {
             this.feedbackUnits = x;
+            this.subaspectSetValues = [...new Set(this.feedbackUnits.map(x => x.subaspect)).values()];
           });
           return forkJoin(this.designs.map(design => {
 

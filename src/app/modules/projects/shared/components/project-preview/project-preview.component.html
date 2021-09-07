@@ -25,14 +25,14 @@
       <div class="overall-rating">Overall Rating
         <i
                   [ngClass]="{
-                    'fa-star-o': getRating('OVERALL') <= 1,
-                    'fa-star': getRating('OVERALL') > 1}"
+                    'fa-star-o': getRating('OVERALL') <= 0,
+                    'fa-star': getRating('OVERALL') > 0}"
                   class="fa" aria-hidden="true">
                 </i>
                 <i
                   [ngClass]="{
-                    'fa-star-o': getRating('OVERALL') <= 2,
-                    'fa-star': getRating('OVERALL') > 2}"
+                    'fa-star-o': getRating('OVERALL') <= 1,
+                    'fa-star': getRating('OVERALL') > 1}"
                   class="fa" aria-hidden="true">
                 </i>
                 <i
@@ -70,8 +70,8 @@
       <div>Below are the issues derived from expert feedback on the initial design</div>
       <div class="key-improment-tags">
         <mat-chip-list >
-          <ng-container *ngFor="let item of feedbackUnits">
-            <mat-chip *ngIf="item.subaspect">{{item.subaspect}}</mat-chip>
+          <ng-container *ngFor="let item of subaspectSetValues">
+            <mat-chip *ngIf="item">{{item}}</mat-chip>
 
           </ng-container>
 
@@ -87,14 +87,14 @@
       <div class="overall-rating">Overall Rating
         <i
                   [ngClass]="{
-                    'fa-star-o': getRevisedRating('OVERALL') <= 1,
-                    'fa-star': getRevisedRating('OVERALL') > 1}"
+                    'fa-star-o': getRevisedRating('OVERALL') <= 0,
+                    'fa-star': getRevisedRating('OVERALL') > 0}"
                   class="fa" aria-hidden="true">
                 </i>
                 <i
                   [ngClass]="{
-                    'fa-star-o': getRevisedRating('OVERALL') <= 2,
-                    'fa-star': getRevisedRating('OVERALL') > 2}"
+                    'fa-star-o': getRevisedRating('OVERALL') <= 1,
+                    'fa-star': getRevisedRating('OVERALL') > 1}"
                   class="fa" aria-hidden="true">
                 </i>
                 <i
@@ -161,14 +161,14 @@
             <div>
                 <i
                   [ngClass]="{
-                    'fa-star-o': getRating(aspect) <= 1,
-                    'fa-star': getRating(aspect) > 1}"
+                    'fa-star-o': getRating(aspect) <= 0,
+                    'fa-star': getRating(aspect) > 0}"
                   class="fa" aria-hidden="true">
                 </i>
                 <i
                   [ngClass]="{
-                    'fa-star-o': getRating(aspect) <= 2,
-                    'fa-star': getRating(aspect) > 2}"
+                    'fa-star-o': getRating(aspect) <= 1,
+                    'fa-star': getRating(aspect) > 1}"
                   class="fa" aria-hidden="true">
                 </i>
                 <i
@@ -206,14 +206,14 @@
             <div>
               <i
               [ngClass]="{
-                'fa-star-o': getRevisedRating(aspect) <= 1,
-                'fa-star': getRevisedRating(aspect) > 1}"
+                'fa-star-o': getRevisedRating(aspect) <= 0,
+                'fa-star': getRevisedRating(aspect) > 0}"
               class="fa" aria-hidden="true">
             </i>
             <i
               [ngClass]="{
-                'fa-star-o': getRevisedRating(aspect) <= 2,
-                'fa-star': getRevisedRating(aspect) > 2}"
+                'fa-star-o': getRevisedRating(aspect) <= 1,
+                'fa-star': getRevisedRating(aspect) > 1}"
               class="fa" aria-hidden="true">
             </i>
             <i

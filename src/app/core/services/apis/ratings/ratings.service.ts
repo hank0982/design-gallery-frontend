@@ -15,6 +15,11 @@ export class RatingsService {
     return this.http.get<IPagination<IRating>>(ratingApi);
   }
 
+  fetchRatingByDesignId(designId: string) {
+    const ratingApi = `api/ratings?designId=${designId}&limit=0`;
+    return this.http.get<IPagination<IRating>>(ratingApi);
+  }
+
   createOrUpdateRating(createRatingDto: CreateRatingDto) {
     const ratingApi = `api/ratings`;
     return this.http.post<IRating>(ratingApi, createRatingDto);

@@ -22,16 +22,14 @@
         <img [src]="imageUrls[1]" class="image-right">
       </div>
       <mat-card-content>
-        <mat-chip-list aria-label="Categories">
-          <mat-chip *ngFor="let category of project?.categories">{{category}}</mat-chip>
-        </mat-chip-list>
 
-<!--         <mat-chip-list >
+
+        <mat-chip-list style="overflow-x: scroll;">
           <ng-container *ngFor="let item of feedbackUnits">
-            <mat-chip *ngIf="item.subaspect">{{item.subaspect}}</mat-chip>
+            <mat-chip *ngIf="item">{{item}}</mat-chip>
           </ng-container>
         </mat-chip-list>
- -->
+
 
 
       </mat-card-content>    
