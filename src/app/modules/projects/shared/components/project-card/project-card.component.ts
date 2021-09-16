@@ -36,6 +36,9 @@ export class ProjectCardComponent implements OnInit {
   @IsBoolean()
   isSaved = false;
 
+  @Input()
+  selectedSubaspects: string[] = [];
+
   designs: IDesign[] = [];
   images: Partial<IImage>[] = [];
   showSaveButton = false;
@@ -43,6 +46,7 @@ export class ProjectCardComponent implements OnInit {
     return this.images.map(x => `http://${x.thumbnailUrl!}`);
   }
   feedbackUnits: string[] = [];
+
   ratings: IRating[] = [];
   constructor(
     private designsService: DesignsService,

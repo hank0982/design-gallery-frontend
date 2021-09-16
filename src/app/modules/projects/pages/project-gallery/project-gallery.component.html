@@ -193,7 +193,7 @@
           gdColumns.md="1fr 1fr"
           gdGap="70px" >
         <div *ngFor="let project of projects" gdColumn>
-          <app-project-card [project]="project"></app-project-card>
+          <app-project-card [project]="project" [selectedSubaspects]="selectedSubaspects"></app-project-card>
         </div>
         </div>
     

@@ -4,7 +4,7 @@ import { HSLA, HSVA, RGBA } from 'ngx-color';
 import { Observable, Subscription } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 import { DesignsService } from 'src/app/core/services/apis/designs/designs.service';
-import { ProjectsService, ProjectFilterDto } from 'src/app/core/services/apis/projects/projects.service';
+import { ProjectFilterDto } from 'src/app/core/services/apis/projects/projects.service';
 import { EDesignAspect } from 'src/app/core/services/models/design-aspect.enum';
 import { EDesignImageUsages, IDesign } from 'src/app/core/services/models/design.model';
 import { IProject } from 'src/app/core/services/models/project.model';
