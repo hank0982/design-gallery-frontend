@@ -1,5 +1,13 @@
-<div class="my-favorite-div" *ngFor="let item of (currentSavedProjects$ | async)" >
-    <app-saved-project-row [project]="item"></app-saved-project-row>
+<div 
+    style="margin: 40px; margin-top: 80px; height: 100vh; "
+    gdColumns.gt-lg="1fr 1fr 1fr 1fr"
+    gdColumns.lg="1fr 1fr 1fr 1fr"
+    gdColumns.md="1fr 1fr 1fr"
+    gdGap="70px" >
+    <app-project-card [project]="item" *ngFor="let item of (currentSavedProjects$ | async)">
+
+    </app-project-card>
+
 </div>
 
 

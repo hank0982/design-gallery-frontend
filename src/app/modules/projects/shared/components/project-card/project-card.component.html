@@ -5,6 +5,7 @@
       [images]="imageUrls">
     </app-image-comparison>
     <mat-card
+      [routerLink]="'/gallery/'+project._id"
       (mouseenter)="showSaveButton = true"
       (mouseleave)="showSaveButton = false"
       *ngIf="!isSlidingView && designs.length === 2 && imageUrls.length === 2"
@@ -17,7 +18,7 @@
         <i class="fa fa-folder"></i> &nbsp;
         {{isSaved ? 'Unsave' : 'Save'}}        
       </mat-chip>
-      <div mat-card-image gdColumns="1fr 1fr" [routerLink]="project._id">
+      <div mat-card-image gdColumns="1fr 1fr" >
         <img [src]="imageUrls[0]" class="image-left">
         <img [src]="imageUrls[1]" class="image-right">
       </div>

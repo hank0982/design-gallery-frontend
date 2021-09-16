@@ -30,7 +30,9 @@ import { MatInputModule } from '@angular/material/input';
 
 const routes: Routes = [
   { path: '', component: ProjectsComponent, children: [
-    { path: 'my-favorite', component: MyFavoriteComponent },
+    { path: 'my-favorite', component: MyFavoriteComponent, children: [
+      { path: ':id', component: ProjectModalComponent}
+    ]},
     { path: '', component: ProjectGalleryComponent, children: [
       { path: ':id', component: ProjectModalComponent}
     ]},
