@@ -87,13 +87,13 @@
         <mat-expansion-panel [class.mat-elevation-z0]="true">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              Categories
+              Sources
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <div class="form-check" *ngFor="let filter of categoryFilters">
-            <input class="form-check-input" type="checkbox" value="" id="category-{{filter}}" (change)="categoryChange($event, filter)">
+          <div class="form-check" *ngFor="let filter of sourceFilters">
+            <input class="form-check-input" type="checkbox" value="" id="category-{{filter}}" (change)="sourceChange($event, filter)">
             <label class="form-check-label" for="category-{{filter}}">
-              {{ filter }}
+              {{ sourceDict[filter] }}
             </label>
           </div>
         </mat-expansion-panel>

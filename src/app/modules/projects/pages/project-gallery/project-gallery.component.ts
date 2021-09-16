@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { plainToClass } from 'class-transformer';
 import { HSLA, HSVA, RGBA } from 'ngx-color';
+import { features } from 'process';
 import { Observable, Subscription } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 import { DesignsService } from 'src/app/core/services/apis/designs/designs.service';
@@ -10,18 +11,22 @@ import { EDesignImageUsages, IDesign } from 'src/app/core/services/models/design
 import { IProject } from 'src/app/core/services/models/project.model';
 import { ProjectListService } from '../../shared/services/project-list/project-list.service';
 import { SavedProjectsService } from '../../shared/services/saved-projects/saved-projects.service';
-
 @Component({
   templateUrl: './project-gallery.component.html',
   styleUrls: ['./project-gallery.component.sass']
 })
 export class ProjectGalleryComponent implements OnInit {
-  readonly categoryFilters = ['Advertising', 'Informative', 'Event', 'Research'];
+  readonly sourceFilters = ['TaylorSwiftProject', 'AvantGarde', 'MarathonProject', 'SmoothJazzProject'];
   readonly textProportion = ['Plenty', 'Moderate', 'Minimal', 'None'];
   readonly textQuantity = ['Plenty', 'Moderate', 'Minimal', 'None'];
   readonly imageUsage = [...Object.values(EDesignImageUsages)];
   readonly colors = ['#9e9e9e', '#9034aa', '#4595ec', '#000000', '#52b9d1', '#594139']
-
+  readonly sourceDict: {[key: string]: string} = {
+    'TaylorSwiftProject': 'Taylor Swift concert',
+    'Marathon Project':'Half-marathon event',
+    'AvantGarde': 'Lecture series',
+    'SmoothJazzProject': 'Local jazz concert'
+  }
   readonly appropriatenessSubtopics = [
     'Unclear message',
     'Unclear audience',
@@ -83,7 +88,7 @@ export class ProjectGalleryComponent implements OnInit {
 
   projects: IProject[] = [];
   designDictionary: Record<string, IDesign> = {}
-  categories: string[] = [];
+  sources: string[] = [];
   textProportionFilter: number[] = [];
   textQuantityFilter: number[] = [];
   imageUsageFilter: EDesignImageUsages[] = [];
@@ -131,13 +136,13 @@ export class ProjectGalleryComponent implements OnInit {
     this.updateCurrentProject();
   }
 
-  categoryChange(e: Event, category: string) {
+  sourceChange(e: Event, source: string) {
     if ((e.target as HTMLInputElement).checked) {
-      if (!(category in this.categories)) {
-        this.categories.push(category);
+      if (!(source in this.sources)) {
+        this.sources.push(source);
       }
     } else {
-      this.categories = this.categories.filter(x => x !== category);
+      this.sources = this.sources.filter(x => x !== source);
     }
     this.updateCurrentProject();
   }
@@ -194,7 +199,7 @@ export class ProjectGalleryComponent implements OnInit {
 
   private getCurrentFilters() {
     const projectFilterDto = plainToClass(ProjectFilterDto, {
-      categories: this.categories.filter(x => x !== undefined) as string[],
+      sources: this.sources.filter(x => x !== undefined) as string[],
       textProportion: this.textProportionFilter,
       mainColor: this.mainColorFilter,
       textQuantity: this.textQuantityFilter,
@@ -206,7 +211,7 @@ export class ProjectGalleryComponent implements OnInit {
 
   private generateCurrentAppliedFilters() {
     const filterTags: string[] = [];
-    this.categories.forEach(x => filterTags.push(`Category: ${x}`));
+    this.sources.forEach(x => filterTags.push(`Source: ${this.sourceDict[x]}`));
     this.textQuantityFilter.forEach(x => filterTags.push(`Text Quantity: ${this.textQuantity[this.textQuantity.length - x - 1]}`));
     this.textProportionFilter.forEach(x => filterTags.push(`Text Proportion: ${this.textProportion[this.textProportion.length - x - 1]}`));
     this.imageUsageFilter.forEach(x => filterTags.push('Image Usage: ' + String(x).toLowerCase()));
