@@ -23,7 +23,7 @@ export class ProjectGalleryComponent implements OnInit {
   readonly colors = ['#9e9e9e', '#9034aa', '#4595ec', '#000000', '#52b9d1', '#594139']
   readonly sourceDict: {[key: string]: string} = {
     'TaylorSwiftProject': 'Taylor Swift concert',
-    'Marathon Project':'Half-marathon event',
+    'MarathonProject':'Half-marathon event',
     'AvantGarde': 'Lecture series',
     'SmoothJazzProject': 'Local jazz concert'
   }

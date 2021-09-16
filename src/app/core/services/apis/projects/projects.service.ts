@@ -32,6 +32,11 @@ export class ProjectsService {
         projectFilter.categories.length > 0 ?
         '&categories='+projectFilter.categories?.map(g => `${g}`).join(',') : ''}`;
     }
+    if (projectFilter?.sources?.length) {
+      projectListApi = projectListApi + `${
+        projectFilter.sources.length > 0 ?
+        '&sources='+projectFilter.sources?.map(g => `${g}`).join(',') : ''}`;
+    }
     if (projectFilter?.textProportion?.length) {
       projectListApi = projectListApi + `${
         projectFilter.textProportion.length > 0 ?
