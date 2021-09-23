@@ -72,9 +72,7 @@
         <mat-chip-list >
           <ng-container *ngFor="let item of subaspectSetValues">
             <mat-chip *ngIf="item">{{item}}</mat-chip>
-
           </ng-container>
-
         </mat-chip-list>
       </div>
     </div>
@@ -132,8 +130,9 @@
       <div>Below are the principles that are improved based on expert ratings</div>
       <div class="key-improment-tags">
         <mat-chip-list >
-          <mat-chip>Emphasis</mat-chip>
-
+          <ng-container *ngFor="let item of keyImprovements">
+            <mat-chip *ngIf="item">{{item}}</mat-chip>
+          </ng-container>
         </mat-chip-list>
       </div>
 

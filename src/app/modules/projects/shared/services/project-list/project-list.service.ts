@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { ProjectFilterDto, ProjectsService } from 'src/app/core/services/apis/projects/projects.service';
 import { IProject } from 'src/app/core/services/models/project.model';
 
@@ -12,6 +12,7 @@ export class ProjectListService {
   currentProjectFilterBS = new BehaviorSubject<ProjectFilterDto | undefined>(undefined);
   currentProjects: IProject[] = [];
   currentProjectsBS = new BehaviorSubject<IProject[]>([]);
+  private currentSubscription: Subscription | undefined;
   constructor(
     private projectService: ProjectsService,
   ) { }
@@ -34,8 +35,8 @@ export class ProjectListService {
   }
 
   updateCurrentProject() {
-
-    this.projectService.fetchAllProjects(this.previousProjectSkip, 10, this.currentProjectFilter)
+    if (this.currentSubscription) this.currentSubscription.unsubscribe();
+    this.currentSubscription = this.projectService.fetchAllProjects(this.previousProjectSkip, 10, this.currentProjectFilter)
       .subscribe(
         projects => {
           this.currentProjects = this.currentProjects.concat(projects.results);

@@ -30,6 +30,7 @@ export class ProjectPreviewComponent implements OnInit {
   project: IProject | undefined;
   feedbackUnits: IFeedbackUnit[] = [];
   subaspectSetValues: string[] = [];
+  keyImprovements: string[] = [];
   private calculateAvg(nums: number[]) {
     var sum = 0;
     for( var i = 0; i < nums.length; i++ ){
@@ -38,48 +39,67 @@ export class ProjectPreviewComponent implements OnInit {
     var avg = sum/nums.length;
     return avg;
   }
+
   getRating(aspect: EDesignAspect | string) {
-    switch (aspect) {
-      case EDesignAspect.ALIGNMENT:
-        return this.calculateAvg(this.ratings[0].map(x => x.rating.ALIGNMENT));
-      case EDesignAspect.APPROPRIATENESS:
-        return this.calculateAvg(this.ratings[0].map(x => x.rating.APPROPRIATENESS));
-      case EDesignAspect.EMPHASIS:
-        return this.calculateAvg(this.ratings[0].map(x => x.rating.EMPHASIS));
-      case EDesignAspect.CONSISTENCY:
-        return this.calculateAvg(this.ratings[0].map(x => x.rating.CONSISTENCY));
-      case EDesignAspect.HIERARCHY:
-        return this.calculateAvg(this.ratings[0].map(x => x.rating.HIERARCHY));
-      case EDesignAspect.READABILITY:
-        return this.calculateAvg(this.ratings[0].map(x => x.rating.READABILITY));
-      case EDesignAspect.OVERALL:
-        return this.calculateAvg(this.ratings[0].map(x => x.rating.OVERALL));
-      default:
-        break;
+    if (this.ratings) {
+      switch (aspect) {
+        case EDesignAspect.ALIGNMENT:
+          return this.calculateAvg(this.ratings[0].map(x => x.rating.ALIGNMENT));
+        case EDesignAspect.APPROPRIATENESS:
+          return this.calculateAvg(this.ratings[0].map(x => x.rating.APPROPRIATENESS));
+        case EDesignAspect.EMPHASIS:
+          return this.calculateAvg(this.ratings[0].map(x => x.rating.EMPHASIS));
+        case EDesignAspect.CONSISTENCY:
+          return this.calculateAvg(this.ratings[0].map(x => x.rating.CONSISTENCY));
+        case EDesignAspect.HIERARCHY:
+          return this.calculateAvg(this.ratings[0].map(x => x.rating.HIERARCHY));
+        case EDesignAspect.READABILITY:
+          return this.calculateAvg(this.ratings[0].map(x => x.rating.READABILITY));
+        case EDesignAspect.OVERALL:
+          return this.calculateAvg(this.ratings[0].map(x => x.rating.OVERALL));
+        default:
+          break;
+      }
+  
     }
     return 0;
   }
+
   getRevisedRating(aspect: EDesignAspect | string) {
-    switch (aspect) {
-      case EDesignAspect.ALIGNMENT:
-        return this.calculateAvg(this.ratings[1].map(x => x.rating.ALIGNMENT));
-      case EDesignAspect.APPROPRIATENESS:
-        return this.calculateAvg(this.ratings[1].map(x => x.rating.APPROPRIATENESS));
-      case EDesignAspect.EMPHASIS:
-        return this.calculateAvg(this.ratings[1].map(x => x.rating.EMPHASIS));
-      case EDesignAspect.CONSISTENCY:
-        return this.calculateAvg(this.ratings  [1].map(x => x.rating.CONSISTENCY));
-      case EDesignAspect.HIERARCHY:
-        return this.calculateAvg(this.ratings[1].map(x => x.rating.HIERARCHY));
-      case EDesignAspect.READABILITY:
-        return this.calculateAvg(this.ratings[1].map(x => x.rating.READABILITY));
-      case EDesignAspect.OVERALL:
-        return this.calculateAvg(this.ratings[1].map(x => x.rating.OVERALL));
-      default:
-        break;
+    if (this.ratings) {
+      switch (aspect) {
+        case EDesignAspect.ALIGNMENT:
+          return this.calculateAvg(this.ratings[1].map(x => x.rating.ALIGNMENT));
+        case EDesignAspect.APPROPRIATENESS:
+          return this.calculateAvg(this.ratings[1].map(x => x.rating.APPROPRIATENESS));
+        case EDesignAspect.EMPHASIS:
+          return this.calculateAvg(this.ratings[1].map(x => x.rating.EMPHASIS));
+        case EDesignAspect.CONSISTENCY:
+          return this.calculateAvg(this.ratings[1].map(x => x.rating.CONSISTENCY));
+        case EDesignAspect.HIERARCHY:
+          return this.calculateAvg(this.ratings[1].map(x => x.rating.HIERARCHY));
+        case EDesignAspect.READABILITY:
+          return this.calculateAvg(this.ratings[1].map(x => x.rating.READABILITY));
+        case EDesignAspect.OVERALL:
+          return this.calculateAvg(this.ratings[1].map(x => x.rating.OVERALL));
+        default:
+          break;
+      }
     }
+    
     return 0;
   }
+
+  getKeyImprovements() {
+    const keyImprovementLists = [];
+    for (let aspect in EDesignAspect) {
+      if (this.getRevisedRating(aspect) - this.getRating(aspect) >= 2 && aspect !== EDesignAspect.OVERALL) {
+        keyImprovementLists.push(aspect);
+      }
+    }
+    return keyImprovementLists;
+  }
+  
   constructor(@Inject(MAT_DIALOG_DATA) public data: {
     id?: string;
   },
@@ -105,7 +125,10 @@ export class ProjectPreviewComponent implements OnInit {
             this.designs.map(design => {
               return this.ratingsService.fetchRatingByDesignId(design._id)
             })
-          ).subscribe(ratings => this.ratings = ratings.map(r => r.results))
+          ).subscribe(ratings => {
+            this.ratings = ratings.map(r => r.results);
+            this.keyImprovements = this.getKeyImprovements();
+          })
           
           this.feedbackUnitsService.fetchFeedbackUnits({designId: designs[0]._id}).subscribe(x => {
             this.feedbackUnits = x;
