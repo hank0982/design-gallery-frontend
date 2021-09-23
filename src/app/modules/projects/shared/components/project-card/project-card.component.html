@@ -10,6 +10,10 @@
       (mouseleave)="showSaveButton = false"
       *ngIf="!isSlidingView && designs.length === 2 && imageUrls.length === 2"
     >
+      <mat-card-title style="padding-top: 10px;
+      font-size: 15px">
+        {{project.name}}
+      </mat-card-title>
       <mat-chip
         *ngIf="showSaveButton"
         class="save-button"

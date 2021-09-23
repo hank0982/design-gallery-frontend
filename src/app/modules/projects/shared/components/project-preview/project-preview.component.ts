@@ -41,7 +41,7 @@ export class ProjectPreviewComponent implements OnInit {
   }
 
   getRating(aspect: EDesignAspect | string) {
-    if (this.ratings) {
+    if (this.ratings?.[0]) {
       switch (aspect) {
         case EDesignAspect.ALIGNMENT:
           return this.calculateAvg(this.ratings[0].map(x => x.rating.ALIGNMENT));
@@ -66,7 +66,7 @@ export class ProjectPreviewComponent implements OnInit {
   }
 
   getRevisedRating(aspect: EDesignAspect | string) {
-    if (this.ratings) {
+    if (this.ratings?.[1]) {
       switch (aspect) {
         case EDesignAspect.ALIGNMENT:
           return this.calculateAvg(this.ratings[1].map(x => x.rating.ALIGNMENT));
