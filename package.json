@@ -26,6 +26,7 @@
     "class-validator": "^0.13.1",
     "jquery": "^3.6.0",
     "ngx-color": "^7.2.0",
+    "ngx-cookie-service": "^12.0.3",
     "ngx-infinite-scroll": "^10.0.1",
     "rrweb": "^0.9.14",
     "rxjs": "~6.6.0",

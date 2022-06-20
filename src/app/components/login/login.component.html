@@ -1,0 +1,38 @@
+<mat-grid-list cols="3" rowHeight="100px">
+    <mat-grid-tile [colspan]="3" [rowspan]="1">
+        <h3>Login</h3>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1"></mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Username</mat-label>
+            <input matInput>
+          </mat-form-field>
+          
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1"></mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1"></mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput>
+          </mat-form-field>
+          
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1"></mat-grid-tile>
+    <mat-grid-tile [colspan]="3" [rowspan]="1">
+        <mat-divider class="example-full-width"></mat-divider>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3" [rowspan]="1">
+        <h3>Have Invite Code?</h3>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1"></mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Code</mat-label>
+            <input type="email" matInput placeholder="Invite Code" (keyup.enter)="fetchUserData($event)" >
+          </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1"></mat-grid-tile>
+
+</mat-grid-list>

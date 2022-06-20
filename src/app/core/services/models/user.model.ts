@@ -3,8 +3,6 @@ import { IMongoObject } from "./mongo-object.model";
 export interface IUser extends IMongoObject {
     name: string;
   
-    password: string;
-  
     username: string;
   
     projectIds: string[];

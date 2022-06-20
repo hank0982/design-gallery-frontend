@@ -8,25 +8,36 @@ import { CoreModule } from './core/core.module';
 import { RouterModule, Routes } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BootstrapValidationCssDirective } from '../shared/directives/bootstrap-validation-css/bootstrap-validation-css.directive';
-
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatInputModule } from '@angular/material/input';
+import { MatDividerModule } from '@angular/material/divider';
+import { LoginComponent } from './components/login/login.component';
 const routes: Routes = [
-  { path: 'gallery', loadChildren: () => import('./modules/projects/projects.module').then(m => m.ProjectsModule) },
-  { path: 'metadata-collection', loadChildren: () => import('./modules/metadata-collection/metadata-collection.module').then(m => m.MetadataCollectionModule) },
-  { path: 'experiment', loadChildren: () => import('./modules/experiment/experiment.module').then(m => m.ExperimentModule) },
-  { path: 'rating-collection', loadChildren: () => import('./modules/rating-collection/rating-collection.module').then(m => m.RatingCollectionModule) }
+  { path: '', component: AppComponent, children: [
+    { path: '', component: LoginComponent },
+    { path: 'gallery', loadChildren: () => import('./modules/projects/projects.module').then(m => m.ProjectsModule) },
+    { path: 'metadata-collection', loadChildren: () => import('./modules/metadata-collection/metadata-collection.module').then(m => m.MetadataCollectionModule) },
+    { path: 'experiment', loadChildren: () => import('./modules/experiment/experiment.module').then(m => m.ExperimentModule) },
+    { path: 'rating-collection', loadChildren: () => import('./modules/rating-collection/rating-collection.module').then(m => m.RatingCollectionModule) }
+  ]},
+  
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    MatGridListModule,
+    MatDividerModule,
+    MatInputModule,
     SharedModule,
     CoreModule,
     FlexLayoutModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { relativeLinkResolution: 'corrected' }),
     HttpClientModule,
   ],
   providers: [],

@@ -4,7 +4,7 @@
     gdColumns.lg="1fr 1fr 1fr 1fr"
     gdColumns.md="1fr 1fr 1fr"
     gdGap="70px" >
-    <app-project-card [project]="item" *ngFor="let item of (currentSavedProjects$ | async)">
+    <app-project-card [project]="item" *ngFor="let item of (currentSavedProjects$ | async)" [isSaved]="true">
 
     </app-project-card>
 
