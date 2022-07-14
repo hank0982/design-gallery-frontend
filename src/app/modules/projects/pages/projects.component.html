@@ -5,6 +5,7 @@
   <span fxFlex="1 1 auto"></span>
   <div fxFlexLayout="row" fxLayoutAlign="space-evenly">
 <!--     <button mat-button>All Projects</button> -->
+    <!-- <button mat-button [routerLink]="['/gallery/replay']">My Replay</button> -->
     <button mat-button [matBadge]="currentSavedProjectNumber$ | async" matBadgeOverlap matBadgeColor="warn" [routerLink]="['/gallery/my-favorite']">My Favorites</button>
     <button mat-button (click)="sidenav.open()">My Reflection</button>
   </div>

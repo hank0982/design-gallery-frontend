@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IUserActivity, IUserActivityCreateDto, IUserActivityUpdateDto } from '../../models/user-activity.model';
 
 @Injectable({
@@ -17,6 +17,11 @@ export class UserActivityService {
     return this.http.get<IUserActivity>(userActivityApi);
   }
 
+  fetchAllUserActivities() {
+    let userActivityListApi = `api/user-activity`;
+    return this.http.get<IUserActivity>(userActivityListApi)
+  }
+
   updateUserActivity(userId: string, newLogs: any[]) {
     if (!this.currentUserActivitySession) {
       this.createUserActivitySession(userId).subscribe(session => {
@@ -24,7 +29,7 @@ export class UserActivityService {
         this.appendUserActivitySession(session._id, userId, newLogs);
       });
     } else {
-      console.log(newLogs);
+      // console.log(newLogs);
       this.appendUserActivitySession(this.currentUserActivitySession._id, userId, newLogs);
     }
   }
@@ -42,4 +47,6 @@ export class UserActivityService {
       this.http.patch<IUserActivity>(userActivityApi, userActivityUpdateDto).subscribe();
     }
   }
+
+
 }

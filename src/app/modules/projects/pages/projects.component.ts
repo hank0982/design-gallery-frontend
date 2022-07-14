@@ -17,7 +17,6 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     this.recordService.startRecording();
   }
   
-
   ngOnDestroy() {
     this.recordService.stopRecording();
   }

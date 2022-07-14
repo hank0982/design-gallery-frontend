@@ -1,0 +1,30 @@
+<!-- <div 
+    style="margin: 40px; margin-top: 80px; height: 100vh; "
+    gdColumns.gt-lg="1fr 1fr 1fr 1fr"
+    gdColumns.lg="1fr 1fr 1fr 1fr"
+    gdColumns.md="1fr 1fr 1fr"
+    gdGap="70px" >
+    <ul class="list-group">
+      <li 
+          *ngFor="let userActivity of userActivities"
+          class="list-group-item">
+          {{ userActivity.userId }}
+      </li>
+    </ul>
+
+</div> -->
+
+
+<div
+  style="margin: 40px; margin-top: 80px; height: 100vh; "
+  gdColumns.gt-lg="1fr 1fr 1fr 1fr"
+  gdColumns.lg="1fr 1fr 1fr 1fr"
+  gdColumns.md="1fr 1fr 1fr"
+  gdGap="70px" >
+  <mat-selection-list #userActivityList *ngIf="this.userActivitiesMap.size > 0" [multiple]="false" >
+    <mat-list-option *ngFor="let entry of this.userActivitiesMap.entries()" [value]="entry[0]" >
+      {{ entry[0] }}
+      <!-- (click)="onUserClicked(entry)" -->
+    </mat-list-option> 
+  </mat-selection-list>
+</div>

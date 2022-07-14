@@ -23,6 +23,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MyFavoriteComponent } from './pages/my-favorite/my-favorite.component';
+import { ReplayComponent } from '../replay/replay.component';
 import { ProjectGalleryComponent } from './pages/project-gallery/project-gallery.component';
 import { SavedProjectRowComponent } from './shared/components/saved-project-row/saved-project-row.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -47,7 +48,7 @@ const routes: Routes = [
     ProjectModalComponent,
     MyFavoriteComponent,
     ProjectGalleryComponent,
-    SavedProjectRowComponent
+    SavedProjectRowComponent,
   ],
   entryComponents: [ProjectPreviewComponent],
   imports: [

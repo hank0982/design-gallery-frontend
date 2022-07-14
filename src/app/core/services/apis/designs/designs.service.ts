@@ -17,7 +17,7 @@ export class DesignsService {
   fetchDesignById(id: string): Observable<IDesign> {
     const designListApi = `api/designs/${id}`;
     if (id in this.designCache) {
-      console.log(id)
+      // console.log(id)
       return of(this.designCache[id])
     } else {
       return this.http.get<IDesign>(designListApi).pipe(tap(x => this.designCache[x._id] = x));
